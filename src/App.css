@@ -64,7 +64,7 @@ p {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  /*border: 1px solid red;*/
+  border: 1px solid red;
 
   /*margin: 50px 0;*/
 }
@@ -77,5 +77,5 @@ p {
   flex-direction: column;
   margin: 75px 40px;
   align-items: center;
-  /*border: 1px dotted blue;*/
+  border: 1px dotted blue;
 }

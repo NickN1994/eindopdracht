@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import {Routes, Route} from 'react-router-dom'
 import './App.css'
 import Home from "./Pages/Home/Home.jsx"
 import Navigation from "./Pages/Navigation/Navigation.jsx";
+import Contact from "./Pages/Contact/Contact.jsx";
 
 function App() {
 
@@ -13,6 +13,7 @@ function App() {
         <main>
             <Routes>
                 <Route path="/" element={<Home/>}/>
+                <Route path="/contact" element={<Contact/>}/>
             </Routes>
         </main>
     </>

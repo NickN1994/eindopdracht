@@ -10,10 +10,11 @@ function Navigation() {
                     <Link to="/"><img src={logo} alt="Logo"/></Link>
                 </div>
                 <ul>
-                    <li><p>Home</p></li>
-                    <li><p>About me</p></li>
-                    <li><p>Ervaring</p></li>
-                    <li><p>Portfolio</p></li>
+                    <li><p><Link to='/'>Home</Link></p></li>
+                    <li><p>Activiteiten</p></li>
+                    <li><p>Leeromgeving</p></li>
+                    <li><p>Profiel</p></li>
+                    <li><p><Link to='/contact'>Contact</Link></p></li>
                 </ul>
             </nav>
         </header>
