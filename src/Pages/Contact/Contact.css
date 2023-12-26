@@ -1,13 +1,58 @@
+/*      COLUM STYLING */
+.colums {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid blueviolet;
+    gap: 50px;
+    /*max-width: 1200px;*/
+    /*width: 1200px;*/
+    flex-shrink: 1;
+    flex-grow: 1;
+    background: lightpink;
+}
+
+.contactInfo {
+    border: 2px solid yellow;
+    background: lightgray;
+    width: 400px;
+    margin: 25px;
+    padding: 15px;
+    border-radius: 25px;
+}
+
+.contactInfoBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    border-radius: 25px;
+    margin: 25px 0;
+
+
+}
+
+/*      FORMULIER     */
 form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 500px;
-    max-width: 750px;
+    width: 800px;
+    margin: 50px 0;
+    /*max-width: 750px;*/
     border: 3px solid red;
 }
 
 fieldset {
+    width: 650px;
     border: 0;
+}
+
+input {
+    width: 350px;
+    height: 35px;
+}
+
+textarea {
+    width: 350px;
 }

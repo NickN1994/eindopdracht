@@ -40,13 +40,18 @@ ul {
     font-size: 1.5em;
 }
 
-ul li p {
+.link {
     color: #1a1a1a;
     font-size: 0.8em;
-    border-bottom: transparent;
+    text-decoration: none;
 }
 
 ul li:hover {
-    border-top: 1px solid green;
-    border-bottom: 1px solid green;
+    border-top: 1px solid blue;
+    border-bottom: 1px solid blue;
+}
+
+.link:visited {
+    text-decoration: none;
+    color: inherit;
 }

@@ -1,5 +1,9 @@
 import {useForm} from 'react-hook-form';
 import './Contact.css'
+import axios from "axios";
+import location from './Assets/location.png'
+import phone from './Assets/phone.png'
+import email from './Assets/email.png'
 
 function Contact() {
     const form = useForm();
@@ -7,11 +11,50 @@ function Contact() {
     const {errors} = formState;
 
 
+    // Mail versturen met Java mail: vid https://www.youtube.com/watch?v=ugIUObNHZdo
+    // handlesubmit methode nog maken
+
+    // const handleSubmit = () => {
+    //
+    // }
+
+    // async function postContactForm () {
+    //     try {
+    //         const result = await axios.post (url, data{
+    //             //hier data beschrijven die meegestuurd moet worden naar backend
+    //         })
+    //     } catch (e) {
+    //         console.error(e + "Het is niet gelukt om je bericht te versturen")
+    //     }
+    // }
+
     return (
         <>
             <div className='outer-container'>
                 <div className='inner-container'>
-                    <h1>Contact</h1>
+                    <div className='colums'>
+                    <section className='contactInfo'>
+                        <h1>Contact</h1>
+                        <p>Vul het contactformulier in om contact met ons op te nemen.</p>
+                        <p>We streven er naar om binnen 48 uur te reageren.</p>
+                        <div className='contactInfoBox'>
+                            <img src={location} alt="locatie"/>
+                            <p>Heibloemdijk 1</p>
+                            <p>5688 JV Oirschot</p>
+                        </div>
+
+                        <div className='contactInfoBox'>
+                            <img src={phone} alt="phone"/>
+                            <p>+316 57 34 62 57</p>
+                        </div>
+
+                        <div className='contactInfoBox'>
+                            <img src={email} alt="email"/>
+                            <p>info@nickenkirstie.nl</p>
+                        </div>
+                    </section>
+
+
                     <section className='formBox'>
                         <form onSubmit={handleSubmit}>
                             <fieldset>
@@ -35,6 +78,7 @@ function Contact() {
                                     }
                                 )} />
                                 <p>{errors.email?.message}</p>
+
                                 <label htmlFor="telefoonnummer"><p>Telefoonnummer</p></label>
                                 <input type="text" id="telefoonnummer" {...register('telefoonnummer',
                                     {
@@ -45,6 +89,7 @@ function Contact() {
                                     }
                                 )} />
                                 <p>{errors.telefoonnummer?.message}</p>
+
                                 <label htmlFor="bericht"><p>Typ hieronder je bericht</p></label>
                                 <textarea
                                     name="bericht"
@@ -64,6 +109,7 @@ function Contact() {
                             <button type='submit'>Verstuur je bericht</button>
                         </form>
                     </section>
+                    </div>
                 </div>
             </div>
         </>
