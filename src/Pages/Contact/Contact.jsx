@@ -30,17 +30,18 @@ function Contact() {
 
     return (
         <>
-            <div className='outer-container'>
+            <div className='outer-container outer-contact'>
                 <div className='inner-container'>
                     <div className='colums'>
                     <section className='contactInfo'>
                         <h1>Contact</h1>
-                        <p>Vul het contactformulier in om contact met ons op te nemen.</p>
-                        <p>We streven er naar om binnen 48 uur te reageren.</p>
+                        <p>Vul het contactformulier in om contact met ons op te nemen. We streven er naar om binnen 48 uur te reageren.</p>
                         <div className='contactInfoBox'>
                             <img src={location} alt="locatie"/>
+                            <div className='adres'>
                             <p>Heibloemdijk 1</p>
                             <p>5688 JV Oirschot</p>
+                            </div>
                         </div>
 
                         <div className='contactInfoBox'>
