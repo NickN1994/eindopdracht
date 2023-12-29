@@ -69,6 +69,7 @@ function Contact() {
                                     }
                                 )} />
                                 <p>{errors.name?.message}</p>
+
                                 <label htmlFor="email"><p>Email</p></label>
                                 <input type="email" id="email" {...register('email',
                                     {
