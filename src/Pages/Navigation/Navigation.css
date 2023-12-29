@@ -5,7 +5,6 @@
     align-items: center;
     width: 100vw;
     background: lightgreen;
-
 }
 
 .logoBox {
@@ -20,7 +19,7 @@
     color: white;
 }
 
-nav {
+.menuHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -30,7 +29,7 @@ nav {
     margin: 0 25px;
 }
 
-ul {
+.ulMenuHeader {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -40,18 +39,18 @@ ul {
     font-size: 1.5em;
 }
 
-.link {
+.linkHeader {
     color: #1a1a1a;
     font-size: 0.8em;
     text-decoration: none;
 }
 
-ul li:hover {
+.liHeader:hover {
     border-top: 1px solid blue;
     border-bottom: 1px solid blue;
 }
 
-.link:visited {
+.linkHeader:visited {
     text-decoration: none;
     color: inherit;
 }

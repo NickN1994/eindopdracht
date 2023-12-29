@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 function Navigation() {
     return (
         <header className='outer-container-nav'>
-            <nav>
+            <nav className='menuHeader'>
                 <div className='logoBox'>
                     <Link to="/"><img src={logo} alt="Logo"/></Link>
                 </div>
-                <ul>
-                    <li><p><Link to='/' className='link'>Home</Link></p></li>
-                    <li><p><Link to='/' className='link'>Activiteiten</Link></p></li>
-                    <li><p><Link to='/' className='link'>Leeromgeving</Link></p></li>
-                    <li><p><Link to='/' className='link'>Profiel</Link></p></li>
-                    <li><p><Link to='/contact' className='link'>Contact</Link></p></li>
+                <ul className='ulMenuHeader'>
+                    <li className='liHeader'><p><Link to='/' className='linkHeader'>Home</Link></p></li>
+                    <li className='liHeader'><p><Link to='/' className='linkHeader'>Activiteiten</Link></p></li>
+                    <li className='liHeader'><p><Link to='/' className='linkHeader'>Leeromgeving</Link></p></li>
+                    <li className='liHeader'><p><Link to='/' className='linkHeader'>Profiel</Link></p></li>
+                    <li className='liHeader'><p><Link to='/contact' className='linkHeader'>Contact</Link></p></li>
                 </ul>
             </nav>
         </header>
