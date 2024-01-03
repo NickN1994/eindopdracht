@@ -13,12 +13,11 @@ function Contact() {
 
     // Mail versturen met Java mail: vid https://www.youtube.com/watch?v=ugIUObNHZdo
     // handlesubmit methode nog maken
+    // contact form helper ?
 
-    // const handleSubmit = () => {
-    //
-    // }
 
-    // async function postContactForm () {
+
+    // async function handlesubmit() {
     //     try {
     //         const result = await axios.post (url, data{
     //             //hier data beschrijven die meegestuurd moet worden naar backend
