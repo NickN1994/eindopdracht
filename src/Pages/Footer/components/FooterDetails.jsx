@@ -1,4 +1,4 @@
-
+import "../Footer.css"
 
 
 function FooterDetails (image, alt, socialLink, social) {

@@ -1,6 +1,6 @@
 footer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
@@ -13,7 +13,7 @@ footer {
     display: flex;
     flex-direction: row;
     width: 1400px;
-    margin: 75px 40px;
+    margin: 75px 40px 0 40px;
     align-items: flex-start;
     justify-content: space-around;
     border: 1px dotted blue;
@@ -48,3 +48,11 @@ a {
    text-decoration: none;
 }
 
+.privacy {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 25px;
+    color: #1a1a1a;
+}

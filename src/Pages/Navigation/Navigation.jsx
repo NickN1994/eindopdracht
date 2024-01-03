@@ -20,6 +20,7 @@ function Navigation() {
                     <li className='liHeader'><p><Link to='/' className='linkHeader'>Profiel</Link></p></li>
                     <li className='liHeader'><p><Link to='/contact' className='linkHeader'>Contact</Link></p></li>
                 </ul>
+                <button type='button'><Link to='/activiteit-toevoegen'>Activiteit toevoegen</Link></button>
             </nav>
         </header>
     )

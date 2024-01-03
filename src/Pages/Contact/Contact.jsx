@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form';
 import './Contact.css'
-import axios from "axios";
+import axios, {post} from "axios";
 import location from './Assets/location.png'
 import phone from './Assets/phone.png'
 import email from './Assets/email.png'
@@ -10,22 +10,20 @@ function Contact() {
     const {register, handleSubmit, formState} = form;
     const {errors} = formState;
 
-
-    // Mail versturen met Java mail: vid https://www.youtube.com/watch?v=ugIUObNHZdo
     // handlesubmit methode nog maken
     // contact form helper ?
 
+    async function handleFormSubmit() {
+        try {
+            const result = await axios.post('http://localhost:8080/send-email',{
+                ...data
+            });
 
+        } catch (e) {
+            console.error(e + 'Het is niet gelukt om bericht te versturen.')
+        }
+    }
 
-    // async function handlesubmit() {
-    //     try {
-    //         const result = await axios.post (url, data{
-    //             //hier data beschrijven die meegestuurd moet worden naar backend
-    //         })
-    //     } catch (e) {
-    //         console.error(e + "Het is niet gelukt om je bericht te versturen")
-    //     }
-    // }
 
     return (
         <>
@@ -56,7 +54,7 @@ function Contact() {
 
 
                     <section className='formBox'>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit(handleFormSubmit)}>
                             <fieldset>
                                 <label htmlFor="name"><p>Naam</p></label>
                                 <input type="text" id="name" {...register('name',

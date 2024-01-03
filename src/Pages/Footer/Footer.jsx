@@ -51,26 +51,26 @@ function Footer () {
                 <section className="footerDetails">
                     <h2>Follow us</h2>
                     <ul>
-                        {/*<FooterDetails*/}
-                        {/*    image={fb}*/}
-                        {/*    alt='facebook'*/}
-                        {/*    socialLink='https://www.facebook.com/nickenkirstieschooloflight'*/}
-                        {/*    social='Facebook'*/}
-                        {/*/>*/}
+                    {/*    <FooterDetails*/}
+                    {/*    image={fb}*/}
+                    {/*    alt='facebook'*/}
+                    {/*    socialLink='https://www.facebook.com/nickenkirstieschooloflight'*/}
+                    {/*    social='Facebook'*/}
+                    {/*/>*/}
 
-                        {/*<FooterDetails*/}
-                        {/*    image={insta}*/}
-                        {/*    alt='Instagram'*/}
-                        {/*    socialLink='https://www.instagram.com/nickenkirstie_spiritueelleraar/'*/}
-                        {/*    social='Instagram'*/}
-                        {/*/>*/}
+                    {/*    <FooterDetails*/}
+                    {/*        image={insta}*/}
+                    {/*        alt='Instagram'*/}
+                    {/*        socialLink='https://www.instagram.com/nickenkirstie_spiritueelleraar/'*/}
+                    {/*        social='Instagram'*/}
+                    {/*    />*/}
 
-                        {/*<FooterDetails*/}
-                        {/*    image={linkedin}*/}
-                        {/*    alt='Linkedin'*/}
-                        {/*    socialLink='https://www.linkedin.com/in/nickenkirstie/'*/}
-                        {/*    social='Linkedin'*/}
-                        {/*/>*/}
+                    {/*    <FooterDetails*/}
+                    {/*        image={linkedin}*/}
+                    {/*        alt='Linkedin'*/}
+                    {/*        socialLink='https://www.linkedin.com/in/nickenkirstie/'*/}
+                    {/*        social='Linkedin'*/}
+                    {/*    />*/}
 
                         <li><div className='contactInfoBox'>
                             <img src={fb} alt="facebook" className='footerIcon'/>
@@ -89,6 +89,10 @@ function Footer () {
                     </ul>
                 </section>
 
+            </div>
+            <div className='privacy'>
+                <a href="https://nickenkirstie.nl/wp-content/uploads/2021/06/Algemene-voorwaarden-april-2021.pdf"><p>Algemene Voorwaarden</p></a>
+                <a href="https://nickenkirstie.nl/wp-content/uploads/2021/06/Privacy-beleid-juni-2021-1.pdf"><p>Privacy Beleid</p></a>
             </div>
 
         </footer>
