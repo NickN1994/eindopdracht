@@ -1,0 +1,27 @@
+/*      Home begin      */
+
+.colums {
+    display: flex;
+    flex-direction: row;
+    max-width: 1400px;
+    justify-content: space-around;
+    border: 3px solid black;
+}
+
+.colum-one {
+    border: 2px dotted blue;
+}
+
+
+
+.colum-two {
+    width: 450px;
+    border: 2px dotted blue;
+}
+
+.colum-two img {
+    width: 100%;
+    border-top-left-radius: 150px;
+    border-bottom-left-radius: 150px;
+    /*border-radius: 150px;*/
+}
