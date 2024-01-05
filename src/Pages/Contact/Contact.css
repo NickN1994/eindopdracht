@@ -59,12 +59,19 @@ fieldset {
 input {
     width: 350px;
     height: 35px;
+    padding-left: 5px;
+    margin-bottom: 15px;
 }
 
 textarea {
     width: 100%;
     font: inherit;
     padding-top: 10px;
+    padding-left: 5px;
+}
+
+input:placeholder-shown {
+    font: inherit;
     padding-left: 5px;
 }
 

@@ -1,6 +1,6 @@
 
 
-function LabelTextareaField ({labelName, id, cols, rows, validationRules, register, errors}) {
+function LabelTextareaField ({labelName, id, cols, rows, placeholder, validationRules, register, errors}) {
 
     return (
         <div>
@@ -9,6 +9,7 @@ function LabelTextareaField ({labelName, id, cols, rows, validationRules, regist
                 id={id}
                 cols={cols}
                 rows={rows}
+                placeholder={placeholder}
                 {...register(id, validationRules)}
             />
             {errors[id] && <p>{errors[id].message}</p>}

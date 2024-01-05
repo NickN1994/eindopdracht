@@ -75,7 +75,7 @@ function Contact() {
 
                                 <LabelInputField
                                     labelName="Email"
-                                    inputType="text"
+                                    inputType="email"
                                     id="email"
                                     validationRules={{
                                         required: {
@@ -101,7 +101,7 @@ function Contact() {
 
                                 <LabelTextareaField
                                     labelName="Typ hier je bericht"
-                                    id="telefoonnummer"
+                                    id="bericht"
                                     placeholder="Typ hier je bericht"
                                     cols="30"
                                     rows="10"
@@ -114,7 +114,7 @@ function Contact() {
                                     errors={errors}
                                 />
                             </fieldset>
-                            <button type='submit'>Verstuur je bericht</button>
+                            <button type="submit">Verstuur je bericht</button>
                         </form>
                     </section>
                     </div>
