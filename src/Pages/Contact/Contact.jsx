@@ -15,7 +15,9 @@ function Contact() {
     const [data, setData] = useState({});
 
     // handlesubmit methode nog maken
-    // contact form helper ?
+    // zichtbare notificatie maken wanneer verzenden gelukt is.
+    // preventdefault ?
+
 
   async function handleFormSubmit (data) {
       try { const result = await axios.post("http://localhost:8080/send-email", {

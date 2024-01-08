@@ -39,18 +39,25 @@
     font-size: 1.5em;
 }
 
-.linkHeader {
+.active-menu-link {
+    color: #1a1a1a;
+    font-size: 0.8em;
+    text-decoration: none;
+    border-bottom: 1px solid blue;
+}
+
+.default-menu-link {
     color: #1a1a1a;
     font-size: 0.8em;
     text-decoration: none;
 }
 
-.liHeader:hover {
+.default-menu-link:hover {
     border-top: 1px solid blue;
     border-bottom: 1px solid blue;
 }
 
-.linkHeader:visited {
+.default-menu-link:visited {
     text-decoration: none;
     color: inherit;
 }

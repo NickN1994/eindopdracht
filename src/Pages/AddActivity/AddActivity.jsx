@@ -10,6 +10,7 @@ function AddActivity () {
     const {errors} = formState;
 
     // onSubmit={handleSubmit(handleFormSubmit)}
+
     return (
         <div className='outer-container'>
             <div className='inner-container'>
@@ -19,7 +20,7 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Naam Activiteit"
                             inputType="text"
-                            id="naam acitiviteit"
+                            id="naam activiteit"
                             validationRules={{
                                 required: {
                                     value: true,
