@@ -9,6 +9,8 @@ import AddActivity from "./Pages/AddActivity/AddActivity.jsx";
 import Activities from "./Pages/Activities/Activities.jsx";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound.jsx";
 import ActivityMoreInfo from "./Pages/Activities/ActivityMoreInfo.jsx";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -28,6 +30,18 @@ function App() {
             </Routes>
         </main>
             <Footer/>
+        <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+        />
     </>
   )
 }
