@@ -7,7 +7,7 @@ import LabelInputField from "../../Compenents/LabelInputField.jsx";
 import axios from "axios";
 import {useState} from "react";
 import LabelTextareaField from "../../Compenents/LabelTextareaField.jsx";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function Contact() {
     const form = useForm();
@@ -17,7 +17,7 @@ function Contact() {
 
     // handlesubmit methode nog maken
     // zichtbare notificatie maken wanneer verzenden gelukt is.
-    // preventdefault ?
+    // isLoading useState nog maken
 
 
   async function handleFormSubmit (data) {

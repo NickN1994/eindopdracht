@@ -1,6 +1,10 @@
 import {useForm} from "react-hook-form";
 import LabelInputField from "../../Compenents/LabelInputField.jsx";
 import LabelTextareaField from "../../Compenents/LabelTextareaField.jsx";
+import axios from "axios";
+import {toast} from "react-toastify";
+import {useState} from "react";
+
 
 
 function AddActivity () {
@@ -8,13 +12,24 @@ function AddActivity () {
     const form = useForm();
     const {register, handleSubmit, formState} = form;
     const {errors} = formState;
+    const [activity, setActivity] = useState({});
 
-    // onSubmit={handleSubmit(handleFormSubmit)}
+    async function handleFormSubmit (data) {
+        try { const result = await axios.post("http://localhost:8080/add-activity", {
+            ...data
+        });
+            toast.success("Activiteit is toegevoegd.")
+            setActivity(result.data);
+        } catch (e) {
+            console.error(e + "Het is niet gelukt om activiteit toe te voegen.");
+            toast.error("Het is niet gelukt om activiteit toe te voegen.")
+        }
+    }
 
     return (
         <div className='outer-container'>
             <div className='inner-container'>
-                <form >
+                <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <h2>Activiteit toevoegen</h2>
                     <fieldset>
                         <LabelInputField

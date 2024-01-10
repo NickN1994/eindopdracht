@@ -12,7 +12,7 @@ function LabelInputField ({labelName, inputType, id, placeholder, validationRule
                    {...register(id, validationRules)}
             />
             {/* eslint-disable-next-line react/prop-types */}
-            {errors[id] && <p>{errors[id].message}</p>}
+            {errors[id] && <p style={{ color: '#FF0000' }}>{errors[id].message}</p>}
         </div>
     )
 }

@@ -9,8 +9,9 @@ import AddActivity from "./Pages/AddActivity/AddActivity.jsx";
 import Activities from "./Pages/Activities/Activities.jsx";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound.jsx";
 import ActivityMoreInfo from "./Pages/Activities/ActivityMoreInfo.jsx";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoginRegister from "./Pages/LoginRegister/LoginRegister.jsx";
 
 function App() {
 
@@ -26,10 +27,12 @@ function App() {
                 <Route path="/leeromgeving" element={<Leeromgeving/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/activiteit-toevoegen" element={<AddActivity/>}/>
+                <Route path="/login-registreren" element={<LoginRegister/>}/>
                 <Route path="/*" element={<PageNotFound/>}/>
             </Routes>
         </main>
             <Footer/>
+
         <ToastContainer
             position="top-center"
             autoClose={5000}
