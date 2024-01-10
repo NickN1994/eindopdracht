@@ -19,7 +19,7 @@ function Navigation() {
                             <li className='liHeader'><p><NavLink to='/leeromgeving' className={({ isActive }) => isActive ? 'active-menu-link' : 'default-menu-link'}>Meditaties opstellingsveld</NavLink></p></li>
                         </ul>
                     </li>
-                    <li className='liHeader'><p><NavLink to='/login-registeren' className={({ isActive }) => isActive ? 'active-menu-link' : 'default-menu-link'}>Profiel</NavLink></p></li>
+                    <li className='liHeader'><p><NavLink to='/login-registreren' className={({ isActive }) => isActive ? 'active-menu-link' : 'default-menu-link'}>Profiel</NavLink></p></li>
                     <li className='liHeader'><p><NavLink to='/contact' className={({ isActive }) => isActive ? 'active-menu-link' : 'default-menu-link'}>Contact</NavLink></p></li>
                 </ul>
                 <button type='button'><Link to='/activiteit-toevoegen'>Activiteit toevoegen</Link></button>
