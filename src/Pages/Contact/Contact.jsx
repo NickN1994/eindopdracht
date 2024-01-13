@@ -5,7 +5,7 @@ import phone from './Assets/phone.png'
 import email from './Assets/email.png'
 import LabelInputField from "../../Compenents/LabelInputField.jsx";
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import LabelTextareaField from "../../Compenents/LabelTextareaField.jsx";
 import { toast } from 'react-toastify';
 
@@ -14,23 +14,40 @@ function Contact() {
     const {register, handleSubmit, formState} = form;
     const {errors} = formState;
     const [dataForm, setDataForm] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     // handlesubmit methode nog maken
     // zichtbare notificatie maken wanneer verzenden gelukt is.
     // isLoading useState nog maken
 
+    useEffect(() => {
+        const abortController = new AbortController();
+        // handleFormSubmit();
+        return () => {
+            console.log("clean up");
+            abortController.abort();
+        }
 
-  async function handleFormSubmit (data) {
-      try { const result = await axios.post("http://localhost:8080/send-email", {
-          ...data
-      });
-          toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.")
-        setDataForm(result.data);
-      } catch (e) {
-        console.error(e + "Het is niet gelukt om je bericht te verzenden");
-        toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.")
-      }
-  }
+    }, []);
+
+
+    async function handleFormSubmit (data) {
+        try {
+            setIsLoading(true);
+            const result = await axios.post("http://localhost:8080/send-email", {
+                ...data}
+            );
+            toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.")
+            setDataForm(result.data);
+        } catch (e) {
+            console.error(e + "Het is niet gelukt om je bericht te verzenden");
+            toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.")
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+
 
 
     return (
@@ -122,6 +139,11 @@ function Contact() {
                             <button type="submit"
                             >Verstuur je bericht</button>
                         </form>
+                        {isLoading && (
+                            <div className="loader">
+                                Loading...
+                            </div>
+                        )}
                     </section>
                     </div>
                 </div>

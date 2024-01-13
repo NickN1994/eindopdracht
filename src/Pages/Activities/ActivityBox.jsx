@@ -1,18 +1,19 @@
 import activityInfoShort from "./helpers/activityInfoShort.js";
-import {Link} from "react-router-dom";
 
 
-function ActivityBox (name, date, time, participants, teacher) {
+
+// eslint-disable-next-line react/prop-types
+function ActivityBox ({key, name, participants, teacher, date, time, activityInfo}) {
 
     // activityInfo
 
     return (
-        <div>
-            <h3>{name} {date} {time}</h3>
+        <div key={key}>
+            <h3>{name} op {date} {time}</h3>
             {/*HIER NOG EEN HELPER MAKEN VOOR PLEKKEN VRIJ TE BEREKENEN*/}
             <p>Aantal plekken vrij: {participants}</p>
             <p>Begeleider: {teacher}</p>
-            <p>{activityInfoShort(example)}...</p>
+            <p>{activityInfoShort(activityInfo)}...</p>
 
             <div>
                 {/*<button type="button"><Link to={}>Inschrijven</Link></button>*/}

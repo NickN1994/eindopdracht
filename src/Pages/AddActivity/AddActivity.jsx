@@ -3,7 +3,7 @@ import LabelInputField from "../../Compenents/LabelInputField.jsx";
 import LabelTextareaField from "../../Compenents/LabelTextareaField.jsx";
 import axios from "axios";
 import {toast} from "react-toastify";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
 
@@ -13,9 +13,22 @@ function AddActivity () {
     const {register, handleSubmit, formState} = form;
     const {errors} = formState;
     const [activity, setActivity] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+
+        return () => {
+            console.log("clean up");
+            abortController.abort();
+        }
+
+    }, []);
 
     async function handleFormSubmit (data) {
-        try { const result = await axios.post("http://localhost:8080/add-activity", {
+        try {
+            setIsLoading(true);
+            const result = await axios.post("http://localhost:8080/add-activity", {
             ...data
         });
             toast.success("Activiteit is toegevoegd.")
@@ -23,8 +36,11 @@ function AddActivity () {
         } catch (e) {
             console.error(e + "Het is niet gelukt om activiteit toe te voegen.");
             toast.error("Het is niet gelukt om activiteit toe te voegen.")
+        } finally {
+            setIsLoading(false);
         }
     }
+
 
     return (
         <div className='outer-container'>
@@ -115,6 +131,11 @@ function AddActivity () {
                     </fieldset>
                     <button type="submit">Activiteit aanmaken</button>
                 </form>
+                {isLoading && (
+                    <div className="loader">
+                        Loading...
+                    </div>
+                )}
             </div>
         </div>
     )
