@@ -1,17 +1,16 @@
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import LoginRegisterHelper from "./LoginRegisterHelper.jsx";
-
+import "./LoginRegister.css"
 
 function LoginRegister() {
 
     const [error, toggleError] = useState(false);
     const [data, setData] = useState({});
     const [name, setName] = useState("");
-    // const [username, setUserName] = useState("");
+    const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
 
     async function handleSubmit(data) {
         try {
@@ -26,6 +25,18 @@ function LoginRegister() {
         }
     }
 
+    // const container = document.getElementById('container');
+    // const registerBtn = document.getElementById('register');
+    // const loginBtn = document.getElementById('login');
+    //
+    // registerBtn.addEventListener('click', () => {
+    //     container.classList.add("active");
+    // });
+    //
+    // loginBtn.addEventListener('click', () => {
+    //     container.classList.remove("active");
+    // });
+
     return (
         <div className="outer-container">
             <div className="inner-container">
@@ -39,27 +50,27 @@ function LoginRegister() {
                         <LoginRegisterHelper
                             labelName="Naam"
                             type="text"
-                            id="name"
+                            id="name_field"
                             name="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             error={error}
                         />
 
-                        {/*<LoginRegisterHelper*/}
-                        {/*    labelName="Gebruikersnaam"*/}
-                        {/*    type="text"*/}
-                        {/*    id="username"*/}
-                        {/*    name="username"*/}
-                        {/*    value={username}*/}
-                        {/*    onChange={(e) => setUserName(e.target.value)}*/}
-                        {/*    error={error}*/}
-                        {/*/>*/}
+                        <LoginRegisterHelper
+                            labelName="Gebruikersnaam"
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUserName(e.target.value)}
+                            error={error}
+                        />
 
                         <LoginRegisterHelper
                             labelName="Email adres"
                             type="email"
-                            id="email"
+                            id="email_field"
                             name="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -69,7 +80,7 @@ function LoginRegister() {
                         <LoginRegisterHelper
                             labelName="Wachtwoord"
                             type="password"
-                            id="password"
+                            id="password_field"
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -88,7 +99,7 @@ function LoginRegister() {
                         <LoginRegisterHelper
                             labelName="Email adres"
                             type="email"
-                            id="email"
+                            id="email_field_login"
                             name="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -97,7 +108,7 @@ function LoginRegister() {
                         <LoginRegisterHelper
                             labelName="Wachtwoord"
                             type="password"
-                            id="password"
+                            id="password_field_login"
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

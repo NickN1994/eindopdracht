@@ -3,7 +3,8 @@ import LabelInputField from "../../Compenents/LabelInputField.jsx";
 import LabelTextareaField from "../../Compenents/LabelTextareaField.jsx";
 import axios from "axios";
 import {toast} from "react-toastify";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+
 
 
 
@@ -15,37 +16,47 @@ function AddActivity () {
     const [activity, setActivity] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const abortController = new AbortController();
-
-        return () => {
-            console.log("clean up");
-            abortController.abort();
-        }
-
-    }, []);
-
-    async function handleFormSubmit (data) {
-        try {
-            setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/add-activity", {
-            ...data
-        });
-            toast.success("Activiteit is toegevoegd.")
-            setActivity(result.data);
-        } catch (e) {
-            console.error(e + "Het is niet gelukt om activiteit toe te voegen.");
-            toast.error("Het is niet gelukt om activiteit toe te voegen.")
-        } finally {
-            setIsLoading(false);
-        }
-    }
+    // useEffect(() => {
+    //     const abortController = new AbortController();
+    //     async function handleSubmit (data) {
+    //         try {
+    //             setIsLoading(true);
+    //             const result = await axios.post("http://localhost:8080/add-activity", {
+    //                 ...data
+    //             });
+    //             toast.success("Activiteit is toegevoegd.")
+    //             setActivity(result.data);
+    //         } catch (e) {
+    //             console.error(e + "Het is niet gelukt om activiteit toe te voegen.");
+    //             toast.error("Het is niet gelukt om activiteit toe te voegen.")
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     }
+    //     return () => {
+    //         console.log("clean up");
+    //         abortController.abort();
+    //     }
+    //
+    // }, []);
 
 
     return (
         <div className='outer-container'>
             <div className='inner-container'>
-                <form onSubmit={handleSubmit(handleFormSubmit)}>
+                <form onSubmit={handleSubmit(async (data) => {
+                    try {
+                        setIsLoading(true);
+                        const result = await axios.post("http://localhost:8080/add-activity", { ...data });
+                        toast.success("Activiteit is toegevoegd.")
+                        setActivity(result.data);
+                    } catch (e) {
+                        console.error(e + "Het is niet gelukt om activiteit toe te voegen.");
+                        toast.error("Het is niet gelukt om activiteit toe te voegen.")
+                    } finally {
+                        setIsLoading(false);
+                    }
+                })}>
                     <h2>Activiteit toevoegen</h2>
                     <fieldset>
                         <LabelInputField
@@ -133,7 +144,6 @@ function AddActivity () {
                 </form>
                 {isLoading && (
                     <div className="loader">
-                        Loading...
                     </div>
                 )}
             </div>

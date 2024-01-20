@@ -1,4 +1,4 @@
-import activityInfoShort from "./helpers/activityInfoShort.js";
+import activityInfoShort from "../helpers/activityInfoShort.js";
 
 
 
