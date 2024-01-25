@@ -1,8 +1,5 @@
 import {useForm} from 'react-hook-form';
 import './Contact.css'
-import location from './Assets/location.png'
-import phone from './Assets/phone.png'
-import email from './Assets/email.png'
 import LabelInputField from "../../Compenents/LabelInputField.jsx";
 import axios from "axios";
 import {useState} from "react";
@@ -16,38 +13,22 @@ function Contact() {
     const [dataForm, setDataForm] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
-    // handlesubmit methode nog maken
-    // zichtbare notificatie maken wanneer verzenden gelukt is.
-    // isLoading useState nog maken
 
-    // useEffect(() => {
-    //     const abortController = new AbortController();
-    //     // handleFormSubmit();
-    //     return () => {
-    //         console.log("clean up");
-    //         abortController.abort();
-    //     }
-    //
-    // }, []);
-
-
-    // async function handleFormSubmit (data) {
-    //     try {
-    //         setIsLoading(true);
-    //         const result = await axios.post("http://localhost:8080/send-email", {
-    //             ...data}
-    //         );
-    //         toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.")
-    //         setDataForm(result.data);
-    //     } catch (e) {
-    //         console.error(e + "Het is niet gelukt om je bericht te verzenden");
-    //         toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.")
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // }
-
-
+    async function handleFormSubmit (data) {
+        try {
+            setIsLoading(true);
+            const result = await axios.post("http://localhost:8080/send-email", {
+                ...data}
+            );
+            toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.")
+            setDataForm(result.data);
+        } catch (e) {
+            console.error(e + "Het is niet gelukt om je bericht te verzenden");
+            toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.")
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
 
     return (
@@ -59,7 +40,7 @@ function Contact() {
                         <h1>Contact</h1>
                         <p>Vul het contactformulier in om contact met ons op te nemen. We streven er naar om binnen 48 uur te reageren.</p>
                         <div className='contactInfoBox'>
-                            <img src={location} alt="locatie"/>
+                            <i className="fa-solid fa-location-dot"></i>
                             <div className='adres'>
                             <p>Heibloemdijk 1</p>
                             <p>5688 JV Oirschot</p>
@@ -67,33 +48,19 @@ function Contact() {
                         </div>
 
                         <div className='contactInfoBox'>
-                            <img src={phone} alt="phone"/>
+                            <i className="fa-solid fa-phone"></i>
                             <p>+316 57 34 62 57</p>
                         </div>
 
                         <div className='contactInfoBox'>
-                            <img src={email} alt="email"/>
+                            <i className="fa-solid fa-envelope"></i>
                             <p>info@nickenkirstie.nl</p>
                         </div>
                     </section>
 
 
                     <section className='formBox'>
-                        <form onSubmit={handleSubmit(async (data) => {
-                            try {
-                                setIsLoading(true);
-                                const result = await axios.post("http://localhost:8080/send-email", {
-                                    ...data}
-                                );
-                                toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.")
-                                setDataForm(result.data);
-                            } catch (e) {
-                                console.error(e + "Het is niet gelukt om je bericht te verzenden");
-                                toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.")
-                            } finally {
-                                setIsLoading(false);
-                            }
-                        })}>
+                        <form onSubmit={handleSubmit(handleFormSubmit)}>
                             <fieldset>
 
                                 <LabelInputField

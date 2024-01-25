@@ -15,6 +15,8 @@ function Home() {
                         <ActivityBox/>
 
                     </section>
+                    {/* HIER <figure> TAG ?? */}
+
                     <section className='colum-two'>
                             <img src={fotoHome} alt="Afbeelding Nick en Kirstie"/>
                     </section>

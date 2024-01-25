@@ -38,13 +38,22 @@
     height: 80px;
 }
 
-.nav-links {
+.nav-links-active {
     color: white;
+    font: inherit;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid blue;
+}
+
+.nav-links-default {
+    color: white;
+    font: inherit;
     text-decoration: none;
     padding: 0.5rem 1rem;
 }
 
-.nav-links:hover {
+.nav-links-default:hover {
     background-color: #1888ff;
     border-radius: 4px;
     transition: all 0.2s ease-out;

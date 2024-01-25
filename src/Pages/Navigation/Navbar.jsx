@@ -37,7 +37,6 @@ function Navbar () {
         }
     }
 
-  // HAMBURGER dropdown menu komt nog niet in beeld.
 
     return (
         <header className='outer-container-nav'>
@@ -50,36 +49,37 @@ function Navbar () {
             </div>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                 <li className='nav-item'>
-                    <NavLink to='/' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/' className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'} onClick={closeMobileMenu}>
                         Home
                     </NavLink>
                 </li>
 
                 <li className='nav-item'>
-                    <NavLink to='/activiteiten' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/activiteiten' className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'} onClick={closeMobileMenu}>
                         Activiteiten
                     </NavLink>
                 </li>
+
 
                 <li className='nav-item'
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
 
                 >
-                    <NavLink to='/leeromgeving' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/leeromgeving' className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'} onClick={closeMobileMenu}>
                         Leeromgeving <i className='fas fa-caret-down'/>
                     </NavLink>
                     {dropdown && <Dropdown />}
                 </li>
 
                 <li className='nav-item'>
-                    <NavLink to='/profiel' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/profiel' className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'} onClick={closeMobileMenu}>
                         Profiel
                     </NavLink>
                 </li>
 
                 <li className='nav-item'>
-                    <NavLink to='/contact' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/contact' className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'} onClick={closeMobileMenu}>
                         Contact
                     </NavLink>
                 </li>
