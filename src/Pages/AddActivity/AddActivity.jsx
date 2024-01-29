@@ -16,47 +16,29 @@ function AddActivity () {
     const [activity, setActivity] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
-    // useEffect(() => {
-    //     const abortController = new AbortController();
-    //     async function handleSubmit (data) {
-    //         try {
-    //             setIsLoading(true);
-    //             const result = await axios.post("http://localhost:8080/add-activity", {
-    //                 ...data
-    //             });
-    //             toast.success("Activiteit is toegevoegd.")
-    //             setActivity(result.data);
-    //         } catch (e) {
-    //             console.error(e + "Het is niet gelukt om activiteit toe te voegen.");
-    //             toast.error("Het is niet gelukt om activiteit toe te voegen.")
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     }
-    //     return () => {
-    //         console.log("clean up");
-    //         abortController.abort();
-    //     }
-    //
-    // }, []);
+    // TOEVOEGEN OM EEN AFBEELDING UP TE LOADEN EN BIJ ACTIVITEIT TE PLAATSEN
+
+    async function handleFormSubmit (data) {
+        try {
+            setIsLoading(true);
+            const result = await axios.post("http://localhost:8080/activities", {
+                ...data}
+            );
+            toast.success("Activiteit is toegevoegd.")
+            setActivity(result.data);
+        } catch (e) {
+            console.error(e + "Het is niet gelukt om je bericht te verzenden");
+            toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.")
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
 
     return (
         <div className='outer-container'>
             <div className='inner-container'>
-                <form onSubmit={handleSubmit(async (data) => {
-                    try {
-                        setIsLoading(true);
-                        const result = await axios.post("http://localhost:8080/add-activity", { ...data });
-                        toast.success("Activiteit is toegevoegd.")
-                        setActivity(result.data);
-                    } catch (e) {
-                        console.error(e + "Het is niet gelukt om activiteit toe te voegen.");
-                        toast.error("Het is niet gelukt om activiteit toe te voegen.")
-                    } finally {
-                        setIsLoading(false);
-                    }
-                })}>
+                <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <h2>Activiteit toevoegen</h2>
                     <fieldset>
                         <LabelInputField
@@ -75,7 +57,7 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Aantal beschikbare plekken"
                             inputType="text"
-                            id="aantal deelnemers"
+                            id="aantal_beschikbare_plekken"
                             validationRules={{
                                 required: {
                                     value: true,
@@ -101,11 +83,11 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Datum"
                             inputType="date"
-                            id="aantal deelnemers"
+                            id="datum"
                             validationRules={{
                                 required: {
                                     value: true,
-                                    message: "Aantal deelnemers invullen is verplicht"
+                                    message: "Datum invullen is verplicht"
                                 }}}
                             register={register}
                             errors={errors}
@@ -127,8 +109,8 @@ function AddActivity () {
 
                         <LabelTextareaField
                             labelName="Beschrijf acitiviteit"
-                            id="telefoonnummer"
-                            placeholder="Typ hier je bericht"
+                            id="activiteit_beschrijving"
+                            placeholder="Beschrijf hier je activiteit"
                             cols="30"
                             rows="10"
                             validationRules={{
@@ -140,7 +122,9 @@ function AddActivity () {
                             errors={errors}
                         />
                     </fieldset>
-                    <button type="submit">Activiteit aanmaken</button>
+                    <button type="submit" disabled={isLoading}>
+                        {isLoading ? 'Bezig met verwerken...' : 'Activiteit aanmaken'}
+                    </button>
                 </form>
                 {isLoading && (
                     <div className="loader">

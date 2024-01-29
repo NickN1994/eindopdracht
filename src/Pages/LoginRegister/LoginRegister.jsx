@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import LoginRegisterHelper from "./LoginRegisterHelper.jsx";
+import LoginRegisterComponent from "./components/LoginRegisterComponent.jsx";
 import "./LoginRegister.css"
 
 function LoginRegister() {
@@ -47,7 +47,7 @@ function LoginRegister() {
                         <h1>Registreer hier je account</h1>
                         <fieldset>
 
-                        <LoginRegisterHelper
+                        <LoginRegisterComponent
                             labelName="Naam"
                             type="text"
                             id="name_field"
@@ -57,7 +57,7 @@ function LoginRegister() {
                             error={error}
                         />
 
-                        <LoginRegisterHelper
+                        <LoginRegisterComponent
                             labelName="Gebruikersnaam"
                             type="text"
                             id="username"
@@ -67,7 +67,7 @@ function LoginRegister() {
                             error={error}
                         />
 
-                        <LoginRegisterHelper
+                        <LoginRegisterComponent
                             labelName="Email adres"
                             type="email"
                             id="email_field"
@@ -77,7 +77,7 @@ function LoginRegister() {
                             error={error}
                         />
 
-                        <LoginRegisterHelper
+                        <LoginRegisterComponent
                             labelName="Wachtwoord"
                             type="password"
                             id="password_field"
@@ -96,7 +96,7 @@ function LoginRegister() {
                         <h1>Inloggen</h1>
                         <fieldset>
 
-                        <LoginRegisterHelper
+                        <LoginRegisterComponent
                             labelName="Email adres"
                             type="email"
                             id="email_field_login"
@@ -105,7 +105,7 @@ function LoginRegister() {
                             onChange={(e) => setEmail(e.target.value)}
                             error={error}/>
 
-                        <LoginRegisterHelper
+                        <LoginRegisterComponent
                             labelName="Wachtwoord"
                             type="password"
                             id="password_field_login"

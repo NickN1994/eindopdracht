@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+
 import axios from "axios";
 import ActivityBox from "./components/ActivityBox.jsx";
 import {toast} from "react-toastify";
@@ -8,9 +8,8 @@ import {toast} from "react-toastify";
 function Activities () {
 
     const [activity, setActivity] = useState([]);
-    const {id} = useParams();
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [error, setError] = useState(false);
 
     // {
     //     "name" : "Lichtcirkel",
@@ -26,15 +25,15 @@ function Activities () {
         async function fetchData () {
             try {
                 setIsLoading(true);
-                setError(false);
                 const result = await axios.get(
-                    "http://localhost:8080/activities",
+                    "http://localhost:8080/add-activity",
                     {signal: abortController.signal});
-                console.log("Gelukt");
-                console.log(result.data);
+                // console.log("Gelukt");
+                // console.log(result.data);
                 setActivity(result.data);
+                toast.success("Activiteit is toegevoegd.")
             } catch (e) {
-                console.error(e + "Het is niet gelukt om de data op te halen.");
+                // console.error(e + "Het is niet gelukt om de data op te halen.");
                 setError(true);
                 toast.error("Er is iets misgegaan. Probeer opnieuw.")
             } finally {
@@ -44,15 +43,21 @@ function Activities () {
 
         fetchData();
         return () => {
-            console.log("Clean up");
+            // console.log("Clean up");
             abortController.abort();
         };
     }, []);
 
+
+
     return (
         <div className="outer-container">
             <div className="inner-container">
-                {activity && activity.map((activity) => {
+                {isLoading && (
+                    <div className="loader">
+                    </div>
+                )}
+                {activity.length > 0 && activity.map((activity) => {
                     return (
                         <ActivityBox
                         key={activity.id}

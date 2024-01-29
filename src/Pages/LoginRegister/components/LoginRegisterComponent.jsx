@@ -1,6 +1,6 @@
 
 // eslint-disable-next-line react/prop-types
-function LoginRegisterHelper ({labelName, type, name, id, value, onChange}) {
+function LoginRegisterComponent ({labelName, type, name, id, value, onChange}) {
 
     return (
         <div>
@@ -18,4 +18,4 @@ function LoginRegisterHelper ({labelName, type, name, id, value, onChange}) {
     )
 }
 
-export default LoginRegisterHelper;
+export default LoginRegisterComponent;
