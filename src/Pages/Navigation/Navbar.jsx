@@ -2,17 +2,16 @@ import "./Navbar.css"
 import Dropdown from "./Dropdown.jsx"
 import {Link, NavLink} from "react-router-dom";
 import logo from "./Assets/LOGO-NICK-EN-KIRSTIE.png";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import Button from "../../Compenents/Button.jsx";
-
-
-
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 
 function Navbar () {
 
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const {logout} = useContext(AuthContext)
 
     const handleClick = () => {
         setClick(!click);
@@ -84,7 +83,9 @@ function Navbar () {
                     </NavLink>
                 </li>
             </ul>
-            <Button type="type" buttonName="Activiteit toevoegen"/>
+            <Button type="button" buttonName="Activiteit toevoegen" linkto="/activiteit-toevoegen"/>
+            <button type="button" onClick={logout}>Uitloggen</button>
+
         </nav>
         </header>
     )

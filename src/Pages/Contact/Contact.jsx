@@ -10,18 +10,19 @@ function Contact() {
     const form = useForm();
     const {register, handleSubmit, formState} = form;
     const {errors} = formState;
-    const [dataForm, setDataForm] = useState({});
+    // const [dataForm, setDataForm] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
 
     async function handleFormSubmit (data) {
+        event.preventDefault();
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/send-email", {
+            await axios.post("http://localhost:8080/send-email", {
                 ...data}
             );
             toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.");
-            setDataForm(result.data);
+
         } catch (e) {
             console.error(e + "Het is niet gelukt om je bericht te verzenden");
             toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.");

@@ -18,10 +18,11 @@ function Register () {
     // email validati, bijvoorbeeld yup of validator
 
 
-    async function handleFormSubmit (data) {
+    async function handleFormSubmit (data, event) {
+        event.preventDefault();
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/register", {
+            await axios.post("http://localhost:8080/register", {
                 ...data}
             );
             toast.success("Registratie is gelukt, log nu in.");
@@ -43,13 +44,13 @@ function Register () {
                     <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <fieldset>
                         <InputField
-                            labelName="Gebruikersnaam"
+                            labelName="Naam"
                             inputType="text"
-                            id="gebruikersnaam"
+                            id="name"
                             validationRules={{
                                 required: {
                                     value: true,
-                                    message: "Gebruikersnaam is verplicht"
+                                    message: "Naam is verplicht"
                                 }}}
                             register={register}
                             errors={errors}
@@ -93,8 +94,13 @@ function Register () {
                     </form>
 
                     <p>Heb je al een account?</p>
-                    <button><Link to="/signin">Inloggen</Link></button>
+                    <button><Link to="/login">Inloggen</Link></button>
                 </section>
+
+                {isLoading && (
+                    <div className="loader">
+                    </div>
+                )}
 
             </div>
         </div>

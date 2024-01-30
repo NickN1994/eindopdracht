@@ -1,10 +1,12 @@
 import "./Button.css"
+import {Link} from "react-router-dom";
 
-function Button (props) {
+// eslint-disable-next-line react/prop-types
+function Button ({type, buttonName, linkto}) {
 
     return (
         <>
-        <button className="btn" type={props.type}>{props.buttonName}</button>
+        <button className="btn" type={type}><Link to={linkto}>{buttonName}</Link></button>
         </>
     )
 }
