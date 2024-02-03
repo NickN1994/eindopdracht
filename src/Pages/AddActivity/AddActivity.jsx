@@ -21,7 +21,7 @@ function AddActivity () {
     async function handleFormSubmit (data) {
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/activities", {
+            const result = await axios.post("http://localhost:8080/add-activity", {
                 ...data}
             );
             toast.success("Activiteit is toegevoegd.")

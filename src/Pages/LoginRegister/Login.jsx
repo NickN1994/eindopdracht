@@ -16,14 +16,19 @@ function Login () {
     const navigate = useNavigate();
 
 
-    async function handleFormSubmit(data, event) {
-        event.preventDefault();
+    // validaties toevoegen en de juiste meldingen bij een verkeerde username of wachtwoord
+
+    async function handleFormSubmit(data) {
+
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/login", {
-                ...data}
+            const result = await axios.post("http://localhost:8080/authenticate", {
+                username: data.username,
+                password: data.password
+            }
             );
-            login(result.data.accessToken);
+            console.log(result.data)
+            login(result.data.jwt);
             navigate("/");
         } catch (e) {
             console.error(e + "Inloggen mislukt");
@@ -37,15 +42,15 @@ function Login () {
             <div className="inner-container">
             <form onSubmit={handleSubmit(handleFormSubmit)}>
                 <InputField
-                    labelName="Email"
-                    inputType="email"
-                    id="email"
+                    labelName="Gebruikersnaam"
+                    inputType="text"
+                    id="username"
                     validationRules={{
                         required: {
                             value: true,
-                            message: "Email is verplicht om in te loggen"
-                        },
-                        validate: (value) => value.includes('@')}}
+                            message: "Gebruikersnaam is verplicht"
+                        }
+                    }}
                     register={register}
                     errors={errors}
                 />
@@ -67,7 +72,7 @@ function Login () {
             </form>
 
             <p>Heb je nog geen account?</p>
-            <button><Link to="/register">Registreer hier</Link></button>
+            <button><Link to="/registreren">Registreer hier</Link></button>
 
             {isLoading && (
                 <div className="loader">

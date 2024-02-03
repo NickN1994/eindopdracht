@@ -32,7 +32,7 @@ function AuthContextProvider({children}) {
             })
         }
         return () => {
-            console.log("clean up");
+            console.log("clean up test");
             abortController.abort();
         }
 
@@ -42,6 +42,7 @@ function AuthContextProvider({children}) {
         localStorage.setItem('token', token);
 
         const decodedToken = jwtDecode(token);
+        console.log(token);
 
         try {
             // HIER GOED NAAR NAAR .SUB KIJKEN OF DIT KLOPT en kijken naar de url
@@ -55,13 +56,13 @@ function AuthContextProvider({children}) {
                 isAuth: true,
                 user: {
                     //  HIER NOG GOED NAAR KIJKEN MET DE BACKEND
-                    username: response.data.gebruikersnaam,
+                    username: response.data.username,
                     email: response.data.email,
                     id: response.data.id
                 },
                 status: 'done',
             });
-            console.log("Ingelogd")
+            // console.log("Ingelogd!!!!!!!!!!!")
             navigate('/')
         } catch (e) {
             logout();
@@ -70,17 +71,18 @@ function AuthContextProvider({children}) {
 
     function logout () {
 
-        console.log("Uitgelogd")
+        localStorage.removeItem('token');
         setAuth({
             isAuth: false,
             user: null,
             status: 'done'
         });
+        // console.log("uitgelogd!!!")
         navigate('/login')
     }
 
     const data = {
-        auth: auth,
+        auth: auth.isAuth,
         login: login,
         logout: logout
     }

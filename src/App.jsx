@@ -14,6 +14,7 @@ import Navbar from "./Pages/Navigation/Navbar.jsx";
 import Login from "./Pages/LoginRegister/Login.jsx";
 import Register from "./Pages/LoginRegister/Register.jsx";
 import ShowNavBar from "./Compenents/ShowNavBar.jsx";
+import ProtectetRoute from "./Compenents/ProtectetRoute.jsx";
 
 function App() {
 
@@ -22,6 +23,19 @@ function App() {
             <ShowNavBar>
                 <Navbar/>
             </ShowNavBar>
+
+            {/*<Routes>*/}
+            {/*    <Route path="/" element={<ProtectetRoute><Home/></ProtectetRoute>}/>*/}
+            {/*    <Route path="/activiteiten" element={<ProtectetRoute><Activities/></ProtectetRoute>}/>*/}
+            {/*    <Route path="activiteiten/:id" element={<ProtectetRoute><ActivityMoreInfo/></ProtectetRoute>}/>*/}
+            {/*    <Route path="/leeromgeving" element={<ProtectetRoute><Leeromgeving/></ProtectetRoute>}/>*/}
+            {/*    <Route path="/profiel" element={<ProtectetRoute><Contact/></ProtectetRoute>}/>*/}
+            {/*    <Route path="/contact" element={<ProtectetRoute><Contact/></ProtectetRoute>}/>*/}
+            {/*    <Route path="/activiteit-toevoegen" element={<ProtectetRoute><AddActivity/></ProtectetRoute>}/>*/}
+            {/*    <Route path="/login" element={<Login/>}/>*/}
+            {/*    <Route path="/registreren" element={<Register/>}/>*/}
+            {/*    <Route path="/*" element={<PageNotFound/>}/>*/}
+            {/*</Routes>*/}
 
             <Routes>
                 <Route path="/" element={<Home/>}/>

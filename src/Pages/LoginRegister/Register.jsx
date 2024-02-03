@@ -6,7 +6,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 
 
-function Register () {
+function Register() {
 
     const form = useForm();
     const {register, handleSubmit, formState} = form;
@@ -18,19 +18,24 @@ function Register () {
     // email validati, bijvoorbeeld yup of validator
 
 
-    async function handleFormSubmit (data, event) {
-        event.preventDefault();
+    async function handleFormSubmit(data) {
         try {
             setIsLoading(true);
-            await axios.post("http://localhost:8080/register", {
-                ...data}
+
+            const result = await axios.post("http://localhost:8080/users", {
+                name: data.name,
+                username: data.username,
+                email: data.email,
+                password: data.password,
+                enabled: true}
             );
+            console.log(result)
             toast.success("Registratie is gelukt, log nu in.");
+            navigate("/login")
         } catch (e) {
-            toast.error("Registratie mislukt, probeer het nog eens.")
+            toast.error("Registratie mislukt, probeer het nog eens.");
         } finally {
             setIsLoading(false);
-            navigate('/signin');
         }
     }
 
@@ -42,55 +47,72 @@ function Register () {
                 <section>
                     <h1>Registreer hier je account</h1>
                     <form onSubmit={handleSubmit(handleFormSubmit)}>
-                    <fieldset>
-                        <InputField
-                            labelName="Naam"
-                            inputType="text"
-                            id="name"
-                            validationRules={{
-                                required: {
-                                    value: true,
-                                    message: "Naam is verplicht"
-                                }}}
-                            register={register}
-                            errors={errors}
-                        />
+                        <fieldset>
+                            <InputField
+                                labelName="Naam"
+                                inputType="text"
+                                id="name"
+                                validationRules={{
+                                    required: {
+                                        value: true,
+                                        message: "Naam is verplicht"
+                                    }
+                                }}
+                                register={register}
+                                errors={errors}
+                            />
 
-                        <InputField
-                            labelName="Email"
-                            inputType="email"
-                            id="email"
-                            validationRules={{
-                                required: {
-                                    value: true,
-                                    message: "Email is verplicht"
-                                },
-                                validate: (value) => value.includes('@')}}
-                            register={register}
-                            errors={errors}
-                        />
+                            <InputField
+                                labelName="Gebruikersnaam"
+                                inputType="text"
+                                id="username"
+                                validationRules={{
+                                    required: {
+                                        value: true,
+                                        message: "Gebruikersnaam is verplicht"
+                                    }
+                                }}
+                                register={register}
+                                errors={errors}
+                            />
 
-                        <InputField
-                            labelName="Wachtwoord"
-                            inputType="password"
-                            id="password"
-                            validationRules={{
-                                required: {
-                                    value: true,
-                                    message: "Wachtwoord is verplicht"
-                                }}}
-                            register={register}
-                            errors={errors}
-                        />
-                        <button type="submit">Verstuur je bericht
-                        </button>
+                            <InputField
+                                labelName="Email"
+                                inputType="email"
+                                id="email"
+                                validationRules={{
+                                    required: {
+                                        value: true,
+                                        message: "Email is verplicht"
+                                    },
+                                    validate: (value) => value.includes('@')
+                                }}
+                                register={register}
+                                errors={errors}
+                            />
 
-                        {isLoading && (
-                            <div className="loader">
-                            </div>
-                        )}
+                            <InputField
+                                labelName="Wachtwoord"
+                                inputType="password"
+                                id="password"
+                                validationRules={{
+                                    required: {
+                                        value: true,
+                                        message: "Wachtwoord is verplicht"
+                                    }
+                                }}
+                                register={register}
+                                errors={errors}
+                            />
+                            <button type="submit">Verstuur je bericht
+                            </button>
 
-                    </fieldset>
+                            {isLoading && (
+                                <div className="loader">
+                                </div>
+                            )}
+
+                        </fieldset>
                     </form>
 
                     <p>Heb je al een account?</p>
