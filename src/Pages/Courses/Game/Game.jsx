@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
-import Information from "../../Compenents/Information.jsx";
+import Information from "../../../Compenents/Information.jsx";
 
 
 function Game () {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [information, setInformation] = useState(false);
+    const [information, setInformation] = useState([]);
 
 
     useEffect(() => {
@@ -21,7 +21,6 @@ function Game () {
                 // console.log("Gelukt");
                 // console.log(result.data);
                 setInformation(result.data);
-                toast.success("Activiteit is toegevoegd.")
             } catch (e) {
                 console.error(e + "Het is niet gelukt om de data op te halen.");
                 toast.error("Er is iets misgegaan. Probeer opnieuw.")

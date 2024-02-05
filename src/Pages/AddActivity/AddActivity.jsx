@@ -27,8 +27,8 @@ function AddActivity () {
             toast.success("Activiteit is toegevoegd.")
             setActivity(result.data);
         } catch (e) {
-            console.error(e + "Het is niet gelukt om je bericht te verzenden");
-            toast.error("Er is iets misgegaan. Probeer het opnieuw of neem telefonisch contact op.")
+            console.error(e + "Het is niet gelukt om activiteit toe te voegen");
+            toast.error("Het is niet gelukt om activiteit toe te voegen")
         } finally {
             setIsLoading(false);
         }
@@ -123,13 +123,12 @@ function AddActivity () {
                         />
                     </fieldset>
                     <button type="submit" disabled={isLoading}>
-                        {isLoading ? 'Bezig met verwerken...' : 'Activiteit aanmaken'}
+                        {isLoading && (
+                            <div className="loader">
+                            </div>
+                        )}
                     </button>
                 </form>
-                {isLoading && (
-                    <div className="loader">
-                    </div>
-                )}
             </div>
         </div>
     )

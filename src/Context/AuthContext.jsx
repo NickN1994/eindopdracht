@@ -14,6 +14,7 @@ function AuthContextProvider({children}) {
         user: null,
         status: 'pending'
     });
+    const [admin, setAdmin] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,6 +24,7 @@ function AuthContextProvider({children}) {
         if (token && isTokenValid(token)) {
 
             void login(token);
+
         } else {
 
             setAuth({
@@ -52,10 +54,18 @@ function AuthContextProvider({children}) {
                     Authorization: `Bearer ${token}`
                 }
             });
+
+            if (decodedToken.roles.includes("ADMIN")) {
+                setAdmin(true);
+                console.log(decodedToken.roles)
+                console.log(admin);
+            }
+
+
             setAuth({
                 isAuth: true,
                 user: {
-                    //  HIER NOG GOED NAAR KIJKEN MET DE BACKEND
+
                     username: response.data.username,
                     email: response.data.email,
                     id: response.data.id
@@ -83,6 +93,7 @@ function AuthContextProvider({children}) {
 
     const data = {
         auth: auth.isAuth,
+        admin: admin,
         login: login,
         logout: logout
     }
