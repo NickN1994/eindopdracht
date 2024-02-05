@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, useNavigate} from 'react-router-dom'
 import './App.css'
 import Home from "./Pages/Home/Home.jsx"
 import Contact from "./Pages/Contact/Contact.jsx";
@@ -14,28 +14,21 @@ import Navbar from "./Pages/Navigation/Navbar.jsx";
 import Login from "./Pages/LoginRegister/Login.jsx";
 import Register from "./Pages/LoginRegister/Register.jsx";
 import ShowNavBar from "./Compenents/ShowNavBar.jsx";
-import ProtectetRoute from "./Compenents/ProtectetRoute.jsx";
+import {useContext} from "react";
+import {AuthContext} from "./Context/AuthContext.jsx";
+import Game from "./Pages/Courses/Game.jsx";
+// import ProtectetRoute from "./Compenents/ProtectetRoute.jsx";
 
 function App() {
+
+    const { auth } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     return (
         <>
             <ShowNavBar>
                 <Navbar/>
             </ShowNavBar>
-
-            {/*<Routes>*/}
-            {/*    <Route path="/" element={<ProtectetRoute><Home/></ProtectetRoute>}/>*/}
-            {/*    <Route path="/activiteiten" element={<ProtectetRoute><Activities/></ProtectetRoute>}/>*/}
-            {/*    <Route path="activiteiten/:id" element={<ProtectetRoute><ActivityMoreInfo/></ProtectetRoute>}/>*/}
-            {/*    <Route path="/leeromgeving" element={<ProtectetRoute><Leeromgeving/></ProtectetRoute>}/>*/}
-            {/*    <Route path="/profiel" element={<ProtectetRoute><Contact/></ProtectetRoute>}/>*/}
-            {/*    <Route path="/contact" element={<ProtectetRoute><Contact/></ProtectetRoute>}/>*/}
-            {/*    <Route path="/activiteit-toevoegen" element={<ProtectetRoute><AddActivity/></ProtectetRoute>}/>*/}
-            {/*    <Route path="/login" element={<Login/>}/>*/}
-            {/*    <Route path="/registreren" element={<Register/>}/>*/}
-            {/*    <Route path="/*" element={<PageNotFound/>}/>*/}
-            {/*</Routes>*/}
 
             <Routes>
                 <Route path="/" element={<Home/>}/>
@@ -45,10 +38,24 @@ function App() {
                 <Route path="/profiel" element={<Contact/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/activiteit-toevoegen" element={<AddActivity/>}/>
+                <Route path="/spel-des-levens" element={<Game/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/registreren" element={<Register/>}/>
                 <Route path="/*" element={<PageNotFound/>}/>
             </Routes>
+
+            {/*<Routes>*/}
+            {/*    <Route path="/" element={auth.isAuth ? <Home/> : <Login/>}/>*/}
+            {/*    <Route path="/activiteiten" element={auth.isAuth ? <Activities/> : <Login/>}/>*/}
+            {/*    <Route path="activiteiten/:id" element={auth.isAuth ? <ActivityMoreInfo/> : <Login/>}/>*/}
+            {/*    <Route path="/leeromgeving" element={auth.isAuth ? <Leeromgeving/> : <Login/>}/>*/}
+            {/*    <Route path="/profiel" element={auth.isAuth ? <Contact/> : <Login/>}/>*/}
+            {/*    <Route path="/contact" element={auth.isAuth ? <Contact/> : <Login/>}/>*/}
+            {/*    <Route path="/activiteit-toevoegen" element={auth.isAuth ? <AddActivity/> : <Login/>}/>*/}
+            {/*    <Route path="/login" element={<Login/>}/>*/}
+            {/*    <Route path="/registreren" element={<Register/>}/>*/}
+            {/*    <Route path="/*" element={<PageNotFound/>}/>*/}
+            {/*</Routes>*/}
 
             <ShowNavBar>
                 <Footer/>
