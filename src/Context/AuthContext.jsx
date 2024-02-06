@@ -14,7 +14,7 @@ function AuthContextProvider({children}) {
         user: null,
         status: 'pending'
     });
-    const [admin, setAdmin] = useState(false);
+    const [admin, setAdmin] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,20 +47,14 @@ function AuthContextProvider({children}) {
         console.log(token);
 
         try {
-            // HIER GOED NAAR NAAR .SUB KIJKEN OF DIT KLOPT en kijken naar de url
             const response = await axios.get(`http://localhost:8080/users/${decodedToken.sub}`, {
                 headers: {
                     "Content-type": "application/json",
                     Authorization: `Bearer ${token}`
                 }
             });
-
-            if (decodedToken.roles.includes("ADMIN")) {
-                setAdmin(true);
-                console.log(decodedToken.roles)
-                console.log(admin);
-            }
-
+            setAdmin(decodedToken.roles);
+            console.log(decodedToken.roles);
 
             setAuth({
                 isAuth: true,

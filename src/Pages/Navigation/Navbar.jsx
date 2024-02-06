@@ -2,9 +2,10 @@ import "./Navbar.css"
 import Dropdown from "./Dropdown.jsx"
 import {Link, NavLink} from "react-router-dom";
 import logo from "./Assets/LOGO-NICK-EN-KIRSTIE.png";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import Button from "../../Compenents/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
+import DropdownAdmin from "./DropdownAdmin.jsx";
 
 
 function Navbar() {
@@ -12,26 +13,7 @@ function Navbar() {
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
 
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [adminLoggedIn, setAdminLoggedIn] = useState(false);
-    const {logout, auth, admin} = useContext(AuthContext);
-
-    useEffect(() => {
-        if (auth.isAuth) {
-            setLoggedIn(true);
-            if (admin) {
-                setAdminLoggedIn(true);
-            } else {
-                setAdminLoggedIn(false);
-            }
-        }
-    }, []);
-
-
-    // hier code schrijven om de nav en de footer zichtbaar te maken voor mensen die zijn ingelogd en dan
-    // kijkeno f het user of admin is. met if statement kijken of auth.isAuth true is, if true
-    // dan if user logged in dan navigatie voor user maken en anders admin
-    // de pagina's van admin nog wel zo maken dat deze alleen zichtbaar zijn voor admin
+    const {logout, admin} = useContext(AuthContext);
 
     const handleClick = () => {
         setClick(!click);
@@ -58,8 +40,8 @@ function Navbar() {
 
 
     return (
-
-        loggedIn && adminLoggedIn ?
+    <>
+        {admin === "ROLE_ADMIN,ROLE_USER" ?
             <>
                 <header className='outer-container-nav'>
                     <nav className='navbar'>
@@ -67,22 +49,59 @@ function Navbar() {
                             <Link to="/"><img src={logo} alt="Logo"/></Link>
                             <div className="menu-icon" onClick={handleClick}>
                                 <i className={click ? 'fas fa-times' : 'fas fa-bars'}/>
+                                <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                                    <li className='nav-item'>
+                                        <NavLink to='/'
+                                                 className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}
+                                                 onClick={closeMobileMenu}>
+                                            Home
+                                        </NavLink>
+                                    </li>
+
+                                    <li className='nav-item'>
+                                        <NavLink to='/activiteiten'
+                                                 className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}
+                                                 onClick={closeMobileMenu}>
+                                            Activiteiten
+                                        </NavLink>
+                                    </li>
+
+
+                                    <li className='nav-item'
+                                        onMouseEnter={onMouseEnter}
+                                        onMouseLeave={onMouseLeave}
+                                    >
+                                        <NavLink to='/leeromgeving'
+                                                 className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}
+                                                 onClick={closeMobileMenu}>
+                                            Leeromgeving <i className='fas fa-caret-down'/>
+                                        </NavLink>
+                                        {dropdown && <Dropdown/>}
+                                    </li>
+
+                                    <li className='nav-item'>
+                                        <NavLink to='/contact'
+                                                 className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}
+                                                 onClick={closeMobileMenu}>
+                                            Contact
+                                        </NavLink>
+                                    </li>
+
+                                    <li className='nav-item'
+                                        onMouseEnter={onMouseEnter}
+                                        onMouseLeave={onMouseLeave}
+                                    >
+                                        <NavLink to=''
+                                                 className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}
+                                                 onClick={closeMobileMenu}>
+                                            Leeromgeving <i className='fas fa-caret-down'/>
+                                        </NavLink>
+                                        {dropdown && <DropdownAdmin/>}
+                                    </li>
+                                </ul>
+                            {/*    hier nog admin nav toevoegen*/}
                             </div>
                         </div>
-                        {/*<ul className={click ? 'nav-menu active' : 'nav-menu'}>*/}
-                        {/*    <li className='nav-item'>*/}
-                        {/*        <NavLink to='/login'*/}
-                        {/*                 className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}*/}
-                        {/*                 onClick={closeMobileMenu}>*/}
-                        {/*            Login*/}
-                        {/*        </NavLink></li>*/}
-                        {/*    <li className='nav-item'>*/}
-                        {/*        <NavLink to='/registreren'*/}
-                        {/*                 className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}*/}
-                        {/*                 onClick={closeMobileMenu}>*/}
-                        {/*            Registreren*/}
-                        {/*        </NavLink></li>*/}
-                        {/*</ul>*/}
 
                     </nav>
                 </header>
@@ -150,8 +169,9 @@ function Navbar() {
                     </nav>
                 </header>
             </>
-
-)
+        }
+        </>
+    )
 }
 
 export default Navbar;

@@ -2,22 +2,30 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Information from "../../../Compenents/Information.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 function Game () {
 
     const [isLoading, setIsLoading] = useState(false);
     const [information, setInformation] = useState([]);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
         const abortController = new AbortController();
+        const token = localStorage.getItem('token');
         async function fetchData () {
             try {
                 setIsLoading(true);
                 const result = await axios.get(
                     "http://localhost:8080/information",
-                    {signal: abortController.signal});
+                    {signal: abortController.signal,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
                 // console.log("Gelukt");
                 // console.log(result.data);
                 setInformation(result.data);
@@ -36,6 +44,19 @@ function Game () {
         };
     }, []);
 
+    async function updateInformation(id) {
+        try {
+            const response = await axios.put(`http://localhost:8080/spel-des-levens/${id}`);
+            if (response.status === 200) {
+                toast.success("Informatie Spel des Levens is bijgewerkt");
+                navigate("/spel-des-levens");
+            }
+        } catch (error) {
+            toast.error("Er is iets misgegaan bij het bijwerken van de activiteit");
+            console.error("Er is iets misgegaan bij het bijwerken van de activiteit", error);
+        }
+    }
+
 
     return (
         <div className="outer-container">
@@ -52,6 +73,7 @@ function Game () {
                             title={information.title}
                             videoUrl={information.videoUrl}
                             content={information.content}
+                            updateInformation={updateInformation}
                         />
                     )
                 })}
