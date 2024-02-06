@@ -17,7 +17,7 @@ function AddInformationGame () {
     async function handleFormSubmit (data) {
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/post-information", {
+            const result = await axios.post("http://localhost:8080/information", {
                 ...data}
             );
             toast.success("Informatie voor het Spel des Levens is toegevoegd.")
