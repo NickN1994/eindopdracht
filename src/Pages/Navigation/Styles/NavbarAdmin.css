@@ -1,0 +1,23 @@
+.navbar-admin {
+    background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.2rem;
+    position: relative;
+    /*border: 2px solid white;*/
+}
+
+.menu-admin-box {
+    max-width: 750px;
+    width: 100%;
+}
+
+.menu-admin {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+

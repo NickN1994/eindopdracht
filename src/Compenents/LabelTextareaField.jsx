@@ -1,5 +1,6 @@
 
 
+// eslint-disable-next-line react/prop-types
 function LabelTextareaField ({labelName, id, cols, rows, placeholder, validationRules, register, errors}) {
 
     return (
@@ -12,7 +13,8 @@ function LabelTextareaField ({labelName, id, cols, rows, placeholder, validation
                 placeholder={placeholder}
                 {...register(id, validationRules)}
             />
-            {errors[id] && <p>{errors[id].message}</p>}
+            {/* eslint-disable-next-line react/prop-types */}
+            {errors[id] && <p style={{ color: '#FF0000' }}>{errors[id].message}</p>}
         </div>
     )
 }

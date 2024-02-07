@@ -15,9 +15,11 @@ function Home() {
                         <ActivityBox/>
 
                     </section>
-                    <section className='colum-two'>
+
+
+                    <figure className='colum-two'>
                             <img src={fotoHome} alt="Afbeelding Nick en Kirstie"/>
-                    </section>
+                    </figure>
             </div>
         </div>
 

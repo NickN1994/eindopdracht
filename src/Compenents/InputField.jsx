@@ -1,7 +1,6 @@
-
-
 // eslint-disable-next-line react/prop-types
-function LabelInputField ({labelName, inputType, id, placeholder, validationRules, register, errors}) {
+function InputField({labelName, inputType, id, placeholder, validationRules, register, errors}) {
+
     return (
         <div>
             <label htmlFor={id}><p>{labelName}</p></label>
@@ -17,4 +16,4 @@ function LabelInputField ({labelName, inputType, id, placeholder, validationRule
     )
 }
 
-export default LabelInputField;
+export default InputField;
