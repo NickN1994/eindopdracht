@@ -1,0 +1,48 @@
+import AddActivity from "../AddActivity/AddActivity.jsx";
+import AddInformationGame from "../Courses/Game/AddInformationGame.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../Context/AuthContext.jsx";
+import {Link} from "react-router-dom";
+
+
+function AdminPage() {
+
+    const {admin} = useContext(AuthContext);
+
+    return (
+        <>
+            {admin === "ROLE_ADMIN,ROLE_USER" ?
+                <div className="outer-container">
+                    <div className="inner-container">
+                        <h1>Content toevoegen</h1>
+
+                        <div className='admin-columns'>
+                            <section className='admin-column-one'>
+                                <AddActivity/>
+                            </section>
+
+                            <section className='admin-column-two'>
+                                <AddInformationGame/>
+                            </section>
+                        </div>
+
+
+                        {/*    INNER CONTAINER DIV*/}
+                    </div>
+                    {/*    OUTER CONTAINER DIV*/}
+                </div>
+                :
+                <div className="outer-container">
+                    <div className="inner-container">
+                        <div>
+                            <button><Link to={"/"}>Ga terug naar Home</Link></button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </>
+    )
+}
+
+
+export default AdminPage;

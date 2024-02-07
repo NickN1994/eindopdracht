@@ -1,4 +1,4 @@
-import "./Navbar.css"
+import "./Styles/Navbar.css"
 
 
 import NavbarBasic from "./components/NavbarBasic.jsx";
@@ -9,7 +9,7 @@ import NavbarAdmin from "./components/NavbarAdmin.jsx";
 
 function Navbar() {
 
-    const {admin} = useContext(AuthContext)
+    const {admin} = useContext(AuthContext);
 
 
 
@@ -18,7 +18,6 @@ function Navbar() {
         {admin === "ROLE_ADMIN,ROLE_USER" ?
             <div>
             <NavbarAdmin/>
-
 
             </div>
             :

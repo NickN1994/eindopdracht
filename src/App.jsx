@@ -18,6 +18,7 @@ import {useContext} from "react";
 import {AuthContext} from "./Context/AuthContext.jsx";
 import Game from "./Pages/Courses/Game/Game.jsx";
 import AddInformationGame from "./Pages/Courses/Game/AddInformationGame.jsx";
+import AdminPage from "./Pages/Admin/AdminPage.jsx";
 // import ProtectetRoute from "./Compenents/ProtectetRoute.jsx";
 
 function App() {
@@ -36,11 +37,10 @@ function App() {
                 <Route path="/activiteiten" element={<Activities/>}/>
                 <Route path="activiteiten/:id" element={<ActivityMoreInfo/>}/>
                 <Route path="/leeromgeving" element={<Leeromgeving/>}/>
+                <Route path="/admin" element={<AdminPage/>}/>
                 <Route path="/profiel" element={<Contact/>}/>
                 <Route path="/contact" element={<Contact/>}/>
-                <Route path="/activiteit-toevoegen" element={<AddActivity/>}/>
                 <Route path="/spel-des-levens" element={<Game/>}/>
-                <Route path="/spel-des-levens-toevoegen" element={<AddInformationGame/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/registreren" element={<Register/>}/>
                 <Route path="/*" element={<PageNotFound/>}/>

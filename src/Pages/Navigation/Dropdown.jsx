@@ -1,4 +1,4 @@
-import "./Dropdown.css"
+import "./Styles/Dropdown.css"
 import {MenuItems} from "./components/MenuItems.jsx";
 import {useState} from "react";
 import {NavLink} from "react-router-dom";

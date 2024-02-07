@@ -1,8 +1,9 @@
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 
 function ActivityMoreInfo() {
@@ -18,22 +19,23 @@ function ActivityMoreInfo() {
     // const [isEditing, setIsEditing] = useState(false);
     const [deleteCheck, setDeleteCheck] = useState(false);
     const navigate = useNavigate();
-
-    // Hier nog de controle toevoegen of admin ingelogd is of een user
+    const {admin} = useContext(AuthContext);
 
     useEffect(() => {
         const abortController = new AbortController();
         const token = localStorage.getItem('token');
 
+
         async function fetchActivity() {
             try {
                 setIsLoading(true);
                 const response = await axios.get(`http://localhost:8080/activities/${id}`,
-                    {signal: abortController.signal,
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
+                    {
+                        signal: abortController.signal,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
                     });
                 console.log("Gelukt");
                 console.log(response.data);
@@ -120,63 +122,67 @@ function ActivityMoreInfo() {
                     </div>
                 )}
 
-                {admin ?
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <label htmlFor="name">Naam Activiteit</label>
-                    <input id="name" {...register('name')} />
-                    {errors.name && <p>{error.name.message}</p>}
+                {admin === "ROLE_ADMIN,ROLE_USER" ?
 
-                    <label htmlFor="participants">Aantal deelnemers</label>
-                    <input id="participants" {...register('participants')} />
-                    {errors.participants && <p>{errors.participants.message}</p>}
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <label htmlFor="name">Naam Activiteit</label>
+                            <input id="name" {...register('name')} />
+                            {errors.name && <p>{error.name.message}</p>}
 
-                    <label htmlFor="teacher">Begeleider</label>
-                    <input id="teacher" {...register('teacher')} />
-                    {errors.teacher && <p>{errors.teacher.message}</p>}
+                            <label htmlFor="participants">Aantal deelnemers</label>
+                            <input id="participants" {...register('participants')} />
+                            {errors.participants && <p>{errors.participants.message}</p>}
 
-                    <label htmlFor="date">Datum</label>
-                    <input id="date" type="date" {...register('date')} />
-                    {errors.date && <p>{errors.date.message}</p>}
+                            <label htmlFor="teacher">Begeleider</label>
+                            <input id="teacher" {...register('teacher')} />
+                            {errors.teacher && <p>{errors.teacher.message}</p>}
 
-                    <label htmlFor="time">Tijd</label>
-                    <input id="time" {...register('time')} />
-                    {errors.time && <p>{errors.time.message}</p>}
+                            <label htmlFor="date">Datum</label>
+                            <input id="date" type="date" {...register('date')} />
+                            {errors.date && <p>{errors.date.message}</p>}
 
-                    <label htmlFor="activityInfo">Activiteit Informatie</label>
-                    <textarea id="activityInfo" {...register('activityInfo')} />
-                    {errors.activityInfo && <p>{errors.activityInfo.message}</p>}
+                            <label htmlFor="time">Tijd</label>
+                            <input id="time" {...register('time')} />
+                            {errors.time && <p>{errors.time.message}</p>}
 
-                    <button type="submit">Opslaan</button>
-                    <button type="button"><Link to={"/activiteiten"}>Annuleren</Link></button>
+                            <label htmlFor="activityInfo">Activiteit Informatie</label>
+                            <textarea id="activityInfo" {...register('activityInfo')} />
+                            {errors.activityInfo && <p>{errors.activityInfo.message}</p>}
 
-                    <button onClick={() => setDeleteCheck(true)}>Activiteiten verwijderen</button>
-                    {deleteCheck &&
-                        <div>
-                            <button type="button" onClick={() => deleteActivity(activities.id)}>Klik hier om definitief
-                                te verwijderen
-                            </button>
-                            <button onClick={() => setDeleteCheck(false)}>Annuleren</button>
-                        </div>}
-                </form>
-                :
-                <div>
-                    <h3>{activities.name} {activities.date} {activities.time}</h3>
-                    {/*     HIER NOG EEN HELPER MAKEN VOOR PLEKKEN VRIJ TE BEREKENEN    */}
-                    <p>Aantal plekken vrij: {activities.participants}</p>
-                    <p>Begeleider: {activities.teacher}</p>
-                    <p>{activities.activityInfo}</p>
+                            <button type="submit">Opslaan</button>
+                            <button type="button"><Link to={"/activiteiten"}>Annuleren</Link></button>
 
-                    {/*HIERONDER BIJ DE BUTTON NOG EEN NAVIGATE TOEVOEGEN OF EEN SUCCES POPUPMELDING EN WANNEER MEN IS INGESCHREVEN KNOP
+                            <button onClick={() => setDeleteCheck(true)}>Activiteiten verwijderen</button>
+                            {deleteCheck &&
+                                <div>
+                                    <button type="button" onClick={() => deleteActivity(activities.id)}>Klik hier om
+                                        definitief
+                                        te verwijderen
+                                    </button>
+                                    <button onClick={() => setDeleteCheck(false)}>Annuleren</button>
+                                </div>}
+                        </form>
+
+                    :
+                    <div>
+                        <h3>{activities.name} {activities.date} {activities.time}</h3>
+                        {/*     HIER NOG EEN HELPER MAKEN VOOR PLEKKEN VRIJ TE BEREKENEN    */}
+                        <p>Aantal plekken vrij: {activities.participants}</p>
+                        <p>Begeleider: {activities.teacher}</p>
+                        <p>{activities.activityInfo}</p>
+
+                        {/*HIERONDER BIJ DE BUTTON NOG EEN NAVIGATE TOEVOEGEN OF EEN SUCCES POPUPMELDING EN WANNEER MEN IS INGESCHREVEN KNOP
                     VERANDEREN NAAR UITSCHRIJVEN. Voor aanmelding moet nog een post async functie */}
 
 
-                    {/*<button type="button"><Link to={}>Inschrijven</Link></button>*/}
+                        {/*<button type="button"><Link to={}>Inschrijven</Link></button>*/}
 
-                    <button type="button">
-                        <Link to={"/contact"}>Heb je nog vragen? Klik hier om contact met ons op te nemen</Link>
-                    </button>
+                        <button type="button">
+                            <Link to={"/contact"}>Heb je nog vragen? Klik hier om contact met ons op te nemen</Link>
+                        </button>
 
-                </div>}
+                    </div>
+                }
 
 
                 {/*{!isAdmin && !isEditing && (*/}

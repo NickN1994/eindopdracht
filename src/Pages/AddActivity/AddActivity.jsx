@@ -36,8 +36,8 @@ function AddActivity () {
 
 
     return (
-        <div className='outer-container'>
-            <div className='inner-container'>
+        // <div className='outer-container'>
+        //     <div className='inner-container'>
                 <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <h2>Activiteit toevoegen</h2>
                     <fieldset>
@@ -121,16 +121,17 @@ function AddActivity () {
                             register={register}
                             errors={errors}
                         />
+
                     </fieldset>
-                    <button type="submit" disabled={isLoading}>
-                        {isLoading && (
-                            <div className="loader">
-                            </div>
-                        )}
+                    <button type="submit" disabled={isLoading}>Activiteit toevoegen
                     </button>
+                    {isLoading && (
+                        <div className="loader">
+                        </div>
+                    )}
                 </form>
-            </div>
-        </div>
+        //     </div>
+        // </div>
     )
 }
 

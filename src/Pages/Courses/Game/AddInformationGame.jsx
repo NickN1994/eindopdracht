@@ -31,8 +31,8 @@ function AddInformationGame () {
     }
 
     return (
-        <div className='outer-container'>
-            <div className='inner-container'>
+        // <div className='outer-container'>
+        //     <div className='inner-container'>
                 <form onSubmit={handleSubmit(handleFormSubmit)}>
                     <h2>Activiteit toevoegen</h2>
                     <fieldset>
@@ -62,19 +62,6 @@ function AddInformationGame () {
                             errors={errors}
                         />
 
-                        <LabelInputField
-                            labelName="Content"
-                            inputType="text"
-                            id="content"
-                            validationRules={{
-                                required: {
-                                    value: true,
-                                    message: "Dit veld is verplicht"
-                                }}}
-                            register={register}
-                            errors={errors}
-                        />
-
                         <LabelTextareaField
                             labelName="Content"
                             id="content"
@@ -91,16 +78,17 @@ function AddInformationGame () {
                         />
                     </fieldset>
                     <button type="submit" disabled={isLoading}>
-                        {isLoading && (
-                            <div className="loader">
-                            </div>
-                        )}
+                        Informatie toevoegen
                     </button>
+                    {isLoading && (
+                        <div className="loader">
+                        </div>
+                    )}
                 </form>
 
 
-            </div>
-        </div>
+        //     </div>
+        // </div>
     )
 }
 

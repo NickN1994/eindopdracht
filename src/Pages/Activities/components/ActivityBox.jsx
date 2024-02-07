@@ -1,11 +1,13 @@
 import activityInfoShort from "../../../helpers/activityInfoShort.js";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Link} from "react-router-dom";
+import {AuthContext} from "../../../Context/AuthContext.jsx";
 
 
 
 // eslint-disable-next-line react/prop-types
 function ActivityBox ({name, participants, teacher, date, time, activityInfo}) {
+    const {admin} = useContext(AuthContext);
 
 
     // activityInfo
@@ -51,7 +53,7 @@ function ActivityBox ({name, participants, teacher, date, time, activityInfo}) {
             <p>{activityInfoShort(activityInfo)}...</p>
 
             <div>
-                {Admin ?
+                {admin ?
                 <button type="button">
                     <Link to={`/activiteiten/:id`}>Activiteit bewerken</Link>
                 </button>

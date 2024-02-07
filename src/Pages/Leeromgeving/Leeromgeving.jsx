@@ -3,6 +3,8 @@ import "./Leeromgeving.css"
 
 function Leeromgeving () {
 
+    // hier overzicht maken van de de courses
+
     return (
         <div className='outer-container'>
             <div className='inner-container'>
