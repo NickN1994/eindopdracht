@@ -15,11 +15,16 @@ function Contact() {
 
 
     async function handleFormSubmit (data) {
-        event.preventDefault();
+        const token = localStorage.getItem('token');
         try {
             setIsLoading(true);
             await axios.post("http://localhost:8080/send-email", {
-                ...data}
+                ...data,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+                }
             );
             toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.");
 

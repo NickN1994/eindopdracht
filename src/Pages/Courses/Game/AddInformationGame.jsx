@@ -15,11 +15,15 @@ function AddInformationGame () {
     const [isLoading, setIsLoading] = useState(false);
 
     async function handleFormSubmit (data) {
+        const token = localStorage.getItem('token');
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/information", {
-                ...data}
-            );
+            const result = await axios.post("http://localhost:8080/information", data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             toast.success("Informatie voor het Spel des Levens is toegevoegd.")
             setGameInformation(result.data);
         } catch (e) {
@@ -34,7 +38,7 @@ function AddInformationGame () {
         // <div className='outer-container'>
         //     <div className='inner-container'>
                 <form onSubmit={handleSubmit(handleFormSubmit)}>
-                    <h2>Activiteit toevoegen</h2>
+                    <h2>Content Spel des Levens toevoegen</h2>
                     <fieldset>
                         <LabelInputField
                             labelName="Titel"

@@ -25,8 +25,8 @@ function ActivityMoreInfo() {
         const abortController = new AbortController();
         const token = localStorage.getItem('token');
 
-
         async function fetchActivity() {
+
             try {
                 setIsLoading(true);
                 const response = await axios.get(`http://localhost:8080/activities/${id}`,
@@ -111,7 +111,6 @@ function ActivityMoreInfo() {
         }
     }
 
-    // MET DE AUTHCONTEXT NOG DE ADMIN TOEVEOGEN
 
     return (
         <div className="outer-container">
@@ -122,7 +121,7 @@ function ActivityMoreInfo() {
                     </div>
                 )}
 
-                {admin === "ROLE_ADMIN,ROLE_USER" ?
+                {admin ?
 
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <label htmlFor="name">Naam Activiteit</label>
@@ -164,6 +163,7 @@ function ActivityMoreInfo() {
                         </form>
 
                     :
+
                     <div>
                         <h3>{activities.name} {activities.date} {activities.time}</h3>
                         {/*     HIER NOG EEN HELPER MAKEN VOOR PLEKKEN VRIJ TE BEREKENEN    */}

@@ -19,11 +19,15 @@ function AddActivity () {
     // TOEVOEGEN OM EEN AFBEELDING UP TE LOADEN EN BIJ ACTIVITEIT TE PLAATSEN
 
     async function handleFormSubmit (data) {
+        const token = localStorage.getItem('token');
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/activities", {
-                ...data}
-            );
+            const result = await axios.post("http://localhost:8080/activities", data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             toast.success("Activiteit is toegevoegd.")
             setActivity(result.data);
         } catch (e) {
