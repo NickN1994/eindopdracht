@@ -12,19 +12,18 @@ function Navbar() {
     const {admin} = useContext(AuthContext);
 
 
-
     return (
-    <>
-        {admin === "ROLE_ADMIN,ROLE_USER" ?
-            <div>
-            <NavbarAdmin/>
+        <>
+            {admin ?
+                <div>
+                    <NavbarAdmin/>
 
-            </div>
-            :
-            <div>
-                <NavbarBasic/>
-            </div>
-        }
+                </div>
+                :
+                <div>
+                    <NavbarBasic/>
+                </div>
+            }
         </>
     )
 }

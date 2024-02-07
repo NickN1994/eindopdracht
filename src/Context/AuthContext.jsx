@@ -4,7 +4,7 @@ import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 import isTokenValid from "../helpers/isTokenValid.js";
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext(false);
 
 // eslint-disable-next-line react/prop-types
 function AuthContextProvider({children}) {
@@ -14,10 +14,12 @@ function AuthContextProvider({children}) {
         user: null,
         status: 'pending'
     });
-    const [admin, setAdmin] = useState('');
+    const [admin, setAdmin] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
+        const storedIsAdmin = localStorage.getItem('isAdmin') === 'true';
+        setAdmin(storedIsAdmin);
         const abortController = new AbortController();
         const token = localStorage.getItem('token');
 
@@ -46,6 +48,19 @@ function AuthContextProvider({children}) {
         const decodedToken = jwtDecode(token);
         console.log(token);
 
+        const isAdmin = decodedToken.roles === "ROLE_ADMIN,ROLE_USER";
+        localStorage.setItem('isAdmin', isAdmin.toString()); // Bewaar admin status als string
+        setAdmin(isAdmin); // Direct bijwerken met boolean waarde
+
+        // if (decodedToken.roles === "ROLE_ADMIN,ROLE_USER") {
+        //     localStorage.setItem('isAdmin', 'true');
+        //     const isAdmin = localStorage.getItem('isAdmin') === 'true';
+        //     setAdmin(isAdmin);
+        // } else {
+        //     setAdmin({});
+        // }
+
+
         try {
             const response = await axios.get(`http://localhost:8080/users/${decodedToken.sub}`, {
                 headers: {
@@ -53,8 +68,6 @@ function AuthContextProvider({children}) {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setAdmin(decodedToken.roles);
-            console.log(decodedToken.roles);
 
             setAuth({
                 isAuth: true,
@@ -75,6 +88,7 @@ function AuthContextProvider({children}) {
 
     function logout () {
 
+        localStorage.removeItem('ísAdmin');
         localStorage.removeItem('token');
         setAuth({
             isAuth: false,

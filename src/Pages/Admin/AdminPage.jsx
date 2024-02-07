@@ -11,7 +11,7 @@ function AdminPage() {
 
     return (
         <>
-            {admin === "ROLE_ADMIN,ROLE_USER" ?
+            {admin ?
                 <div className="outer-container">
                     <div className="inner-container">
                         <h1>Content toevoegen</h1>
