@@ -1,7 +1,7 @@
 import "./Dropdown.css"
 import {useState} from "react";
 import {NavLink} from "react-router-dom";
-import {MenuItemsAdmin} from "../../Compenents/MenuItemsAdmin.jsx";
+import {MenuItemsAdmin} from "./components/MenuItemsAdmin.jsx";
 
 function DropdownAdmin() {
 

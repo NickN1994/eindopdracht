@@ -1,5 +1,5 @@
 import "./Dropdown.css"
-import {MenuItems} from "../../Compenents/MenuItems.jsx";
+import {MenuItems} from "./components/MenuItems.jsx";
 import {useState} from "react";
 import {NavLink} from "react-router-dom";
 
