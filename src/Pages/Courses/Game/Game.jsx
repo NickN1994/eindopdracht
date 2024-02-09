@@ -30,8 +30,16 @@ function Game () {
                 // console.log(result.data);
                 setInformation(result.data);
             } catch (e) {
-                console.error(e + "Het is niet gelukt om de data op te halen.");
-                toast.error("Er is iets misgegaan. Probeer opnieuw.")
+
+                if (e.code === "ERR_CANCELED") {
+                    // console.log("Verzoek is geannuleerd:", e.message);
+                } else {
+                    // Het is een echte fout
+                    console.error(e, "Het is niet gelukt om de data op te halen.");
+                    toast.error("Er is iets misgegaan. Probeer opnieuw.");
+                }
+                // console.error(e + "Het is niet gelukt om de data op te halen.");
+                // toast.error("Er is iets misgegaan. Probeer opnieuw.")
             } finally {
                 setIsLoading(false);
             }

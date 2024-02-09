@@ -4,7 +4,7 @@ import Home from "./Pages/Home/Home.jsx"
 import Contact from "./Pages/Contact/Contact.jsx";
 import Footer from "./Pages/Footer/Footer.jsx";
 import Leeromgeving from "./Pages/Leeromgeving/Leeromgeving.jsx";
-import AddActivity from "./Pages/AddActivity/AddActivity.jsx";
+
 import Activities from "./Pages/Activities/Activities.jsx";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound.jsx";
 import ActivityMoreInfo from "./Pages/Activities/ActivityMoreInfo.jsx";
@@ -17,7 +17,7 @@ import ShowNavBar from "./Compenents/ShowNavBar.jsx";
 import {useContext} from "react";
 import {AuthContext} from "./Context/AuthContext.jsx";
 import Game from "./Pages/Courses/Game/Game.jsx";
-import AddInformationGame from "./Pages/Courses/Game/AddInformationGame.jsx";
+
 import AdminPage from "./Pages/Admin/AdminPage.jsx";
 // import ProtectetRoute from "./Compenents/ProtectetRoute.jsx";
 

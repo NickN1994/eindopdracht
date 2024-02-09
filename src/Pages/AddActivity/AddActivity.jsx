@@ -22,7 +22,8 @@ function AddActivity () {
         const token = localStorage.getItem('token');
         try {
             setIsLoading(true);
-            const result = await axios.post("http://localhost:8080/activities", data, {
+            const result = await axios.post("http://localhost:8080/activities", data,{
+
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -31,6 +32,7 @@ function AddActivity () {
             toast.success("Activiteit is toegevoegd.")
             setActivity(result.data);
         } catch (e) {
+            // console.log(data)
             console.error(e + "Het is niet gelukt om activiteit toe te voegen");
             toast.error("Het is niet gelukt om activiteit toe te voegen")
         } finally {
@@ -48,7 +50,7 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Naam Activiteit"
                             inputType="text"
-                            id="naam activiteit"
+                            id="name"
                             validationRules={{
                                 required: {
                                     value: true,
@@ -61,7 +63,7 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Aantal beschikbare plekken"
                             inputType="text"
-                            id="aantal_beschikbare_plekken"
+                            id="participants"
                             validationRules={{
                                 required: {
                                     value: true,
@@ -74,7 +76,7 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Begeleider"
                             inputType="text"
-                            id="begeleider"
+                            id="teacher"
                             validationRules={{
                                 required: {
                                     value: true,
@@ -87,7 +89,7 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Datum"
                             inputType="date"
-                            id="datum"
+                            id="date"
                             validationRules={{
                                 required: {
                                     value: true,
@@ -100,7 +102,7 @@ function AddActivity () {
                         <LabelInputField
                             labelName="Tijd"
                             inputType="text"
-                            id="tijd"
+                            id="time"
                             placeholder="Bijvoorbeeld: 10.00u tot 16.00u"
                             validationRules={{
                                 required: {
@@ -113,7 +115,7 @@ function AddActivity () {
 
                         <LabelTextareaField
                             labelName="Beschrijf acitiviteit"
-                            id="activiteit_beschrijving"
+                            id="activityInfo"
                             placeholder="Beschrijf hier je activiteit"
                             cols="30"
                             rows="10"
