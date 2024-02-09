@@ -17,8 +17,8 @@ import ShowNavBar from "./Compenents/ShowNavBar.jsx";
 import {useContext} from "react";
 import {AuthContext} from "./Context/AuthContext.jsx";
 import Game from "./Pages/Courses/Game/Game.jsx";
-
 import AdminPage from "./Pages/Admin/AdminPage.jsx";
+import ProfilePage from "./Pages/Profile/ProfilePage.jsx";
 // import ProtectetRoute from "./Compenents/ProtectetRoute.jsx";
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
                 <Route path="activiteiten/:id" element={<ActivityMoreInfo/>}/>
                 <Route path="/leeromgeving" element={<Leeromgeving/>}/>
                 <Route path="/admin" element={<AdminPage/>}/>
-                <Route path="/profiel" element={<Contact/>}/>
+                <Route path="/profiel" element={<ProfilePage/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/spel-des-levens" element={<Game/>}/>
                 <Route path="/login" element={<Login/>}/>

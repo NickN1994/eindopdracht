@@ -53,9 +53,15 @@ function ActivityMoreInfo() {
 
 
     const onSubmit = async (data) => {
+        const token = localStorage.getItem('token');
         setIsLoading(true);
+
         try {
-            const response = await axios.put(`http://localhost:8080/activities/${id}`, data);
+            const response = await axios.put(`http://localhost:8080/activities/${id}`, data,{
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }});
             if (response.status === 200) {
                 toast.success("Activiteit is bijgewerkt");
                 navigate("/activiteiten");

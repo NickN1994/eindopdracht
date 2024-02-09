@@ -1,6 +1,5 @@
 import './Home.css'
 import fotoHome from './Assets/VanuitHartenZiel0-aangepast-10-1-scaled.jpg'
-import ActivityBox from "../../Compenents/ActivityBox.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
@@ -32,9 +31,6 @@ function Home() {
                     });
                 setUserData(response.data)
 
-                console.log("Gelukt");
-                console.log(response.data);
-
             } catch (e) {
 
                 if (axios.isCancel(e)) {
@@ -54,7 +50,6 @@ function Home() {
 
         fetchName();
         return () => {
-            console.log("Clean up");
             abortController.abort();
         };
 

@@ -37,9 +37,9 @@ function Activities() {
                 console.log(result.data);
             } catch (e) {
                 if (e.code === "ERR_CANCELED") {
-                    // console.log("Verzoek is geannuleerd:", e.message);
+                    // een fout
                 } else {
-                    // Het is een echte fout
+
                     console.error(e, "Het is niet gelukt om de data op te halen.");
                     toast.error("Er is iets misgegaan. Probeer opnieuw.");
                 }
