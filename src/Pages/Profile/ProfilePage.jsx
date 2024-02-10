@@ -12,6 +12,8 @@ function ProfilePage() {
     const [editProfileData, setEditProfileData] = useState({});
     const [editProfile, setEditProfile] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [image, setImage] = useState({});
+    const [imageObject, setImageObject] = useState(false);
     const {register, handleSubmit, setValue, formState: {errors}} = useForm();
     const navigate = useNavigate();
 
@@ -35,6 +37,17 @@ function ProfilePage() {
                         }
                     });
                 setProfileData(result.data);
+                if (profileData != null) {
+                    setImageObject(true);
+                }
+                const imageResult = await axios.get(`http://localhost:8080/image/${username}`,
+                    {
+                        signal: abortController.signal,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }});
+                setImage(imageResult.data);
             } catch (e) {
                 if (e.code === "ERR_CANCELED") {
                     // foutmelding
@@ -146,6 +159,18 @@ function ProfilePage() {
                     :
 
                 <div>
+                    
+                    <div>
+                        <figure>
+                            <img src={image.imageData} alt="profielFoto"/>
+                        </figure>
+                        {imageObject ?
+                            <button type="button">Profielfoto verwijderen</button>
+                            :
+                            <button type="button">Profiel uploaden</button>
+                        }
+                    </div>
+                    
                     <div>
                         <h2>Naam:</h2>
                         <p>{profileData.name}</p>
