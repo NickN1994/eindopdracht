@@ -3,6 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
+import {AuthContext} from "../../../Context/AuthContext.jsx";
 
 
 function GameContentId() {
@@ -13,6 +14,11 @@ function GameContentId() {
     const [isLoading, setIsLoading] = useState(false);
     const [deleteCheck, setDeleteCheck] = useState(false);
     const navigate = useNavigate();
+    const {admin} = useContext(AuthContext);
+
+    const handleDeleteCheck = () => setDeleteCheck(true);
+    const handleCancelDelete = () => setDeleteCheck(false);
+    const handleConfirmDelete = () => deleteInformation(information.id);
 
 
     useEffect(() => {
@@ -70,11 +76,18 @@ function GameContentId() {
 
 
     async function deleteInformation(id) {
+        const token = localStorage.getItem('token');
         setIsLoading(true)
         try {
-            await axios.delete(`http://localhost:8080/information/${id}`);
+            await axios.delete(`http://localhost:8080/information/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                }}
+            );
             toast.success("Content is verwijderd");
-            navigate("/information");
+            navigate("/spel-des-levens");
         } catch (error) {
 
             if (error.response && error.response.status === 404) {
@@ -98,6 +111,7 @@ function GameContentId() {
                 )}
 
                 {admin ?
+                    <div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <label htmlFor="title">Titel</label>
                         <input id="title" {...register('title')} />
@@ -114,16 +128,15 @@ function GameContentId() {
                         <button type="submit">Opslaan</button>
                         <button type="button"><Link to={"/spel-des-levens"}>Annuleren</Link></button>
 
-                        <button onClick={() => setDeleteCheck(true)}>Content verwijderen</button>
+                    </form>
+                        <button onClick={handleDeleteCheck}>Content verwijderen</button>
                         {deleteCheck &&
                             <div>
-                                <button type="button" onClick={() => deleteInformation(information.id)}>Klik hier om
-                                    definitief
-                                    te verwijderen
-                                </button>
-                                <button onClick={() => setDeleteCheck(false)}>Annuleren</button>
-                            </div>}
-                    </form>
+                                <button type="button" onClick={handleConfirmDelete}>Klik hier om definitief te verwijderen</button>
+                                <button onClick={handleCancelDelete}>Annuleren</button>
+                            </div>
+                        }
+                    </div>
                     :
                     <div>
                         <h1>{information.title}</h1>
