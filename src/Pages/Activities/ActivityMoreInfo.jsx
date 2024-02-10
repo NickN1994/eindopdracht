@@ -8,7 +8,7 @@ import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function ActivityMoreInfo() {
 
-    const {register, handleSubmit, setValue, formState: {errors}} = useForm(); // Direct destructuring in useForm declaration
+    const {register, handleSubmit, setValue, formState: {errors}} = useForm();
     const {id} = useParams();
     const [activities, setActivities] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,7 @@ function ActivityMoreInfo() {
                     }
                 });
                 setActivities(response.data);
-                // Dynamically set values from response
+
                 setValue('name', response.data.name);
                 setValue('participants', response.data.participants);
                 setValue('teacher', response.data.teacher);

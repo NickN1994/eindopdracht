@@ -19,7 +19,9 @@ import {AuthContext} from "./Context/AuthContext.jsx";
 import Game from "./Pages/Courses/Game/Game.jsx";
 import AdminPage from "./Pages/Admin/AdminPage.jsx";
 import ProfilePage from "./Pages/Profile/ProfilePage.jsx";
-// import ProtectetRoute from "./Compenents/ProtectetRoute.jsx";
+
+import GameContentId from "./Pages/Courses/Game/GameContentId.jsx";
+
 
 function App() {
 
@@ -35,12 +37,13 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/activiteiten" element={<Activities/>}/>
-                <Route path="activiteiten/:id" element={<ActivityMoreInfo/>}/>
+                <Route path="/activiteiten/:id" element={<ActivityMoreInfo/>}/>
                 <Route path="/leeromgeving" element={<Leeromgeving/>}/>
                 <Route path="/admin" element={<AdminPage/>}/>
                 <Route path="/profiel" element={<ProfilePage/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/spel-des-levens" element={<Game/>}/>
+                <Route path="/spel-des-levens/:id" element={<GameContentId/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/registreren" element={<Register/>}/>
                 <Route path="/*" element={<PageNotFound/>}/>

@@ -1,6 +1,6 @@
-import activityInfoShort from "../../../helpers/activityInfoShort.js";
+import infoShort from "../../../helpers/infoShort.js";
 import {useContext} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {AuthContext} from "../../../Context/AuthContext.jsx";
 
 
@@ -22,7 +22,7 @@ function ActivityBox ({id, name, participants, teacher, date, time, activityInfo
             {/*HIER NOG EEN HELPER MAKEN VOOR PLEKKEN VRIJ TE BEREKENEN*/}
             <p>Totaal aantal plekken: {participants}</p>
             <p>Begeleider: {teacher}</p>
-            <p>{activityInfoShort(activityInfo)}...</p>
+            <p>{infoShort(activityInfo)}...</p>
 
             <div>
                 {admin ?
@@ -33,7 +33,6 @@ function ActivityBox ({id, name, participants, teacher, date, time, activityInfo
                 <button type="button">
                     <Link to={`/activiteiten/${id}`}>Meer informatie</Link>
                 </button>}
-
             </div>
         </div>
     )
