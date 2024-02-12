@@ -49,17 +49,8 @@ function AuthContextProvider({children}) {
         console.log(token);
 
         const isAdmin = decodedToken.roles === "ROLE_ADMIN,ROLE_USER";
-        localStorage.setItem('isAdmin', isAdmin.toString()); // Bewaar admin status als string
-        setAdmin(isAdmin); // Direct bijwerken met boolean waarde
-
-        // if (decodedToken.roles === "ROLE_ADMIN,ROLE_USER") {
-        //     localStorage.setItem('isAdmin', 'true');
-        //     const isAdmin = localStorage.getItem('isAdmin') === 'true';
-        //     setAdmin(isAdmin);
-        // } else {
-        //     setAdmin({});
-        // }
-
+        localStorage.setItem('isAdmin', isAdmin.toString());
+        setAdmin(isAdmin);
 
         try {
             const response = await axios.get(`http://localhost:8080/users/${decodedToken.sub}`, {

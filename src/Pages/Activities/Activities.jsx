@@ -9,7 +9,7 @@ function Activities() {
 
     const [activity, setActivity] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
+
 
     // {
     //     "name" : "Lichtcirkel",
@@ -33,13 +33,16 @@ function Activities() {
                             Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         }});
-                // console.log("Gelukt");
-                // console.log(result.data);
                 setActivity(result.data);
+                console.log(result.data);
             } catch (e) {
-                // console.error(e + "Het is niet gelukt om de data op te halen.");
-                setError(true);
-                toast.error("Er is iets misgegaan. Probeer opnieuw.")
+                if (e.code === "ERR_CANCELED") {
+                    // een fout
+                } else {
+
+                    console.error(e, "Het is niet gelukt om de data op te halen.");
+                    toast.error("Er is iets misgegaan. Probeer opnieuw.");
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -52,23 +55,7 @@ function Activities() {
         };
     }, []);
 
-    // async function updateActivity(id, updatedActivity) {
-    //     try {
-    //         const response = await axios.put(`http://localhost:8080/activities/${id}`, updatedActivity);
-    //         if (response.status === 200) {
-    //             toast.success("Activiteit is bijgewerkt");
-    //
-    //             setActivity((prevActivities) =>
-    //                 prevActivities.map((activity) =>
-    //                     activity.id === id ? { ...activity, ...updatedActivity } : activity
-    //                 )
-    //             );
-    //         }
-    //     } catch (error) {
-    //         toast.error("Er is iets misgegaan bij het bijwerken van de activiteit");
-    //         console.error("Er is iets misgegaan bij het bijwerken van de activiteit", error);
-    //     }
-    // }
+
 
     return (
         <div className="outer-container">
@@ -81,6 +68,7 @@ function Activities() {
                     return (
                         <ActivityBox
                             key={activity.id}
+                            id={activity.id}
                             name={activity.name}
                             participants={activity.participants}
                             teacher={activity.teacher}
