@@ -3,7 +3,8 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {jwtDecode} from "jwt-decode";
 import {useForm} from "react-hook-form";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import "./ProfilePage.css"
 
 
 function ProfilePage() {
@@ -13,59 +14,61 @@ function ProfilePage() {
     const [editProfile, setEditProfile] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [image, setImage] = useState({});
-    const [imageObject, setImageObject] = useState(false);
     const {register, handleSubmit, setValue, formState: {errors}} = useForm();
     const navigate = useNavigate();
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+
 
     useEffect(() => {
         const abortController = new AbortController();
         const token = localStorage.getItem('token');
-
         const decodedToken = jwtDecode(token);
         const username = decodedToken.sub;
 
-        async function fetchData() {
+        const fetchProfileData = async () => {
             try {
                 setIsLoading(true);
-                const result = await axios.get(
-                    `http://localhost:8080/users/${username}`,
-                    {
-                        signal: abortController.signal,
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
+                const result = await axios.get(`http://localhost:8080/users/${username}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
                 setProfileData(result.data);
-                if (profileData != null) {
-                    setImageObject(true);
-                }
-                const imageResult = await axios.get(`http://localhost:8080/image/${username}`,
-                    {
-                        signal: abortController.signal,
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }});
-                setImage(imageResult.data);
-            } catch (e) {
-                if (e.code === "ERR_CANCELED") {
-                    // foutmelding
-                } else {
-                    console.error(e, "Het is niet gelukt om de data op te halen.");
-                    toast.error("Er is iets misgegaan. Probeer opnieuw.");
-                }
-            } finally {
-                setIsLoading(false);
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+                toast.error("Er is iets misgegaan. Probeer opnieuw.");
             }
-        }
+        };
 
-        fetchData();
+        const fetchImageData = async () => {
+            try {
+                const imageResult = await axios.get(`http://localhost:8080/image/${username}`, {
+                    responseType: 'blob',
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                if (imageResult.data.size > 0) {
+                    const imageUrl = URL.createObjectURL(imageResult.data);
+                    setImage({ imageData: imageUrl });
+                } else {
+                    setImage({});
+                }
+            } catch (error) {
+                console.error("Error fetching image data:", error);
+            }
+        };
+
+        fetchProfileData();
+        fetchImageData();
+
         return () => {
-
             abortController.abort();
         };
-    }, []);
+    }, [image]);
 
     const changeProfile = async () => {
         const abortController = new AbortController();
@@ -111,7 +114,7 @@ function ProfilePage() {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }});
-            console.log("Response: ", response);
+
             if (response.status === 200) {
                 toast.success("Profiel is bijgewerkt");
                 navigate("/profiel");
@@ -123,6 +126,72 @@ function ProfilePage() {
             setIsLoading(false);
         }
     };
+
+    async function deleteImage() {
+        setIsLoading(true);
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const username = decodedToken.sub;
+        try {
+            const response = await axios.delete(`http://localhost:8080/image/${username}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            if (response.status === 204 || response.status === 200) {
+                toast.success("Profielfoto is verwijderd");
+                setImage({}); // Wis de afbeeldingsstaat
+                navigate("/profiel");
+            }
+        } catch (error) {
+            console.error("Fout bij het verwijderen van de afbeelding:", error);
+            if (error.response) {
+                console.error("Server response:", error.response.data);
+                toast.error("Server error: " + error.response.data.message);
+            } else if (error.request) {
+                toast.error("Geen antwoord van de server");
+            } else {
+                toast.error("Error: " + error.message);
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+
+        if (!selectedFile) {
+            toast.error("Selecteer een bestand om te uploaden.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const username = decodedToken.sub;
+        formData.append('username', username);
+
+        try {
+            setIsLoading(true);
+            const response = await axios.post("http://localhost:8080/image", formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    // Verwijder 'Content-Type': 'application/json', FormData regelt dit zelf.
+                }
+            });
+            toast.success("Profielfoto is toegevoegd.");
+
+        } catch (error) {
+            console.error("Fout bij uploaden: ", error);
+            toast.error("Uploaden mislukt.");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
 
 
     return (
@@ -158,19 +227,24 @@ function ProfilePage() {
 
                     :
 
-                <div>
-                    
-                    <div>
-                        <figure>
-                            <img src={image.imageData} alt="profielFoto"/>
-                        </figure>
-                        {imageObject ?
-                            <button type="button">Profielfoto verwijderen</button>
-                            :
-                            <button type="button">Profiel uploaden</button>
-                        }
-                    </div>
-                    
+                    <div className="colums">
+                        <section className="colum-one">
+                            <form onSubmit={handleFormSubmit}>
+                                <input type="file" onChange={handleFileChange} />
+                                <button type="submit">Upload</button>
+                            </form>
+
+                            {image.imageData && (
+                                <div>
+                                    <figure className="image-box">
+                                        <img src={image.imageData} alt="Profiel foto" className="PFimage" />
+                                    </figure>
+                                    <button type="button" onClick={deleteImage}>Profielfoto verwijderen</button>
+                                </div>
+                            )}
+                        </section>
+
+                    <section className="colum-two">
                     <div>
                         <h2>Naam:</h2>
                         <p>{profileData.name}</p>
@@ -192,6 +266,7 @@ function ProfilePage() {
                     </div>
 
                     <button type="button" onClick={changeProfile}>Profiel bewerken</button>
+                    </section>
                 </div>
                 }
 
