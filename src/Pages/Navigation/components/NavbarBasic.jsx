@@ -93,7 +93,7 @@ function NavbarBasic () {
                         </li>
                     </ul>
 
-                    <button type="button" onClick={logout}>Uitloggen</button>
+                    <button type="button" onClick={logout} className="btn">Uitloggen</button>
 
                 </nav>
             </header>

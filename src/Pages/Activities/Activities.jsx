@@ -64,7 +64,13 @@ function Activities() {
                     <div className="loader">
                     </div>
                 )}
-                {activity.length > 0 && activity.map((activity) => {
+
+                <h1>Activiteiten</h1>
+
+                <div className="parent-activity-box">
+                {activity.length > 0 && activity
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
+                    .map((activity) => {
                     return (
                         <ActivityBox
                             key={activity.id}
@@ -78,6 +84,7 @@ function Activities() {
                         />
                     )
                 })}
+                </div>
             </div>
         </div>
     )

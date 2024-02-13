@@ -4,6 +4,8 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
 import {AuthContext} from "../../Context/AuthContext.jsx";
+import {jwtDecode} from "jwt-decode";
+import formatDate from "../../helpers/formatDate.js";
 
 
 function ActivityMoreInfo() {
@@ -18,7 +20,7 @@ function ActivityMoreInfo() {
     const {admin} = useContext(AuthContext);
 
     useEffect(() => {
-        const fetchActivity = async () => {
+        async function fetchActivity() {
             const abortController = new AbortController();
             const token = localStorage.getItem('token');
             setIsLoading(true);
@@ -46,22 +48,23 @@ function ActivityMoreInfo() {
                 setIsLoading(false);
             }
             return () => abortController.abort();
-        };
+        }
 
         fetchActivity();
     }, [id, setValue]);
 
 
-    const onSubmit = async (data) => {
+    async function onSubmit(data) {
         const token = localStorage.getItem('token');
         setIsLoading(true);
 
         try {
-            const response = await axios.put(`http://localhost:8080/activities/${id}`, data,{
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }});
+            const response = await axios.put(`http://localhost:8080/activities/${id}`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             if (response.status === 200) {
                 toast.success("Activiteit is bijgewerkt");
                 navigate("/activiteiten");
@@ -72,7 +75,7 @@ function ActivityMoreInfo() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }
 
 
     async function deleteActivity(id) {
@@ -88,6 +91,34 @@ function ActivityMoreInfo() {
             } else {
                 toast.error("Er is een probleem opgetreden bij het verwijderen");
             }
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function subscribe() {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.sub;
+        try {
+            setIsLoading(true);
+            const response = await axios.post(
+                "http://localhost:8080/subscribe",
+                {
+                    userId: userId,
+                    activityId: id
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            toast.success("Aanmelding is voltooid.")
+            console.log(response.data);
+        } catch (e) {
+            console.error(e + "Het is niet gelukt om de je aan te melden.");
+            toast.error("Het is niet gelukt om de je aan te melden.")
         } finally {
             setIsLoading(false);
         }
@@ -146,26 +177,21 @@ function ActivityMoreInfo() {
 
                     :
 
-                    <div>
-                        <h3>{activities.name} {activities.date} {activities.time}</h3>
-                        {/*     HIER NOG EEN HELPER MAKEN VOOR PLEKKEN VRIJ TE BEREKENEN    */}
-                        <p>Aantal plekken vrij: {activities.participants}</p>
+                    <div className="activity-info-box">
+                        <h1>{activities.name}</h1>
+                        <h3>{activities.date ? formatDate(activities.date) : 'Laden...'} {activities.time}</h3>
+                        <p>Aantal plekke beschikbaar: </p>
+                        <p>Totaal aantal plekken: {activities.participants}</p>
                         <p>Begeleider: {activities.teacher}</p>
                         <p>{activities.activityInfo}</p>
 
-                        {/*HIERONDER BIJ DE BUTTON NOG EEN NAVIGATE TOEVOEGEN OF EEN SUCCES POPUPMELDING EN WANNEER MEN IS INGESCHREVEN KNOP
-                    VERANDEREN NAAR UITSCHRIJVEN. Voor aanmelding moet nog een post async functie */}
-
-
-                        {/*<button type="button"><Link to={}>Inschrijven</Link></button>*/}
-
-                        <button type="button">
-                            <Link to={"/contact"}>Heb je nog vragen? Klik hier om contact met ons op te nemen</Link>
-                        </button>
-
+                        <div className="btn-grp">
+                            <button type="button" onClick={subscribe} className="btn-subscribe">Inschrijven</button>
+                            <Link to={"/contact"} className="btn">Heb je nog vragen? Klik hier om contact met ons op te
+                                nemen</Link>
+                        </div>
                     </div>
                 }
-
             </div>
         </div>
     )

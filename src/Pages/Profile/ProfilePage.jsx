@@ -68,7 +68,7 @@ function ProfilePage() {
         return () => {
             abortController.abort();
         };
-    }, [image]);
+    }, []);
 
     const changeProfile = async () => {
         const abortController = new AbortController();
@@ -178,8 +178,7 @@ function ProfilePage() {
             setIsLoading(true);
             const response = await axios.post("http://localhost:8080/image", formData, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                    // Verwijder 'Content-Type': 'application/json', FormData regelt dit zelf.
+                    Authorization: `Bearer ${token}`
                 }
             });
             toast.success("Profielfoto is toegevoegd.");

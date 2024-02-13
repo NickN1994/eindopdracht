@@ -78,7 +78,7 @@ function NavbarAdmin() {
 
 
                             <li>
-                                <button type="button" onClick={logout}>Uitloggen</button>
+                                <button type="button" onClick={logout} className="btn">Uitloggen</button>
                             </li>
                         </ul>
                     </div>
