@@ -73,7 +73,7 @@ function ActivityMoreInfo() {
         fetchActivity();
     }, [id, setValue]);
 
-
+// activiteit aanpassen
     async function onSubmit(data) {
         const token = localStorage.getItem('token');
         setIsLoading(true);
@@ -97,7 +97,7 @@ function ActivityMoreInfo() {
         }
     }
 
-
+// activiteit verwijderen
     async function deleteActivity(id) {
         const token = localStorage.getItem('token');
         setIsLoading(true)
@@ -122,6 +122,7 @@ function ActivityMoreInfo() {
         }
     }
 
+    // aanmelden activiteit
     async function subscribe() {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
@@ -151,6 +152,7 @@ function ActivityMoreInfo() {
         }
     }
 
+    // uitschrijven activiteit maar deze klopt niet wat is post
     async function onSubscribe() {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
