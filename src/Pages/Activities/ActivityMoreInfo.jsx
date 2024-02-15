@@ -20,11 +20,15 @@ function ActivityMoreInfo() {
     const [availableSpots, setAvailableSpots] = useState(0);
     // const [disabled, setDisabled] = useState(false);
     const [isSubscribed, setIsSubscribed] = useState(false);
+    const [unSubscribeCheck, setUnSubscribeCheck] = useState(false);
 
 
     const handleDeleteCheck = () => setDeleteCheck(true);
     const handleCancelDelete = () => setDeleteCheck(false);
     const handleConfirmDelete = () => deleteActivity(activities.id);
+
+    const handleUnsubscribeCheck = () => setUnSubscribeCheck(true);
+    const handleCancelUnsubscribe = () => setUnSubscribeCheck(false);
 
     useEffect(() => {
         async function fetchActivity() {
@@ -57,12 +61,8 @@ function ActivityMoreInfo() {
                         }
                     });
                 setAvailableSpots(result.data);
-                // if (availableSpots === 0) {
-                //     setDisabled(true);
-                // }
             } catch (e) {
                 console.error(e, "Het is niet gelukt om de data op te halen.");
-                setError(true);
                 toast.error("Er is iets misgegaan. Ververs de pagina.");
             } finally {
                 setIsLoading(false);
@@ -124,35 +124,6 @@ function ActivityMoreInfo() {
     }
 
     // aanmelden activiteit
-    // async function subscribe() {
-    //     const token = localStorage.getItem('token');
-    //     const decodedToken = jwtDecode(token);
-    //     const userId = decodedToken.sub;
-    //     try {
-    //         setIsLoading(true);
-    //         const response = await axios.post(
-    //             "http://localhost:8080/subscribe",
-    //             {
-    //                 userId: userId,
-    //                 activityId: id
-    //             },
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`,
-    //                     'Content-Type': 'application/json'
-    //                 }
-    //             });
-    //         toast.success("Aanmelding is voltooid.")
-    //         setSubscribed(true);
-    //         console.log(response.data);
-    //     } catch (e) {
-    //         console.error(e + "Het is niet gelukt om de je aan te melden.");
-    //         toast.error("Het is niet gelukt om de je aan te melden.")
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // }
-
     async function subscribe() {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
@@ -304,7 +275,19 @@ function ActivityMoreInfo() {
 
                         <div className="btn-grp">
                             {isSubscribed ?
-                                <button type="button" onClick={unsubscribe} className="btn btn-purple">Uitschrijven</button>
+                                <div>
+                                {!unSubscribeCheck ?
+                                    <button type="button" className="btn btn-purple" onClick={handleUnsubscribeCheck}>Uitschrijven</button>
+                                    :
+                                    <div>
+                                        <button type="button" className="btn btn-orange" onClick={unsubscribe}>Bevestig uitschrijving</button>
+                                        <button type="button" className="btn btn-purple" onClick={handleCancelUnsubscribe}>Annuleren</button>
+                                    </div>
+
+                            }
+                                </div>
+
+                                // <button type="button" onClick={unsubscribe} className="btn btn-purple">Uitschrijven</button>
                                 :
                                 <button type="button" onClick={subscribe} className="btn btn-orange">Inschrijven</button>
                             }
