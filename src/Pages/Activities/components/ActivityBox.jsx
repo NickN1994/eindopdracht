@@ -17,50 +17,58 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
     const [isSubscribed, setIsSubscribed] = useState(false);
     // const [disabled, setDisabled] = useState(false);
 
+
     useEffect(() => {
         const abortController = new AbortController();
+        setIsLoading(true);
+
+        // Roep beide functies aan bij component mount
+        fetchAvailableSpots();
+        fetchSubscriptionStatus();
+
+        return () => abortController.abort();
+    }, [id, isSubscribed]);
+
+
+    async function fetchAvailableSpots () {
+        const token = localStorage.getItem('token');
+        setIsLoading(true);
+        try {
+            const response = await axios.get(`http://localhost:8080/${id}/available-spots`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            setAvailableSpots(response.data);
+
+        } catch (e) {
+            console.error(e, "Het is niet gelukt om de data op te halen.");
+
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function fetchSubscriptionStatus() {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
         const username = decodedToken.sub;
-        async function fetchData () {
-            setIsLoading(true);
-            try {
-                const response = await axios.get(`http://localhost:8080/${id}/available-spots`,
-                    {
-                        signal: abortController.signal,
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                setAvailableSpots(response.data);
-
-            } catch (e) {
-                console.error(e, "Het is niet gelukt om de data op te halen.");
-
-                // toast.error("Beschikbare plekken niet opgehaald.");
-            }
-            try {
-                const subscriptionResponse = await axios.get(`http://localhost:8080/subscribe/${username}/activities/${id}/is-subscribed`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                setIsSubscribed(subscriptionResponse.data);
-            } catch (e) {
-                console.error(e, "Het is niet gelukt om de data op te halen.");
-                // toast.error("Beschikbare plekken niet opgehaald.");
-            }
-            finally {
-                setIsLoading(false);
-            }
-
+        try {
+            const subscriptionResponse = await axios.get(`http://localhost:8080/subscribe/${username}/activities/${id}/is-subscribed`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setIsSubscribed(subscriptionResponse.data);
+        } catch (e) {
+            console.error(e, "Het is niet gelukt om de data op te halen.");
         }
-
-        fetchData();
-        return () => abortController.abort();
-    }, [id]);
-
+        finally {
+            setIsLoading(false);
+        }
+    }
 
     async function subscribe() {
         const token = localStorage.getItem('token');
