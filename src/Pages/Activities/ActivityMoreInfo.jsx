@@ -57,9 +57,9 @@ function ActivityMoreInfo() {
                         }
                     });
                 setAvailableSpots(result.data);
-                if (availableSpots === 0) {
-                    setDisabled(true);
-                }
+                // if (availableSpots === 0) {
+                //     setDisabled(true);
+                // }
             } catch (e) {
                 console.error(e, "Het is niet gelukt om de data op te halen.");
                 setError(true);

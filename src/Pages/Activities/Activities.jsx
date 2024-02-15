@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import ActivityBox from "./components/ActivityBox.jsx";
 import {toast} from "react-toastify";
+import {jwtDecode} from "jwt-decode";
 
 
 function Activities() {
@@ -10,6 +11,7 @@ function Activities() {
     const [activity, setActivity] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isSubscribed, setIsSubscribed] = useState(false);
 
     // {
     //     "name" : "Lichtcirkel",
@@ -37,7 +39,14 @@ function Activities() {
                         }
                     });
                 setActivity(result.data);
-                console.log(result.data);
+                // console.log(result.data);
+
+                // const subscriptionResponse = await axios.get(`http://localhost:8080/subscribe/${username}/activities/${activity.id}/is-subscribed`, {
+                //     headers: {
+                //         Authorization: `Bearer ${token}`,
+                //     },
+                // });
+                // setIsSubscribed(subscriptionResponse.data);
             } catch (e) {
                 if (e.code === "ERR_CANCELED") {
                     // een fout

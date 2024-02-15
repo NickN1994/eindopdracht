@@ -13,17 +13,16 @@ import formatDate from "../../../helpers/formatDate.js";
 function ActivityBox({id, name, participants, teacher, date, time, activityInfo}) {
     const {admin} = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
     const [availableSpots, setAvailableSpots] = useState(0);
-    const [subscribeId, setSubscribeId] = useState(null);
+    const [isSubscribed, setIsSubscribed] = useState(false);
     // const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
+        const abortController = new AbortController();
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const username = decodedToken.sub;
         async function fetchData () {
-            const abortController = new AbortController();
-            const token = localStorage.getItem('token');
-            const decodedToken = jwtDecode(token);
-            const username = decodedToken.sub;
             setIsLoading(true);
             try {
                 const response = await axios.get(`http://localhost:8080/${id}/available-spots`,
@@ -35,55 +34,33 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                         }
                     });
                 setAvailableSpots(response.data);
+
             } catch (e) {
                 console.error(e, "Het is niet gelukt om de data op te halen.");
-                setError(true);
-                toast.error("Beschikbare plekken niet opgehaald.");
+
+                // toast.error("Beschikbare plekken niet opgehaald.");
             }
-            // try {
-            //     const subIdResponse = await axios.get(`http://localhost:8080/subscribe/user/${username}/activity/${id}`, {
-            //         headers: {Authorization: `Bearer ${token}`},
-            //     });
-            //     setSubscribeId(subIdResponse.data);
-            // } catch (e) {
-            //     console.error("Subscribe ID niet gevonden.", e);
-            //     setSubscribeId(null);
-            // }
+            try {
+                const subscriptionResponse = await axios.get(`http://localhost:8080/subscribe/${username}/activities/${id}/is-subscribed`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setIsSubscribed(subscriptionResponse.data);
+            } catch (e) {
+                console.error(e, "Het is niet gelukt om de data op te halen.");
+                // toast.error("Beschikbare plekken niet opgehaald.");
+            }
             finally {
                 setIsLoading(false);
             }
-            return () => abortController.abort();
+
         }
 
         fetchData();
+        return () => abortController.abort();
     }, [id]);
 
-    // async function subscribe(){
-    //     const token = localStorage.getItem('token');
-    //     const decodedToken = jwtDecode(token);
-    //     const userId = decodedToken.sub;
-    //     try {
-    //         setIsLoading(true);
-    //         const response = await axios.post(
-    //             "http://localhost:8080/subscribe",
-    //             {
-    //                 userId: userId,
-    //                 activityId: id
-    //             },
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`,
-    //                     'Content-Type': 'application/json'
-    //                 }});
-    //         toast.success("Aanmelding is voltooid.")
-    //         console.log(response.data);
-    //     } catch (e) {
-    //         console.error(e + "Het is niet gelukt om de je aan te melden.");
-    //         toast.error("Het is niet gelukt om de je aan te melden.")
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // }
 
     async function subscribe() {
         const token = localStorage.getItem('token');
@@ -98,11 +75,7 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                 headers: { Authorization: `Bearer ${token}` },
             });
             toast.success("Aanmelding is voltooid.");
-
-            // const response = await axios.get(`http://localhost:8080/subscribe/user/${username}/activity/${id}`, {
-            //     headers: { Authorization: `Bearer ${token}` },
-            // });
-            // setSubscribeId(response.data);
+            setIsSubscribed(true);
         } catch (e) {
             console.error("Inschrijven mislukt.", e);
             toast.error("Inschrijven mislukt.");
@@ -114,10 +87,9 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
     async function unsubscribe() {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
-        const username = decodedToken.sub; // Zorg ervoor dat dit de gebruikersnaam is, zoals verwacht door je backend.
+        const username = decodedToken.sub;
 
         try {
-            // Eerst het subscribeId ophalen
             const subscribeResponse = await axios.get(
                 `http://localhost:8080/subscribe/user/${username}/activity/${id}`,
                 {
@@ -136,7 +108,8 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                 },
             });
             toast.success("Uitschrijving voltooid.");
-            // Mogelijk hier een state update om de UI te refreshen en te reflecteren dat de gebruiker niet langer ingeschreven is
+            setIsSubscribed(false);
+
         } catch (error) {
             console.error("Er is een fout opgetreden tijdens het uitschrijven.", error);
             toast.error("Uitschrijven mislukt. Probeer het later opnieuw.");
@@ -165,7 +138,11 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                     <div className="btn-box">
                         <Link to={`/activiteiten/${id}`} className="btn btn-orange">Meer informatie</Link>
 
-                        <button type="button" onClick={subscribe} className="btn btn-purple" >Inschrijven</button>
+                        {!isSubscribed ?
+                            <button type="button" onClick={subscribe} className="btn btn-purple" >Inschrijven</button>
+                            :
+                        <button type="button" onClick={unsubscribe} className="btn btn-purple" >Uitschrijven</button>
+                        }
 
                         {isLoading && (
                             <div className="loader">
