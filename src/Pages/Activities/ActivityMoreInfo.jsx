@@ -14,13 +14,13 @@ function ActivityMoreInfo() {
     const {id} = useParams();
     const [activities, setActivities] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const [subscribed, setSubscribed] = useState(false);
     const navigate = useNavigate();
-    const [error, setError] = useState(false);
     const {admin} = useContext(AuthContext);
     const [deleteCheck, setDeleteCheck] = useState(false);
     const [availableSpots, setAvailableSpots] = useState(0);
-    const [disabled, setDisabled] = useState(false);
+    // const [disabled, setDisabled] = useState(false);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+
 
     const handleDeleteCheck = () => setDeleteCheck(true);
     const handleCancelDelete = () => setDeleteCheck(false);
@@ -71,7 +71,8 @@ function ActivityMoreInfo() {
         }
 
         fetchActivity();
-    }, [id, setValue]);
+        fetchSubscriptionStatus();
+    }, [id, setValue, isSubscribed]);
 
 // activiteit aanpassen
     async function onSubmit(data) {
@@ -123,62 +124,108 @@ function ActivityMoreInfo() {
     }
 
     // aanmelden activiteit
+    // async function subscribe() {
+    //     const token = localStorage.getItem('token');
+    //     const decodedToken = jwtDecode(token);
+    //     const userId = decodedToken.sub;
+    //     try {
+    //         setIsLoading(true);
+    //         const response = await axios.post(
+    //             "http://localhost:8080/subscribe",
+    //             {
+    //                 userId: userId,
+    //                 activityId: id
+    //             },
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             });
+    //         toast.success("Aanmelding is voltooid.")
+    //         setSubscribed(true);
+    //         console.log(response.data);
+    //     } catch (e) {
+    //         console.error(e + "Het is niet gelukt om de je aan te melden.");
+    //         toast.error("Het is niet gelukt om de je aan te melden.")
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // }
+
     async function subscribe() {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
-        const userId = decodedToken.sub;
+        const username = decodedToken.sub;
         try {
             setIsLoading(true);
-            const response = await axios.post(
-                "http://localhost:8080/subscribe",
-                {
-                    userId: userId,
-                    activityId: id
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-            toast.success("Aanmelding is voltooid.")
-            setSubscribed(true);
-            console.log(response.data);
+            await axios.post("http://localhost:8080/subscribe", {
+                userId: username,
+                activityId: id
+            }, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            toast.success("Aanmelding is voltooid.");
+            setIsSubscribed(true);
         } catch (e) {
-            console.error(e + "Het is niet gelukt om de je aan te melden.");
-            toast.error("Het is niet gelukt om de je aan te melden.")
+            console.error("Inschrijven mislukt.", e);
+            toast.error("Inschrijven mislukt.");
         } finally {
             setIsLoading(false);
         }
     }
 
     // uitschrijven activiteit maar deze klopt niet wat is post
-    async function onSubscribe() {
+    async function unsubscribe() {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
-        const userId = decodedToken.sub;
+        const username = decodedToken.sub;
+
         try {
-            setIsLoading(true);
-            const response = await axios.post(
-                "http://localhost:8080/subscribe/{subscribeId}",
-                {
-                    // twijfel of dit meeestuurd moet worden, maar lijkt me wel
-                    userId: userId,
-                    activityId: id
-                },
+            const subscribeResponse = await axios.get(
+                `http://localhost:8080/subscribe/user/${username}/activity/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-            toast.success("Uitschrijving is voltooid.")
-            setSubscribed(false);
-            console.log(response.data);
-        } catch (e) {
-            console.error(e + "Het is niet gelukt om de je uit te schrijven.");
-            toast.error("Het is niet gelukt om de je uit te schrijven.")
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            const subscribeId = subscribeResponse.data;
+
+            await axios.delete(`http://localhost:8080/subscribe/${subscribeId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            toast.success("Uitschrijving voltooid.");
+            setIsSubscribed(false);
+
+        } catch (error) {
+            console.error("Er is een fout opgetreden tijdens het uitschrijven.", error);
+            toast.error("Uitschrijven mislukt. Probeer het later opnieuw.");
         } finally {
+            setIsLoading(false);
+        }
+    }
+
+    // controle of gebruiker is aangemeld
+    async function fetchSubscriptionStatus() {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const username = decodedToken.sub;
+        try {
+            const subscriptionResponse = await axios.get(`http://localhost:8080/subscribe/${username}/activities/${id}/is-subscribed`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setIsSubscribed(subscriptionResponse.data);
+        } catch (e) {
+            console.error(e, "Het is niet gelukt om de data op te halen.");
+        }
+        finally {
             setIsLoading(false);
         }
     }
@@ -256,10 +303,10 @@ function ActivityMoreInfo() {
                         <p>{activities.activityInfo}</p>
 
                         <div className="btn-grp">
-                            {subscribed ?
-                                <button type="button" onClick={onSubscribe} className="btn btn-purple">Uitschrijven</button>
+                            {isSubscribed ?
+                                <button type="button" onClick={unsubscribe} className="btn btn-purple">Uitschrijven</button>
                                 :
-                                <button type="button" onClick={subscribe} disabled={disabled} className="btn btn-purple">Inschrijven</button>
+                                <button type="button" onClick={subscribe} className="btn btn-orange">Inschrijven</button>
                             }
                             <Link to={"/contact"} className="btn btn-orange">Heb je nog vragen? Klik hier om contact met ons op te
                                 nemen</Link>
