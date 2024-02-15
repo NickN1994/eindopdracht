@@ -1,5 +1,5 @@
 .navbar-admin {
-    background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+    background-color: #F5F7DC;
     height: 80px;
     display: flex;
     flex-direction: row;
@@ -7,7 +7,9 @@
     align-items: center;
     font-size: 1.2rem;
     position: relative;
-    border: 2px solid white;
+    font-family: 'Poppins', sans-serif;
+    color: #1a1a1a;
+
 }
 
 .menu-admin-box {
@@ -20,7 +22,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     align-items: center;
 }
 

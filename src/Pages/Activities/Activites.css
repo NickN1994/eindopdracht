@@ -22,18 +22,17 @@
     justify-content: space-around;
 }
 
-.btn-subscribe {
-    padding: 8px 20px;
-    border-radius: 4px;
-    border: none;
-    font: inherit;
-    font-size: 1em;
-    color: white;
-    background-color: #87b6ba;
-    margin: 10px;
-    text-align: center;
-    cursor: pointer;
-}
+/*.btn-subscribe {*/
+/*    padding: 8px 20px;*/
+/*    border-radius: 4px;*/
+/*    border: none;*/
+/*    font: inherit;*/
+/*    font-size: 1em;*/
+/*    color: white;*/
+/*    margin: 10px;*/
+/*    text-align: center;*/
+/*    cursor: pointer;*/
+/*}*/
 
 .activity-info-box {
     display: flex;
@@ -54,6 +53,31 @@
 .btn-grp {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    /*gap: 20px;*/
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 4px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    color: white;
+    /*background-color: #D8896C;*/
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-orange {
+    background-color: #D8896C;
+}
+
+.btn-blue{
+    /*background-color: #87b6ba;*/
+    /*background-color: #A881AF;*/
+    background-color: #D8BBDD;
 }
 
 

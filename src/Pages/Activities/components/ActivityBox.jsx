@@ -6,7 +6,7 @@ import "../Activites.css"
 import axios from "axios";
 import {toast} from "react-toastify";
 import {jwtDecode} from "jwt-decode";
-import "../../../Compenents/Button.css"
+import "../Activites.css"
 import formatDate from "../../../helpers/formatDate.js";
 
 // eslint-disable-next-line react/prop-types
@@ -57,13 +57,12 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
 
                 {admin ?
 
-                        <Link to={`/activiteiten/${id}`} className="btn">Activiteit bewerken</Link>
+                        <Link to={`/activiteiten/${id}`} className="btn btn-orange">Activiteit bewerken</Link>
                     :
                     <div className="btn-box">
-                        <Link to={`/activiteiten/${id}`} className="btn">Meer informatie</Link>
+                        <Link to={`/activiteiten/${id}`} className="btn btn-orange">Meer informatie</Link>
 
-                        <button type="button" onClick={subscribe} className="btn-subscribe">Inschrijven</button>
-
+                        <button type="button" onClick={subscribe} className="btn btn-blue">Inschrijven</button>
 
                         {isLoading && (
                             <div className="loader">

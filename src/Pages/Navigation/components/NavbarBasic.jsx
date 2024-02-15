@@ -9,6 +9,7 @@ function NavbarBasic () {
 
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const [removeButton, setRemoveButton] = useState(false);
 
     const {logout} = useContext(AuthContext);
 
@@ -91,9 +92,20 @@ function NavbarBasic () {
                                 Contact
                             </NavLink>
                         </li>
+                        {click ?  <li className='nav-item'>
+                                <NavLink to='/login'
+                                         className={({isActive}) => isActive ? 'nav-links-active' : 'nav-links-default'}
+                                         onClick={logout}>
+                                    Uitloggen
+                                </NavLink>
+                            </li>
+                            :
+                            <></>
+                        }
+
                     </ul>
 
-                    <button type="button" onClick={logout} className="btn">Uitloggen</button>
+                    <button type="button" onClick={logout} className="btn btn-orange hide-on-mobile">Uitloggen</button>
 
                 </nav>
             </header>

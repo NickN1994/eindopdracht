@@ -6,7 +6,7 @@ import {useForm} from "react-hook-form";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {jwtDecode} from "jwt-decode";
 import formatDate from "../../helpers/formatDate.js";
-
+import "./Activites.css"
 
 function ActivityMoreInfo() {
 
@@ -14,10 +14,15 @@ function ActivityMoreInfo() {
     const {id} = useParams();
     const [activities, setActivities] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const [deleteCheck, setDeleteCheck] = useState(false);
+    const [subscribed, setSubscribed] = useState(false);
     const navigate = useNavigate();
     const [error, setError] = useState(false);
     const {admin} = useContext(AuthContext);
+    const [deleteCheck, setDeleteCheck] = useState(false);
+
+    const handleDeleteCheck = () => setDeleteCheck(true);
+    const handleCancelDelete = () => setDeleteCheck(false);
+    const handleConfirmDelete = () => deleteActivity(activities.id);
 
     useEffect(() => {
         async function fetchActivity() {
@@ -79,13 +84,19 @@ function ActivityMoreInfo() {
 
 
     async function deleteActivity(id) {
+        const token = localStorage.getItem('token');
         setIsLoading(true)
         try {
-            await axios.delete(`http://localhost:8080/activities/${id}`);
+            await axios.delete(`http://localhost:8080/activities/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }}
+            );
             toast.success("Activiteit is verwijderd");
             navigate("/activiteiten");
         } catch (error) {
-
             if (error.response && error.response.status === 404) {
                 toast.error("Activiteit niet gevonden");
             } else {
@@ -115,10 +126,41 @@ function ActivityMoreInfo() {
                     }
                 });
             toast.success("Aanmelding is voltooid.")
+            setSubscribed(true);
             console.log(response.data);
         } catch (e) {
             console.error(e + "Het is niet gelukt om de je aan te melden.");
             toast.error("Het is niet gelukt om de je aan te melden.")
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function onSubscribe() {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.sub;
+        try {
+            setIsLoading(true);
+            const response = await axios.post(
+                "http://localhost:8080/subscribe/{subscribeId}",
+                {
+                    // twijfel of dit meeestuurd moet worden, maar lijkt me wel
+                    userId: userId,
+                    activityId: id
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            toast.success("Uitschrijving is voltooid.")
+            setSubscribed(false);
+            console.log(response.data);
+        } catch (e) {
+            console.error(e + "Het is niet gelukt om de je uit te schrijven.");
+            toast.error("Het is niet gelukt om de je uit te schrijven.")
         } finally {
             setIsLoading(false);
         }
@@ -135,45 +177,56 @@ function ActivityMoreInfo() {
                 )}
 
                 {admin ?
+                    <div>
+                        <h1>Activiteit bewerken</h1>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <label htmlFor="name">Naam Activiteit</label>
+                            <input id="name" {...register('name')} />
+                            {errors.name && <p>{errors.name.message}</p>}
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <label htmlFor="name">Naam Activiteit</label>
-                        <input id="name" {...register('name')} />
-                        {errors.name && <p>{errors.name.message}</p>}
+                            <label htmlFor="participants">Aantal deelnemers</label>
+                            <input id="participants" {...register('participants')} />
+                            {errors.participants && <p>{errors.participants.message}</p>}
 
-                        <label htmlFor="participants">Aantal deelnemers</label>
-                        <input id="participants" {...register('participants')} />
-                        {errors.participants && <p>{errors.participants.message}</p>}
+                            <label htmlFor="teacher">Begeleider</label>
+                            <input id="teacher" {...register('teacher')} />
+                            {errors.teacher && <p>{errors.teacher.message}</p>}
 
-                        <label htmlFor="teacher">Begeleider</label>
-                        <input id="teacher" {...register('teacher')} />
-                        {errors.teacher && <p>{errors.teacher.message}</p>}
+                            <label htmlFor="date">Datum</label>
+                            <input id="date" type="date" {...register('date')} />
+                            {errors.date && <p>{errors.date.message}</p>}
 
-                        <label htmlFor="date">Datum</label>
-                        <input id="date" type="date" {...register('date')} />
-                        {errors.date && <p>{errors.date.message}</p>}
+                            <label htmlFor="time">Tijd</label>
+                            <input id="time" {...register('time')} />
+                            {errors.time && <p>{errors.time.message}</p>}
 
-                        <label htmlFor="time">Tijd</label>
-                        <input id="time" {...register('time')} />
-                        {errors.time && <p>{errors.time.message}</p>}
+                            <label htmlFor="activityInfo">Activiteit Informatie</label>
+                            <textarea id="activityInfo"
+                                      cols="30"
+                                      rows="15"
+                                      {...register('activityInfo')} />
+                            {errors.activityInfo && <p>{errors.activityInfo.message}</p>}
 
-                        <label htmlFor="activityInfo">Activiteit Informatie</label>
-                        <textarea id="activityInfo" {...register('activityInfo')} />
-                        {errors.activityInfo && <p>{errors.activityInfo.message}</p>}
-
-                        <button type="submit">Opslaan</button>
-                        <button type="button"><Link to={"/activiteiten"}>Annuleren</Link></button>
-
-                        <button onClick={() => setDeleteCheck(true)}>Activiteiten verwijderen</button>
-                        {deleteCheck &&
-                            <div>
-                                <button type="button" onClick={() => deleteActivity(activities.id)}>Klik hier om
-                                    definitief
-                                    te verwijderen
+                            <div className="btn-grp">
+                                <button type="submit" className="btn btn-orange">Opslaan</button>
+                                <button type="button" className="btn btn-blue"><Link to={"/activiteiten"}>Annuleren</Link>
                                 </button>
-                                <button onClick={() => setDeleteCheck(false)}>Annuleren</button>
-                            </div>}
-                    </form>
+
+                                {!deleteCheck ?
+                                    <button type="button" className="btn btn-orange" onClick={handleDeleteCheck}>Content verwijderen</button>
+                                    :
+                                    <div></div>
+                                }
+                                {/*<button type="button" className="btn btn-orange" onClick={handleDeleteCheck}>Content verwijderen</button>*/}
+                                {deleteCheck &&
+                                    <div>
+                                        <button type="button" className="btn btn-orange" onClick={handleConfirmDelete}>Klik hier om definitief te verwijderen</button>
+                                        <button type="button" className="btn btn-blue" onClick={handleCancelDelete}>Annuleren</button>
+                                    </div>
+                                }
+                            </div>
+                        </form>
+                    </div>
 
                     :
 
@@ -186,9 +239,15 @@ function ActivityMoreInfo() {
                         <p>{activities.activityInfo}</p>
 
                         <div className="btn-grp">
-                            <button type="button" onClick={subscribe} className="btn-subscribe">Inschrijven</button>
-                            <Link to={"/contact"} className="btn">Heb je nog vragen? Klik hier om contact met ons op te
+                            {subscribed ?
+                                <button type="button" onClick={onSubscribe} className="btn btn-blue">Uitschrijven</button>
+                                :
+                                <button type="button" onClick={subscribe} className="btn btn-blue">Inschrijven</button>
+                            }
+                            <Link to={"/contact"} className="btn btn-orange">Heb je nog vragen? Klik hier om contact met ons op te
                                 nemen</Link>
+                            <Link to={"/activiteiten"} className="btn btn-blue">Terug naar activiteiten</Link>
+
                         </div>
                     </div>
                 }

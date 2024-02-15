@@ -76,9 +76,8 @@ function NavbarAdmin() {
                                 >Admin</NavLink>
                             </li>
 
-
                             <li>
-                                <button type="button" onClick={logout} className="btn">Uitloggen</button>
+                                <button type="button" onClick={logout} className="btn btn-orange">Uitloggen</button>
                             </li>
                         </ul>
                     </div>

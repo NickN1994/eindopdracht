@@ -57,11 +57,12 @@ function GameContentId() {
         setIsLoading(true);
 
         try {
-            const response = await axios.put(`http://localhost:8080/information/${id}`, data,{
+            const response = await axios.put(`http://localhost:8080/information/${id}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                }});
+                }
+            });
             if (response.status === 200) {
                 toast.success("Content is bijgewerkt");
                 navigate("/spel-des-levens");
@@ -80,11 +81,12 @@ function GameContentId() {
         setIsLoading(true)
         try {
             await axios.delete(`http://localhost:8080/information/${id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json'
-                }}
+                    }
+                }
             );
             toast.success("Content is verwijderd");
             navigate("/spel-des-levens");
@@ -112,27 +114,33 @@ function GameContentId() {
 
                 {admin ?
                     <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <label htmlFor="title">Titel</label>
-                        <input id="title" {...register('title')} />
-                        {errors.title && <p>{errors.title.message}</p>}
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <label htmlFor="title">Titel</label>
+                            <input id="title" {...register('title')} />
+                            {errors.title && <p>{errors.title.message}</p>}
 
-                        <label htmlFor="videoUrl">videoUrl</label>
-                        <input id="videoUrl" {...register('videoUrl')} />
-                        {errors.videoUrl && <p>{errors.videoUrl.message}</p>}
+                            <label htmlFor="videoUrl">videoUrl</label>
+                            <input id="videoUrl" {...register('videoUrl')} />
+                            {errors.videoUrl && <p>{errors.videoUrl.message}</p>}
 
-                        <label htmlFor="content">Content aanpassen</label>
-                        <textarea id="content" {...register('content')} />
-                        {errors.content && <p>{errors.content.message}</p>}
+                            <label htmlFor="content">Content aanpassen</label>
+                            <textarea id="content" {...register('content')} />
+                            {errors.content && <p>{errors.content.message}</p>}
 
-                        <button type="submit">Opslaan</button>
-                        <button type="button"><Link to={"/spel-des-levens"}>Annuleren</Link></button>
+                            <button type="submit">Opslaan</button>
+                            <button type="button"><Link to={"/spel-des-levens"}>Annuleren</Link></button>
 
-                    </form>
-                        <button onClick={handleDeleteCheck}>Content verwijderen</button>
+                        </form>
+
+                        {!deleteCheck ?
+                            <button onClick={handleDeleteCheck}>Content verwijderen</button> :
+                            <div></div>
+                        }
                         {deleteCheck &&
                             <div>
-                                <button type="button" onClick={handleConfirmDelete}>Klik hier om definitief te verwijderen</button>
+                                <button type="button" onClick={handleConfirmDelete}>Klik hier om definitief te
+                                    verwijderen
+                                </button>
                                 <button onClick={handleCancelDelete}>Annuleren</button>
                             </div>
                         }
