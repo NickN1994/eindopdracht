@@ -19,6 +19,8 @@ function ActivityMoreInfo() {
     const [error, setError] = useState(false);
     const {admin} = useContext(AuthContext);
     const [deleteCheck, setDeleteCheck] = useState(false);
+    const [availableSpots, setAvailableSpots] = useState(0);
+    const [disabled, setDisabled] = useState(false);
 
     const handleDeleteCheck = () => setDeleteCheck(true);
     const handleCancelDelete = () => setDeleteCheck(false);
@@ -45,6 +47,19 @@ function ActivityMoreInfo() {
                 setValue('date', response.data.date);
                 setValue('time', response.data.time);
                 setValue('activityInfo', response.data.activityInfo);
+
+                const result = await axios.get(`http://localhost:8080/${id}/available-spots`,
+                    {
+                        signal: abortController.signal,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                setAvailableSpots(result.data);
+                if (availableSpots === 0) {
+                    setDisabled(true);
+                }
             } catch (e) {
                 console.error(e, "Het is niet gelukt om de data op te halen.");
                 setError(true);
@@ -209,7 +224,7 @@ function ActivityMoreInfo() {
 
                             <div className="btn-grp">
                                 <button type="submit" className="btn btn-orange">Opslaan</button>
-                                <button type="button" className="btn btn-blue"><Link to={"/activiteiten"}>Annuleren</Link>
+                                <button type="button" className="btn btn-purple"><Link to={"/activiteiten"}>Annuleren</Link>
                                 </button>
 
                                 {!deleteCheck ?
@@ -217,11 +232,11 @@ function ActivityMoreInfo() {
                                     :
                                     <div></div>
                                 }
-                                {/*<button type="button" className="btn btn-orange" onClick={handleDeleteCheck}>Content verwijderen</button>*/}
+
                                 {deleteCheck &&
                                     <div>
                                         <button type="button" className="btn btn-orange" onClick={handleConfirmDelete}>Klik hier om definitief te verwijderen</button>
-                                        <button type="button" className="btn btn-blue" onClick={handleCancelDelete}>Annuleren</button>
+                                        <button type="button" className="btn btn-purple" onClick={handleCancelDelete}>Annuleren</button>
                                     </div>
                                 }
                             </div>
@@ -233,20 +248,20 @@ function ActivityMoreInfo() {
                     <div className="activity-info-box">
                         <h1>{activities.name}</h1>
                         <h3>{activities.date ? formatDate(activities.date) : 'Laden...'} {activities.time}</h3>
-                        <p>Aantal plekke beschikbaar: </p>
+                        <p>Aantal plekke beschikbaar: {availableSpots}</p>
                         <p>Totaal aantal plekken: {activities.participants}</p>
                         <p>Begeleider: {activities.teacher}</p>
                         <p>{activities.activityInfo}</p>
 
                         <div className="btn-grp">
                             {subscribed ?
-                                <button type="button" onClick={onSubscribe} className="btn btn-blue">Uitschrijven</button>
+                                <button type="button" onClick={onSubscribe} className="btn btn-purple">Uitschrijven</button>
                                 :
-                                <button type="button" onClick={subscribe} className="btn btn-blue">Inschrijven</button>
+                                <button type="button" onClick={subscribe} disabled={disabled} className="btn btn-purple">Inschrijven</button>
                             }
                             <Link to={"/contact"} className="btn btn-orange">Heb je nog vragen? Klik hier om contact met ons op te
                                 nemen</Link>
-                            <Link to={"/activiteiten"} className="btn btn-blue">Terug naar activiteiten</Link>
+                            <Link to={"/activiteiten"} className="btn btn-purple">Terug naar activiteiten</Link>
 
                         </div>
                     </div>
