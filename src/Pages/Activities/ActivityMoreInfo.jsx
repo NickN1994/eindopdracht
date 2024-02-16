@@ -291,9 +291,9 @@ function ActivityMoreInfo() {
                                 :
                                 <button type="button" onClick={subscribe} className="btn btn-orange">Inschrijven</button>
                             }
-                            <Link to={"/contact"} className="btn btn-orange">Heb je nog vragen? Klik hier om contact met ons op te
+                            <Link to={"/contact"} className="btn btn-purple">Heb je nog vragen? Klik hier om contact met ons op te
                                 nemen</Link>
-                            <Link to={"/activiteiten"} className="btn btn-purple">Terug naar activiteiten</Link>
+                            <Link to={"/activiteiten"} className="btn btn-orange">Terug naar activiteiten</Link>
 
                         </div>
                     </div>

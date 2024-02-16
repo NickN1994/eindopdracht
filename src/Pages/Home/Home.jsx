@@ -4,11 +4,14 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {jwtDecode} from "jwt-decode";
+import {Link} from "react-router-dom";
+import ActivityBox from "../Activities/components/ActivityBox.jsx";
 
 function Home() {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
     const [userData, setUserData] = useState([]);
+    const [activityList, setActivityList] = useState([]);
+
 
 
     useEffect(() => {
@@ -18,7 +21,7 @@ function Home() {
         const decodedToken = jwtDecode(token);
         const username = decodedToken.sub;
 
-        async function fetchName() {
+        async function fetchData() {
             try {
                 setIsLoading(true);
                 const response = await axios.get(`http://localhost:8080/users/${username}`,
@@ -32,23 +35,32 @@ function Home() {
                 setUserData(response.data)
 
             } catch (e) {
+                // toast.error("Er is iets misgegaan. Ververs de pagina.")
 
-                if (axios.isCancel(e)) {
-                    console.log('Aanvraag geannuleerd:', e.message);
-                } else {
+            }
+            try {
+                setIsLoading(true);
+                const activityResponse = await axios.get(`http://localhost:8080/subscribe/user/${username}`,
+                    {
+                        signal: abortController.signal,
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                setActivityList(activityResponse.data)
 
-                    console.error(e + " Het is niet gelukt om de data op te halen.");
-                    setError(true);
-                    toast.error("Er is iets misgegaan. Ververs de pagina.")
+            } catch (e) {
+                if (activityList === null) {
+                    console.error("geen activiteiten gevonden.")
                 }
 
             } finally {
                 setIsLoading(false);
-                setError(false);
             }
         }
 
-        fetchName();
+        fetchData();
         return () => {
             abortController.abort();
         };
@@ -58,22 +70,41 @@ function Home() {
     return (
 
             <div className='outer-container'>
-                <div className='inner-container colums'>
+                <div className='inner-container'>
                     {isLoading && (
                         <div className="loader">
                         </div>
                     )}
 
-                    <section className='colum-one'>
+
                         <h1>Welkom {userData.name}</h1>
-                        {/*<ActivityBox/>*/}
+                        <h2>Je staat ingeschreven voor deze activiteiten</h2>
+                        <div className="parent-activity-box">
+                        {activityList ?
+                        activityList.map((activity) => (
+                            <ActivityBox
+                                key={activity.id}
+                                id={activity.id}
+                                name={activity.name}
+                                participants={activity.participants}
+                                teacher={activity.teacher}
+                                date={activity.date}
+                                time={activity.time}
+                                activityInfo={activity.activityInfo}
+                            />
+                        ))
+                            :
+                            <div>
+                            <p>Je bent nergens voor ingeschreven.</p>
+                                <Link to={"/activiteiten"} className="btn btn-orange">Klik hier voor activiteiten</Link>
+                            </div>
+                        }
+                        </div>
 
-                    </section>
 
-
-                    <figure className='colum-two'>
-                        <img src={fotoHome} alt="Afbeelding Nick en Kirstie"/>
-                    </figure>
+                    {/*<figure className='colum-two'>*/}
+                    {/*    <img src={fotoHome} alt="Afbeelding Nick en Kirstie"/>*/}
+                    {/*</figure>*/}
                 </div>
             </div>
 

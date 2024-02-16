@@ -1,6 +1,9 @@
 .parent-activity-box {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
 }
 
 .activity-box {
@@ -21,18 +24,6 @@
     flex-direction: column;
     justify-content: space-around;
 }
-
-/*.btn-subscribe {*/
-/*    padding: 8px 20px;*/
-/*    border-radius: 4px;*/
-/*    border: none;*/
-/*    font: inherit;*/
-/*    font-size: 1em;*/
-/*    color: white;*/
-/*    margin: 10px;*/
-/*    text-align: center;*/
-/*    cursor: pointer;*/
-/*}*/
 
 .activity-info-box {
     display: flex;
@@ -75,9 +66,12 @@
 }
 
 .btn-purple{
-    /*background-color: #87b6ba;*/
-    /*background-color: #A881AF;*/
     background-color: #D8BBDD;
+}
+
+.subscriberList {
+    list-style: -moz-ethiopic-numeric;
+    margin-left: 15px;
 }
 
 

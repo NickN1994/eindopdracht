@@ -9,6 +9,7 @@ import {jwtDecode} from "jwt-decode";
 import "../Activites.css"
 import formatDate from "../../../helpers/formatDate.js";
 
+
 // eslint-disable-next-line react/prop-types
 function ActivityBox({id, name, participants, teacher, date, time, activityInfo}) {
     const {admin} = useContext(AuthContext);
@@ -17,6 +18,7 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
     const [isSubscribed, setIsSubscribed] = useState(false);
     // const [disabled, setDisabled] = useState(false);
     const [unSubscribeCheck, setUnSubscribeCheck] = useState(false);
+    const [subriberList, setSubscriberList] = useState([]);
 
     const handleUnsubscribeCheck = () => setUnSubscribeCheck(true);
     const handleCancelUnsubscribe = () => setUnSubscribeCheck(false);
@@ -105,13 +107,14 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
         const username = decodedToken.sub;
 
         try {
+            setIsLoading(true);
             const subscribeResponse = await axios.get(
                 `http://localhost:8080/subscribe/user/${username}/activity/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',
-                    },
+                    }
                 }
             );
 
@@ -133,6 +136,31 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
         }
     }
 
+    async function fetchSubscriberData() {
+        const token = localStorage.getItem('token');
+
+        try {
+            setIsLoading(true);
+            const subscribersResponse = await axios.get(
+                `http://localhost:8080/subscribe/${id}/subscribers`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    }});
+            setSubscriberList(subscribersResponse.data);
+        } catch (e) {
+            if (!subriberList) {
+                toast.error("Niemand heeft zich ingeschreven.");
+            } else {
+                toast.error("Data ophalen is niet gelukt");
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+
 
     return (
 
@@ -147,8 +175,20 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
             <p>{infoShort(activityInfo)}...</p>
 
                 {admin ?
-
+                        <>
                         <Link to={`/activiteiten/${id}`} className="btn btn-orange">Activiteit bewerken</Link>
+
+                        <button type="button" className="btn btn-purple" onClick={fetchSubscriberData}>Klik hier om deelnemers te bekijken</button>
+                            {subriberList && subriberList.length > 0 ? (
+                                <ul>
+                                    {subriberList.map((name, index) => (
+                                        <li key={index} className="subscriberList">{name}</li>
+                                    ))}
+                                </ul>
+                            )
+                            :
+                            <div></div>}
+                        </>
                     :
                     <div className="btn-box">
                         <Link to={`/activiteiten/${id}`} className="btn btn-orange">Meer informatie</Link>

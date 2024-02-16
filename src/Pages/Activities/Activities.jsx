@@ -11,7 +11,7 @@ function Activities() {
     const [activity, setActivity] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [isSubscribed, setIsSubscribed] = useState(false);
+    // const [isSubscribed, setIsSubscribed] = useState(false);
 
     // {
     //     "name" : "Lichtcirkel",
@@ -39,14 +39,7 @@ function Activities() {
                         }
                     });
                 setActivity(result.data);
-                // console.log(result.data);
 
-                // const subscriptionResponse = await axios.get(`http://localhost:8080/subscribe/${username}/activities/${activity.id}/is-subscribed`, {
-                //     headers: {
-                //         Authorization: `Bearer ${token}`,
-                //     },
-                // });
-                // setIsSubscribed(subscriptionResponse.data);
             } catch (e) {
                 if (e.code === "ERR_CANCELED") {
                     // een fout
