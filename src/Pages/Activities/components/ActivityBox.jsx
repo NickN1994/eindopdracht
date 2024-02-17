@@ -203,7 +203,8 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                         <Link to={`/activiteiten/${id}`} className="btn btn-orange">Meer informatie</Link>
 
                         {!isSubscribed ?
-                            <button type="button" onClick={subscribe} className="btn btn-purple" >Inschrijven</button>
+                            <button type="button" onClick={subscribe} className="btn btn-purple" disabled={availableSpots < 1}>Inschrijven</button>
+
                             :
                             <div>
                                 {!unSubscribeCheck ?

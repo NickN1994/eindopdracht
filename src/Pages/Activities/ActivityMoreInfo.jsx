@@ -292,7 +292,7 @@ function ActivityMoreInfo() {
                             }
                                 </div>
                                 :
-                                <button type="button" onClick={subscribe} className="btn btn-orange">Inschrijven</button>
+                                <button type="button" onClick={subscribe} disabled={availableSpots < 1} className="btn btn-orange">Inschrijven</button>
                             }
                             <Link to={"/contact"} className="btn btn-purple">Heb je nog vragen? Klik hier om contact met ons op te
                                 nemen</Link>
