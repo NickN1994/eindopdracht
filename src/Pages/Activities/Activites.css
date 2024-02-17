@@ -33,10 +33,9 @@
 .activity-info-box {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
     max-width: 1200px;
     width: 100%;
-    border: 2px solid red;
     margin: 25px;
     height: auto;
     padding: 0 15px;

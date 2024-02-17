@@ -18,7 +18,9 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [unSubscribeCheck, setUnSubscribeCheck] = useState(false);
-    const [subriberList, setSubscriberList] = useState([]);
+    const [subscriberList, setSubscriberList] = useState([]);
+    const [hasFetched, setHasFetched] = useState(false);
+
 
     const handleUnsubscribeCheck = () => setUnSubscribeCheck(true);
     const handleCancelUnsubscribe = () => setUnSubscribeCheck(false);
@@ -149,8 +151,9 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                         'Content-Type': 'application/json',
                     }});
             setSubscriberList(subscribersResponse.data);
+            setHasFetched(true);
         } catch (e) {
-            if (!subriberList) {
+            if (!subscriberList) {
                 toast.error("Niemand heeft zich ingeschreven.");
             } else {
                 toast.error("Data ophalen is niet gelukt");
@@ -179,22 +182,28 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                         <Link to={`/activiteiten/${id}`} className="btn btn-orange">Activiteit bewerken</Link>
 
                         <button type="button" className="btn btn-purple" onClick={fetchSubscriberData}>Klik hier om deelnemers te bekijken</button>
-                            {subriberList && subriberList.length > 0 ? (
-                                <ul>
-                                    {subriberList.map((name, index) => (
-                                        <li key={index} className="subscriberList">{name}</li>
-                                    ))}
-                                </ul>
-                            )
-                            :
-                            <div></div>}
+                            <div>
+                                {hasFetched ? (
+                                    subscriberList && subscriberList.length > 0 ? (
+                                        <ul>
+                                            {subscriberList.map((name, index) => (
+                                                <li key={index} className="subscriberList">{name}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <div>
+                                            <p>Niemand heeft zich ingeschreven.</p>
+                                        </div>
+                                    )
+                                ) : null}
+                            </div>
                         </>
                     :
                     <div className="btn-box">
                         <Link to={`/activiteiten/${id}`} className="btn btn-orange">Meer informatie</Link>
 
                         {!isSubscribed ?
-                            <button type="button" onClick={subscribe} disabled={isDisabled} className="btn btn-purple" >Inschrijven</button>
+                            <button type="button" onClick={subscribe} className="btn btn-purple" >Inschrijven</button>
                             :
                             <div>
                                 {!unSubscribeCheck ?

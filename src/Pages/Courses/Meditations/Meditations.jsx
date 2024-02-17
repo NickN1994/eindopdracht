@@ -1,4 +1,4 @@
-import MeditationArray from "../../Compenents/MeditationArray.js";
+import MeditationArray from "../../../Compenents/MeditationArray.js";
 import {Link} from "react-router-dom";
 
 

@@ -57,6 +57,7 @@ function Game () {
                     </div>
                 )}
                 <h1>Spel des Levens</h1>
+                <div className="parent-activity-box">
                 {information.length > 0 && information.map((information) => {
                     return (
                         <InformationBox
@@ -65,10 +66,12 @@ function Game () {
                             title={information.title}
                             videoUrl={information.videoUrl}
                             content={information.content}
-
                         />
                     )
                 })}
+                </div>
+
+
             </div>
         </div>
     )

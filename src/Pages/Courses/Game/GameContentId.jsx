@@ -4,7 +4,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
 import {AuthContext} from "../../../Context/AuthContext.jsx";
-
+import "./Game.css"
 
 function GameContentId() {
 
@@ -148,12 +148,27 @@ function GameContentId() {
                     :
                     <div>
                         <h1>{information.title}</h1>
-                        <video src={information.videoUrl}></video>
-                        <p>{information.content}</p>
 
-                        <button type="button">
-                            <Link to={"/contact"}>Heb je nog vragen? Klik hier om contact met ons op te nemen</Link>
-                        </button>
+                        <div>
+                            {information.videoUrl ? (
+                                <iframe
+                                    className="game-video"
+                                    src={information.videoUrl.replace("watch?v=", "embed/")}
+                                    title={information.title || 'Video'}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen>
+                                </iframe>
+                            ) : (
+                                <p>Video niet beschikbaar</p>
+                            )}
+                        </div>
+
+                        <p className="game-content">{information.content}</p>
+
+
+                            <Link to={"/spel-des-levens"} className="btn btn-orange">Klik hier om terug te gaan naar Spel Des Levens</Link>
+
                     </div>
                 }
 

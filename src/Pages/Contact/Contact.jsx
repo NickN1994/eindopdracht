@@ -39,7 +39,7 @@ function Contact() {
 
     return (
         <>
-            <div className='outer-container outer-contact'>
+            <div className='outer-container'>
                 <div className='inner-container'>
                     <div className='columns'>
                     <section className='contactInfo'>
@@ -124,6 +124,7 @@ function Contact() {
                                 />
                             </fieldset>
                             <button type="submit"
+                                    className="btn btn-orange"
                             >Verstuur je bericht</button>
                         </form>
                         {isLoading && (

@@ -282,7 +282,7 @@ function ActivityMoreInfo() {
                             {isSubscribed ?
                                 <div>
                                 {!unSubscribeCheck ?
-                                    <button type="button" className="btn btn-purple" onClick={handleUnsubscribeCheck}>Uitschrijven</button>
+                                    <button type="button" className="btn btn-orange" onClick={handleUnsubscribeCheck}>Uitschrijven</button>
                                     :
                                     <div>
                                         <button type="button" className="btn btn-orange" onClick={unsubscribe}>Bevestig uitschrijving</button>
@@ -292,7 +292,7 @@ function ActivityMoreInfo() {
                             }
                                 </div>
                                 :
-                                <button type="button" onClick={subscribe} disabled={isDisabled} className="btn btn-orange">Inschrijven</button>
+                                <button type="button" onClick={subscribe} className="btn btn-orange">Inschrijven</button>
                             }
                             <Link to={"/contact"} className="btn btn-purple">Heb je nog vragen? Klik hier om contact met ons op te
                                 nemen</Link>

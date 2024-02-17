@@ -21,8 +21,9 @@ import AdminPage from "./Pages/Admin/AdminPage.jsx";
 import ProfilePage from "./Pages/Profile/ProfilePage.jsx";
 
 import GameContentId from "./Pages/Courses/Game/GameContentId.jsx";
-import Meditations from "./Pages/Meditations/Meditations.jsx";
-import MeditationID from "./Pages/Meditations/MeditationID.jsx";
+import Meditations from "./Pages/Courses/Meditations/Meditations.jsx";
+import MeditationID from "./Pages/Courses/Meditations/MeditationID.jsx";
+import AddActivity from "./Pages/AddActivity/AddActivity.jsx";
 
 
 function App() {
@@ -60,7 +61,12 @@ function App() {
             {/*    <Route path="/leeromgeving" element={auth.isAuth ? <Leeromgeving/> : <Login/>}/>*/}
             {/*    <Route path="/profiel" element={auth.isAuth ? <Contact/> : <Login/>}/>*/}
             {/*    <Route path="/contact" element={auth.isAuth ? <Contact/> : <Login/>}/>*/}
-            {/*    <Route path="/activiteit-toevoegen" element={auth.isAuth ? <AddActivity/> : <Login/>}/>*/}
+            {/*    /!*<Route path="/activiteit-toevoegen" element={auth.isAuth ? <AddActivity/> : <Login/>}/>*!/*/}
+            {/*    <Route path="/meditaties" element={auth.isAuth ? <Meditations/> : <Login/>}/>*/}
+            {/*    <Route path="/meditaties/:id" element={auth.isAuth ? <MeditationID/> : <Login/>}/>*/}
+            {/*    <Route path="/admin" element={auth.isAuth ? <AdminPage/> : <Login/>}/>*/}
+            {/*    <Route path="/spel-des-levens" element={auth.isAuth ? <Game/> : <Login/>}/>*/}
+            {/*    <Route path="/spel-des-levens/:id" element={auth.isAuth ? <GameContentId/> : <Login/>}/>*/}
             {/*    <Route path="/login" element={<Login/>}/>*/}
             {/*    <Route path="/registreren" element={<Register/>}/>*/}
             {/*    <Route path="/*" element={<PageNotFound/>}/>*/}

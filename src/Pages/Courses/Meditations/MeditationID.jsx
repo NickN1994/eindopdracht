@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from 'react-router-dom';
-import MeditationArray from "../../Compenents/MeditationArray.js";
+import MeditationArray from "../../../Compenents/MeditationArray.js";
 import "./Meditation.css"
 
 function MeditationID() {

@@ -226,11 +226,12 @@ function ProfilePage() {
 
                     :
 
-                    <div className="colums">
-                        <section className="colum-one">
-                            <form onSubmit={handleFormSubmit}>
+                    <div className="colums-profile">
+                        <section>
+                            <form  className="colum-one" onSubmit={handleFormSubmit}>
+                                <h2>Upload hier je profielfoto</h2>
                                 <input type="file" onChange={handleFileChange} />
-                                <button type="submit">Upload</button>
+                                <button type="submit" className="btn btn-orange">Upload</button>
                             </form>
 
                             {image.imageData && (
@@ -238,7 +239,7 @@ function ProfilePage() {
                                     <figure className="image-box">
                                         <img src={image.imageData} alt="Profiel foto" className="PFimage" />
                                     </figure>
-                                    <button type="button" onClick={deleteImage}>Profielfoto verwijderen</button>
+                                    <button type="button" className="btn btn-purple" onClick={deleteImage}>Profielfoto verwijderen</button>
                                 </div>
                             )}
                         </section>
@@ -264,7 +265,7 @@ function ProfilePage() {
                         <p>{profileData.email}</p>
                     </div>
 
-                    <button type="button" onClick={changeProfile}>Profiel bewerken</button>
+                    <button type="button" className="btn btn-orange" onClick={changeProfile}>Profiel bewerken</button>
                     </section>
                 </div>
                 }

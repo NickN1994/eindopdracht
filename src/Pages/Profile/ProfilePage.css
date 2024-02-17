@@ -6,3 +6,18 @@
 .PFimage {
     width: 100%;
 }
+
+.colum-one {
+    display: flex;
+    flex-direction: column;
+}
+
+.colums-profile {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: space-around;
+    padding: 0 50px;
+    gap: 35px;
+}
