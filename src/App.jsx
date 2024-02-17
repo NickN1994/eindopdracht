@@ -1,4 +1,4 @@
-import {Routes, Route, useNavigate} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 import './App.css'
 import Home from "./Pages/Home/Home.jsx"
 import Contact from "./Pages/Contact/Contact.jsx";
@@ -23,13 +23,14 @@ import ProfilePage from "./Pages/Profile/ProfilePage.jsx";
 import GameContentId from "./Pages/Courses/Game/GameContentId.jsx";
 import Meditations from "./Pages/Courses/Meditations/Meditations.jsx";
 import MeditationID from "./Pages/Courses/Meditations/MeditationID.jsx";
-import AddActivity from "./Pages/AddActivity/AddActivity.jsx";
+import ProtectedRoute from "./Compenents/ProtectedRoute.jsx";
+
 
 
 function App() {
 
     const { auth } = useContext(AuthContext);
-    const navigate = useNavigate();
+
 
     return (
         <>
@@ -38,39 +39,23 @@ function App() {
             </ShowNavBar>
 
             <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/activiteiten" element={<Activities/>}/>
-                <Route path="/activiteiten/:id" element={<ActivityMoreInfo/>}/>
-                <Route path="/leeromgeving" element={<Leeromgeving/>}/>
-                <Route path="/meditaties" element={<Meditations/>}/>
-                <Route path="/meditaties/:id" element={<MeditationID/>}/>
-                <Route path="/admin" element={<AdminPage/>}/>
-                <Route path="/profiel" element={<ProfilePage/>}/>
-                <Route path="/contact" element={<Contact/>}/>
-                <Route path="/spel-des-levens" element={<Game/>}/>
-                <Route path="/spel-des-levens/:id" element={<GameContentId/>}/>
+                <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+                <Route path="/activiteiten" element={<ProtectedRoute><Activities/></ProtectedRoute>}/>
+                <Route path="/activiteiten/:id" element={<ProtectedRoute><ActivityMoreInfo/></ProtectedRoute>}/>
+                <Route path="/leeromgeving" element={<ProtectedRoute><Leeromgeving/></ProtectedRoute>}/>
+                <Route path="/meditaties" element={<ProtectedRoute><Meditations/></ProtectedRoute>}/>
+                <Route path="/meditaties/:id" element={<ProtectedRoute><MeditationID/></ProtectedRoute>}/>
+                <Route path="/admin" element={<ProtectedRoute><AdminPage/></ProtectedRoute>}/>
+                <Route path="/profiel" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
+                <Route path="/contact" element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
+                <Route path="/spel-des-levens" element={<ProtectedRoute><Game/></ProtectedRoute>}/>
+                <Route path="/spel-des-levens/:id" element={<ProtectedRoute><GameContentId/></ProtectedRoute>}/>
+
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/registreren" element={<Register/>}/>
                 <Route path="/*" element={<PageNotFound/>}/>
             </Routes>
 
-            {/*<Routes>*/}
-            {/*    <Route path="/" element={auth.isAuth ? <Home/> : <Login/>}/>*/}
-            {/*    <Route path="/activiteiten" element={auth.isAuth ? <Activities/> : <Login/>}/>*/}
-            {/*    <Route path="activiteiten/:id" element={auth.isAuth ? <ActivityMoreInfo/> : <Login/>}/>*/}
-            {/*    <Route path="/leeromgeving" element={auth.isAuth ? <Leeromgeving/> : <Login/>}/>*/}
-            {/*    <Route path="/profiel" element={auth.isAuth ? <Contact/> : <Login/>}/>*/}
-            {/*    <Route path="/contact" element={auth.isAuth ? <Contact/> : <Login/>}/>*/}
-            {/*    /!*<Route path="/activiteit-toevoegen" element={auth.isAuth ? <AddActivity/> : <Login/>}/>*!/*/}
-            {/*    <Route path="/meditaties" element={auth.isAuth ? <Meditations/> : <Login/>}/>*/}
-            {/*    <Route path="/meditaties/:id" element={auth.isAuth ? <MeditationID/> : <Login/>}/>*/}
-            {/*    <Route path="/admin" element={auth.isAuth ? <AdminPage/> : <Login/>}/>*/}
-            {/*    <Route path="/spel-des-levens" element={auth.isAuth ? <Game/> : <Login/>}/>*/}
-            {/*    <Route path="/spel-des-levens/:id" element={auth.isAuth ? <GameContentId/> : <Login/>}/>*/}
-            {/*    <Route path="/login" element={<Login/>}/>*/}
-            {/*    <Route path="/registreren" element={<Register/>}/>*/}
-            {/*    <Route path="/*" element={<PageNotFound/>}/>*/}
-            {/*</Routes>*/}
 
             <ShowNavBar>
                 <Footer/>
