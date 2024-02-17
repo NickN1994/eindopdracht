@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import InputField from "../../Compenents/InputField.jsx";
 import axios from "axios";
 import {toast} from "react-toastify";
-
+import "./Login.css"
 
 function Register() {
 
@@ -41,11 +41,11 @@ function Register() {
 
 
     return (
-        <div className="outer-container">
+        <div className="outer-container bkgr-yellow">
             <div className="inner-container">
 
-                <section>
                     <h1>Registreer hier je account</h1>
+                    <div className="form-box">
                     <form onSubmit={handleSubmit(handleFormSubmit)}>
                         <fieldset>
                             <InputField
@@ -104,8 +104,7 @@ function Register() {
                                 register={register}
                                 errors={errors}
                             />
-                            <button type="submit">Verstuur je bericht
-                            </button>
+                            <button type="submit" className="btn btn-orange">Registreren</button>
 
                             {isLoading && (
                                 <div className="loader">
@@ -114,10 +113,9 @@ function Register() {
 
                         </fieldset>
                     </form>
-
-                    <p>Heb je al een account?</p>
-                    <button><Link to="/login">Inloggen</Link></button>
-                </section>
+                        <p>Heb je al een account?</p>
+                        <Link to={"/login"} className="btn btn-purple">Inloggen</Link>
+                    </div>
 
                 {isLoading && (
                     <div className="loader">

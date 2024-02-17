@@ -1,23 +1,18 @@
-.outer-contact {
-    background: #F3F3F3;
-}
-
 /*      COLUM STYLING */
-.colums {
+.columns {
     display: flex;
     flex-direction: row;
-    border: 2px solid blueviolet;
     justify-content: space-around;
-    /*max-width: 1200px;*/
+    max-width: 1200px;
     width: 100%;
     flex-shrink: 1;
     flex-grow: 0;
     /*background: #FFFDE3;*/
+    background: #DFDFDF;
+    border-radius: 15px;
 }
 
 .contactInfo {
-    border: 2px solid yellow;
-    /*background: #87B6BA;*/
     max-width: 500px;
     margin: 25px;
     padding: 15px;
@@ -39,16 +34,14 @@
 }
 
 /*      FORMULIER     */
-form {
+.contactForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /*width: 100%;*/
     width: 550px;
     margin: 50px 0;
-    /*max-width: 750px;*/
-    border: 3px solid red;
+
 }
 
 fieldset {
@@ -81,4 +74,10 @@ textarea:placeholder-shown{
     padding-left: 5px;
 }
 
-
+@media screen and (max-width: 768px) {
+    .columns {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

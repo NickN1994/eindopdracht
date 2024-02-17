@@ -1,0 +1,100 @@
+.parent-activity-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+    /*border: 3px solid pink;*/
+}
+
+.activity-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 350px;
+    width: 100%;
+    border-radius: 15px;
+    /*border: 2px solid red;*/
+    margin: 25px;
+    min-height: 450px;
+    padding: 20px;
+    background-color: #F5F7DC;
+    box-shadow: 0px 0px 36px -9px rgba(0,0,0,0.75);
+}
+
+.btn-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.activity-info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: 25px;
+    height: auto;
+    padding: 0 15px;
+}
+
+.activity-info-box h3, p {
+    padding: 5px 0;
+}
+
+.btn-grp {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*gap: 20px;*/
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 4px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    color: white;
+    /*background-color: #D8896C;*/
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-orange {
+    background-color: #D8896C;
+}
+
+.btn-orange:disabled {
+    background-color: #F6C6B4;
+    cursor: auto;
+}
+
+.btn-purple{
+    background-color: #D8BBDD;
+}
+
+.subscriberList {
+    list-style: -moz-ethiopic-numeric;
+    margin-left: 15px;
+}
+
+
+@media screen and (max-width: 768px) {
+       .activity-box {
+        max-width: 650px;
+        width: 100%;
+        border: 2px solid red;
+        margin: 10px;
+    }
+
+    .btn-grp {
+        display: flex;
+        flex-direction: column;
+    }
+
+}

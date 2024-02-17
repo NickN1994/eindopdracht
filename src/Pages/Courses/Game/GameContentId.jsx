@@ -4,7 +4,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
 import {AuthContext} from "../../../Context/AuthContext.jsx";
-
+import "./Game.css"
 
 function GameContentId() {
 
@@ -57,11 +57,12 @@ function GameContentId() {
         setIsLoading(true);
 
         try {
-            const response = await axios.put(`http://localhost:8080/information/${id}`, data,{
+            const response = await axios.put(`http://localhost:8080/information/${id}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                }});
+                }
+            });
             if (response.status === 200) {
                 toast.success("Content is bijgewerkt");
                 navigate("/spel-des-levens");
@@ -80,11 +81,12 @@ function GameContentId() {
         setIsLoading(true)
         try {
             await axios.delete(`http://localhost:8080/information/${id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json'
-                }}
+                    }
+                }
             );
             toast.success("Content is verwijderd");
             navigate("/spel-des-levens");
@@ -112,27 +114,33 @@ function GameContentId() {
 
                 {admin ?
                     <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <label htmlFor="title">Titel</label>
-                        <input id="title" {...register('title')} />
-                        {errors.title && <p>{errors.title.message}</p>}
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <label htmlFor="title">Titel</label>
+                            <input id="title" {...register('title')} />
+                            {errors.title && <p>{errors.title.message}</p>}
 
-                        <label htmlFor="videoUrl">videoUrl</label>
-                        <input id="videoUrl" {...register('videoUrl')} />
-                        {errors.videoUrl && <p>{errors.videoUrl.message}</p>}
+                            <label htmlFor="videoUrl">videoUrl</label>
+                            <input id="videoUrl" {...register('videoUrl')} />
+                            {errors.videoUrl && <p>{errors.videoUrl.message}</p>}
 
-                        <label htmlFor="content">Content aanpassen</label>
-                        <textarea id="content" {...register('content')} />
-                        {errors.content && <p>{errors.content.message}</p>}
+                            <label htmlFor="content">Content aanpassen</label>
+                            <textarea id="content" {...register('content')} />
+                            {errors.content && <p>{errors.content.message}</p>}
 
-                        <button type="submit">Opslaan</button>
-                        <button type="button"><Link to={"/spel-des-levens"}>Annuleren</Link></button>
+                            <button type="submit">Opslaan</button>
+                            <button type="button"><Link to={"/spel-des-levens"}>Annuleren</Link></button>
 
-                    </form>
-                        <button onClick={handleDeleteCheck}>Content verwijderen</button>
+                        </form>
+
+                        {!deleteCheck ?
+                            <button onClick={handleDeleteCheck}>Content verwijderen</button> :
+                            <div></div>
+                        }
                         {deleteCheck &&
                             <div>
-                                <button type="button" onClick={handleConfirmDelete}>Klik hier om definitief te verwijderen</button>
+                                <button type="button" onClick={handleConfirmDelete}>Klik hier om definitief te
+                                    verwijderen
+                                </button>
                                 <button onClick={handleCancelDelete}>Annuleren</button>
                             </div>
                         }
@@ -140,12 +148,27 @@ function GameContentId() {
                     :
                     <div>
                         <h1>{information.title}</h1>
-                        <video src={information.videoUrl}></video>
-                        <p>{information.content}</p>
 
-                        <button type="button">
-                            <Link to={"/contact"}>Heb je nog vragen? Klik hier om contact met ons op te nemen</Link>
-                        </button>
+                        <div>
+                            {information.videoUrl ? (
+                                <iframe
+                                    className="game-video"
+                                    src={information.videoUrl.replace("watch?v=", "embed/")}
+                                    title={information.title || 'Video'}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen>
+                                </iframe>
+                            ) : (
+                                <p>Video niet beschikbaar</p>
+                            )}
+                        </div>
+
+                        <p className="game-content">{information.content}</p>
+
+
+                            <Link to={"/spel-des-levens"} className="btn btn-orange">Klik hier om terug te gaan naar Spel Des Levens</Link>
+
                     </div>
                 }
 

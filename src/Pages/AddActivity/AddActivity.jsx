@@ -4,7 +4,7 @@ import LabelTextareaField from "../../Compenents/LabelTextareaField.jsx";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useState} from "react";
-
+import "../Admin/Admin.css"
 
 
 
@@ -42,9 +42,8 @@ function AddActivity () {
 
 
     return (
-        // <div className='outer-container'>
-        //     <div className='inner-container'>
-                <form onSubmit={handleSubmit(handleFormSubmit)}>
+
+                <form className="form-admin" onSubmit={handleSubmit(handleFormSubmit)}>
                     <h2>Activiteit toevoegen</h2>
                     <fieldset>
                         <LabelInputField
@@ -129,15 +128,14 @@ function AddActivity () {
                         />
 
                     </fieldset>
-                    <button type="submit" disabled={isLoading}>Activiteit toevoegen
-                    </button>
+                    <button type="submit" className="btn btn-orange" disabled={isLoading}>Activiteit toevoegen</button>
+
                     {isLoading && (
                         <div className="loader">
                         </div>
                     )}
                 </form>
-        //     </div>
-        // </div>
+
     )
 }
 

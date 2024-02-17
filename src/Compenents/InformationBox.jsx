@@ -8,18 +8,18 @@ function InformationBox({id, title, content}) {
     const {admin} = useContext(AuthContext);
 
     return (
-        <div>
+        <div className='activity-box'>
             <h2>{title}</h2>
             <p>{infoShort(content)}...</p>
             <div>
                 {admin ?
-                    <button type="button">
-                        <Link to={`/spel-des-levens/${id}`}>Activiteit bewerken</Link>
-                    </button>
+
+                        <Link to={`/spel-des-levens/${id}`} className="btn btn-orange">Activiteit bewerken</Link>
+
                     :
-                    <button type="button">
-                        <Link to={`/spel-des-levens/${id}`}>Meer informatie</Link>
-                    </button>}
+
+                        <Link to={`/spel-des-levens/${id}`} className="btn btn-orange">Meer informatie</Link>
+                    }
             </div>
         </div>
 )

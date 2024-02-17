@@ -68,7 +68,7 @@ function ProfilePage() {
         return () => {
             abortController.abort();
         };
-    }, [image]);
+    }, []);
 
     const changeProfile = async () => {
         const abortController = new AbortController();
@@ -178,8 +178,7 @@ function ProfilePage() {
             setIsLoading(true);
             const response = await axios.post("http://localhost:8080/image", formData, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                    // Verwijder 'Content-Type': 'application/json', FormData regelt dit zelf.
+                    Authorization: `Bearer ${token}`
                 }
             });
             toast.success("Profielfoto is toegevoegd.");
@@ -227,11 +226,12 @@ function ProfilePage() {
 
                     :
 
-                    <div className="colums">
-                        <section className="colum-one">
-                            <form onSubmit={handleFormSubmit}>
+                    <div className="colums-profile">
+                        <section>
+                            <form  className="colum-one" onSubmit={handleFormSubmit}>
+                                <h2>Upload hier je profielfoto</h2>
                                 <input type="file" onChange={handleFileChange} />
-                                <button type="submit">Upload</button>
+                                <button type="submit" className="btn btn-orange">Upload</button>
                             </form>
 
                             {image.imageData && (
@@ -239,7 +239,7 @@ function ProfilePage() {
                                     <figure className="image-box">
                                         <img src={image.imageData} alt="Profiel foto" className="PFimage" />
                                     </figure>
-                                    <button type="button" onClick={deleteImage}>Profielfoto verwijderen</button>
+                                    <button type="button" className="btn btn-purple" onClick={deleteImage}>Profielfoto verwijderen</button>
                                 </div>
                             )}
                         </section>
@@ -265,7 +265,7 @@ function ProfilePage() {
                         <p>{profileData.email}</p>
                     </div>
 
-                    <button type="button" onClick={changeProfile}>Profiel bewerken</button>
+                    <button type="button" className="btn btn-orange" onClick={changeProfile}>Profiel bewerken</button>
                     </section>
                 </div>
                 }

@@ -35,9 +35,8 @@ function AddInformationGame () {
     }
 
     return (
-        // <div className='outer-container'>
-        //     <div className='inner-container'>
-                <form onSubmit={handleSubmit(handleFormSubmit)}>
+
+                <form className="form-admin" onSubmit={handleSubmit(handleFormSubmit)}>
                     <h2>Content Spel des Levens toevoegen</h2>
                     <fieldset>
                         <LabelInputField
@@ -57,11 +56,6 @@ function AddInformationGame () {
                             labelName="Url video"
                             inputType="text"
                             id="videoUrl"
-                            // validationRules={{
-                            //     required: {
-                            //         value: false,
-                            //         message: "Aantal deelnemers invullen is verplicht"
-                            //     }}}
                             register={register}
                             errors={errors}
                         />
@@ -81,18 +75,14 @@ function AddInformationGame () {
                             errors={errors}
                         />
                     </fieldset>
-                    <button type="submit" disabled={isLoading}>
-                        Informatie toevoegen
-                    </button>
+
+                    <button type="submit" disabled={isLoading} className="btn btn-orange">Informatie toevoegen</button>
                     {isLoading && (
                         <div className="loader">
                         </div>
                     )}
                 </form>
 
-
-        //     </div>
-        // </div>
     )
 }
 

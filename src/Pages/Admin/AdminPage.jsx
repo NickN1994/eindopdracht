@@ -3,7 +3,7 @@ import AddInformationGame from "../Courses/Game/AddInformationGame.jsx";
 import {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {Link} from "react-router-dom";
-
+import "./Admin.css"
 
 function AdminPage() {
 
@@ -16,22 +16,27 @@ function AdminPage() {
                     <div className="inner-container">
                         <h1>Content toevoegen</h1>
 
-                        <div className='admin-columns'>
-                            <section className='admin-column-one'>
-                                <AddActivity/>
-                            </section>
+                            <div className='admin-columns'>
 
-                            <section className='admin-column-two'>
-                                <AddInformationGame/>
-                            </section>
-                        </div>
+                                <section className='admin-column'>
+                                    <AddActivity/>
+                                </section>
+
+                                <section className='admin-column'>
+                                    <AddInformationGame/>
+                                </section>
+
+                            </div>
+
 
 
                         {/*    INNER CONTAINER DIV*/}
                     </div>
                     {/*    OUTER CONTAINER DIV*/}
                 </div>
+
                 :
+
                 <div className="outer-container">
                     <div className="inner-container">
                         <div>

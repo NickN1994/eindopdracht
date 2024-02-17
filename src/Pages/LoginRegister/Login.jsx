@@ -4,9 +4,11 @@ import {useForm} from "react-hook-form";
 import {Link, useNavigate} from "react-router-dom";
 import InputField from "../../Compenents/InputField.jsx";
 import axios from "axios";
+import {toast} from "react-toastify";
+import PasswordInputField from "../../Compenents/PasswordInputField.jsx";
+import "./Login.css"
 
-
-function Login () {
+function Login() {
 
     const {login} = useContext(AuthContext);
     const form = useForm();
@@ -23,63 +25,83 @@ function Login () {
         try {
             setIsLoading(true);
             const result = await axios.post("http://localhost:8080/authenticate", {
-                username: data.username,
-                password: data.password
-            }
+                    username: data.username,
+                    password: data.password
+                }
             );
             console.log(result.data)
             login(result.data.jwt);
             navigate("/");
         } catch (e) {
             console.error(e + "Inloggen mislukt");
+            toast.error("Gebruikersnaam en/of wachtwoord incorrect.")
         } finally {
             setIsLoading(false);
         }
     }
 
     return (
-        <div className="outer-container">
+        <div className="outer-container bkgr-yellow">
             <div className="inner-container">
-            <form onSubmit={handleSubmit(handleFormSubmit)}>
-                <InputField
-                    labelName="Gebruikersnaam"
-                    inputType="text"
-                    id="username"
-                    validationRules={{
-                        required: {
-                            value: true,
-                            message: "Gebruikersnaam is verplicht"
-                        }
-                    }}
-                    register={register}
-                    errors={errors}
-                />
+                <h1>Wat fijn dat je er bent</h1>
+                <div className="form-box">
+                    <h2>Vul hier je inloggegeven in</h2>
+                    <form onSubmit={handleSubmit(handleFormSubmit)}>
+                        <InputField
+                            labelName="Gebruikersnaam"
+                            inputType="text"
+                            id="username"
+                            validationRules={{
+                                required: {
+                                    value: true,
+                                    message: "Gebruikersnaam is verplicht"
+                                }
+                            }}
+                            register={register}
+                            errors={errors}
+                        />
 
-                <InputField
-                    labelName="Wachtwoord"
-                    inputType="password"
-                    id="password"
-                    validationRules={{
-                        required: {
-                            value: true,
-                            message: "Wachtwoord is verplicht"
-                        }}}
-                    register={register}
-                    errors={errors}
-                />
+                        {/*<InputField*/}
+                        {/*    labelName="Wachtwoord"*/}
+                        {/*    inputType="password"*/}
+                        {/*    id="password"*/}
+                        {/*    validationRules={{*/}
+                        {/*        required: {*/}
+                        {/*            value: true,*/}
+                        {/*            message: "Wachtwoord is verplicht"*/}
+                        {/*        }}}*/}
+                        {/*    register={register}*/}
+                        {/*    errors={errors}*/}
+                        {/*/>*/}
 
-                <button type="submit">Inloggen</button>
-            </form>
+                        <PasswordInputField
+                            labelName="Wachtwoord"
+                            inputType="password"
+                            id="password"
+                            validationRules={{
+                                required: {
+                                    value: true,
+                                    message: "Wachtwoord is verplicht"
+                                }
+                            }}
+                            register={register}
+                            errors={errors}
+                            showToggle={true}
+                        />
 
-            <p>Heb je nog geen account?</p>
-            <button><Link to="/registreren">Registreer hier</Link></button>
+                        <button type="submit" className="btn btn-orange">Inloggen</button>
+                    </form>
+                    <p>Heb je nog geen account?</p>
+                    <Link to={"/registreren"} className="btn btn-purple">Registreer hier</Link>
 
-            {isLoading && (
-                <div className="loader">
+                    {isLoading && (
+                        <div className="loader">
+                        </div>
+                    )}
                 </div>
-            )}
+
+            </div>
         </div>
-</div>
     )
 }
 
