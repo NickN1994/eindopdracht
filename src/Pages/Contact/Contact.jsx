@@ -41,7 +41,7 @@ function Contact() {
         <>
             <div className='outer-container outer-contact'>
                 <div className='inner-container'>
-                    <div className='colums'>
+                    <div className='columns'>
                     <section className='contactInfo'>
                         <h1>Contact</h1>
                         <p>Vul het contactformulier in om contact met ons op te nemen. We streven er naar om binnen 48 uur te reageren.</p>
@@ -66,7 +66,7 @@ function Contact() {
 
 
                     <section className='formBox'>
-                        <form onSubmit={handleSubmit(handleFormSubmit)}>
+                        <form className="contactForm" onSubmit={handleSubmit(handleFormSubmit)}>
                             <fieldset>
 
                                 <LabelInputField

@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import ActivityBox from "./components/ActivityBox.jsx";
 import {toast} from "react-toastify";
-import {jwtDecode} from "jwt-decode";
 
 
 function Activities() {
@@ -11,16 +10,7 @@ function Activities() {
     const [activity, setActivity] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    // const [isSubscribed, setIsSubscribed] = useState(false);
 
-    // {
-    //     "name" : "Lichtcirkel",
-    //     "participants" : 8,
-    //     "teacher" : "Kirstie",
-    //     "date" : "2024-01-09",
-    //     "time" : "van 10u tot 16u",
-    //     "activityInfo" : "deze activiteitje is heel leuk en je gaat lekker chillen"
-    // }
 
     useEffect(() => {
         const abortController = new AbortController();

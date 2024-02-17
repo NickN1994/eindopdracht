@@ -1,0 +1,19 @@
+
+.bkgr-yellow {
+    background-color: #F5F7DC;
+
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*max-width: 600px;*/
+    /*width: 100%;*/
+    /*background-color: #F5F7DC;*/
+    /*border-radius: 15px;*/
+}
+
+.inputFieldError {
+    color: #FF0000;
+}

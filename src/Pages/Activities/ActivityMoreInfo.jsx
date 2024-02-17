@@ -18,7 +18,7 @@ function ActivityMoreInfo() {
     const {admin} = useContext(AuthContext);
     const [deleteCheck, setDeleteCheck] = useState(false);
     const [availableSpots, setAvailableSpots] = useState(0);
-    // const [disabled, setDisabled] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [unSubscribeCheck, setUnSubscribeCheck] = useState(false);
 
@@ -61,6 +61,11 @@ function ActivityMoreInfo() {
                         }
                     });
                 setAvailableSpots(result.data);
+                if (availableSpots === 0) {
+                    setIsDisabled(true);
+                } else {
+                    setIsDisabled(false);
+                }
             } catch (e) {
                 console.error(e, "Het is niet gelukt om de data op te halen.");
                 toast.error("Er is iets misgegaan. Ververs de pagina.");
@@ -286,10 +291,8 @@ function ActivityMoreInfo() {
 
                             }
                                 </div>
-
-                                // <button type="button" onClick={unsubscribe} className="btn btn-purple">Uitschrijven</button>
                                 :
-                                <button type="button" onClick={subscribe} className="btn btn-orange">Inschrijven</button>
+                                <button type="button" onClick={subscribe} disabled={isDisabled} className="btn btn-orange">Inschrijven</button>
                             }
                             <Link to={"/contact"} className="btn btn-purple">Heb je nog vragen? Klik hier om contact met ons op te
                                 nemen</Link>

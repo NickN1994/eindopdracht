@@ -21,6 +21,8 @@ import AdminPage from "./Pages/Admin/AdminPage.jsx";
 import ProfilePage from "./Pages/Profile/ProfilePage.jsx";
 
 import GameContentId from "./Pages/Courses/Game/GameContentId.jsx";
+import Meditations from "./Pages/Meditations/Meditations.jsx";
+import MeditationID from "./Pages/Meditations/MeditationID.jsx";
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
                 <Route path="/activiteiten" element={<Activities/>}/>
                 <Route path="/activiteiten/:id" element={<ActivityMoreInfo/>}/>
                 <Route path="/leeromgeving" element={<Leeromgeving/>}/>
+                <Route path="/meditaties" element={<Meditations/>}/>
+                <Route path="/meditaties/:id" element={<MeditationID/>}/>
                 <Route path="/admin" element={<AdminPage/>}/>
                 <Route path="/profiel" element={<ProfilePage/>}/>
                 <Route path="/contact" element={<Contact/>}/>

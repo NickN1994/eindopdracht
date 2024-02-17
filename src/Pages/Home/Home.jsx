@@ -2,7 +2,6 @@ import './Home.css'
 import fotoHome from './Assets/VanuitHartenZiel0-aangepast-10-1-scaled.jpg'
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {toast} from "react-toastify";
 import {jwtDecode} from "jwt-decode";
 import {Link} from "react-router-dom";
 import ActivityBox from "../Activities/components/ActivityBox.jsx";

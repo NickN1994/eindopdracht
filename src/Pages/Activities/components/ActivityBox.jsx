@@ -16,7 +16,7 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
     const [isLoading, setIsLoading] = useState(false);
     const [availableSpots, setAvailableSpots] = useState(0);
     const [isSubscribed, setIsSubscribed] = useState(false);
-    // const [disabled, setDisabled] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
     const [unSubscribeCheck, setUnSubscribeCheck] = useState(false);
     const [subriberList, setSubscriberList] = useState([]);
 
@@ -47,11 +47,11 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                     }
                 });
             setAvailableSpots(response.data);
-            // if (availableSpots === 0) {
-            //     setDisabled(true);
-            // } else {
-            //     setDisabled(false);
-            // }
+            if (availableSpots === 0) {
+                setIsDisabled(true);
+            } else {
+                setIsDisabled(false);
+            }
         } catch (e) {
             console.error(e, "Het is niet gelukt om de data op te halen.");
 
@@ -194,7 +194,7 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
                         <Link to={`/activiteiten/${id}`} className="btn btn-orange">Meer informatie</Link>
 
                         {!isSubscribed ?
-                            <button type="button" onClick={subscribe} className="btn btn-purple" >Inschrijven</button>
+                            <button type="button" onClick={subscribe} disabled={isDisabled} className="btn btn-purple" >Inschrijven</button>
                             :
                             <div>
                                 {!unSubscribeCheck ?
@@ -207,7 +207,6 @@ function ActivityBox({id, name, participants, teacher, date, time, activityInfo}
 
                                 }
                             </div>
-                        // <button type="button" onClick={unsubscribe} className="btn btn-purple" >Uitschrijven</button>
                         }
 
                         {isLoading && (
