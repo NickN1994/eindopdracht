@@ -1,0 +1,23 @@
+.meditation-content {
+    margin: 25px;
+}
+
+.meditation-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 15px;
+}
+
+.meditation-box iframe {
+    width: 500px;
+    height: 281px;
+}
+
+.btn-box-meditation {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}

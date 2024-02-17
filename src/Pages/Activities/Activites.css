@@ -6,7 +6,7 @@
     align-items: center;
     max-width: 1400px;
     width: 100%;
-    border: 3px solid pink;
+    /*border: 3px solid pink;*/
 }
 
 .activity-box {
@@ -68,6 +68,11 @@
 
 .btn-orange {
     background-color: #D8896C;
+}
+
+.btn-orange:disabled {
+    background-color: #F6C6B4;
+    cursor: auto;
 }
 
 .btn-purple{

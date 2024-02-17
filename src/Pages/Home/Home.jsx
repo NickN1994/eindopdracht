@@ -67,7 +67,7 @@ function Home() {
 
     return (
         <>
-            <div className='outer-container'>
+            <div className='outer-container bk-home'>
                 <div className='inner-container'>
                     {isLoading && (
                         <div className="loader">
