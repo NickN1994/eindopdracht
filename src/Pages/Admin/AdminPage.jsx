@@ -27,12 +27,7 @@ function AdminPage() {
                                 </section>
 
                             </div>
-
-
-
-                        {/*    INNER CONTAINER DIV*/}
                     </div>
-                    {/*    OUTER CONTAINER DIV*/}
                 </div>
 
                 :

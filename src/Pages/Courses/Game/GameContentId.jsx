@@ -61,8 +61,7 @@ function GameContentId() {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                }
-            });
+                }});
             if (response.status === 200) {
                 toast.success("Content is bijgewerkt");
                 navigate("/spel-des-levens");
@@ -166,12 +165,10 @@ function GameContentId() {
 
                         <p className="game-content">{information.content}</p>
 
-
                             <Link to={"/spel-des-levens"} className="btn btn-orange">Klik hier om terug te gaan naar Spel Des Levens</Link>
 
                     </div>
                 }
-
             </div>
         </div>
     )

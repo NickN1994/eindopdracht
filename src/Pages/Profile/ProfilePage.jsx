@@ -140,7 +140,7 @@ function ProfilePage() {
             });
             if (response.status === 204 || response.status === 200) {
                 toast.success("Profielfoto is verwijderd");
-                setImage({}); // Wis de afbeeldingsstaat
+                setImage({});
                 navigate("/profiel");
             }
         } catch (error) {
@@ -222,6 +222,10 @@ function ProfilePage() {
                     <button type="button" onClick={() => setEditProfile(false)}>Annuleren</button>
                     </div>
                     </form>
+                    {isLoading && (
+                        <div className="loader">
+                        </div>
+                    )}
                 </div>
 
                     :
@@ -267,12 +271,14 @@ function ProfilePage() {
 
                     <button type="button" className="btn btn-orange" onClick={changeProfile}>Profiel bewerken</button>
                     </section>
+                        {isLoading && (
+                            <div className="loader">
+                            </div>
+                        )}
                 </div>
-                }
 
-            {/*    Inner container*/}
+                }
             </div>
-        {/*    Outer container*/}
         </div>
     )
 }

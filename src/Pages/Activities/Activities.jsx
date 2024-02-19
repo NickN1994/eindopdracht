@@ -32,7 +32,7 @@ function Activities() {
 
             } catch (e) {
                 if (e.code === "ERR_CANCELED") {
-                    // een fout
+                 //
                 } else {
 
                     console.error(e, "Het is niet gelukt om de data op te halen.");
@@ -45,7 +45,7 @@ function Activities() {
 
         fetchData();
         return () => {
-            // console.log("Clean up");
+
             abortController.abort();
         };
     }, []);
