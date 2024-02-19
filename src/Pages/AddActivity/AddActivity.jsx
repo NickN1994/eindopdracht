@@ -16,8 +16,6 @@ function AddActivity () {
     const [activity, setActivity] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
-    // TOEVOEGEN OM EEN AFBEELDING UP TE LOADEN EN BIJ ACTIVITEIT TE PLAATSEN
-
     async function handleFormSubmit (data) {
         const token = localStorage.getItem('token');
         try {

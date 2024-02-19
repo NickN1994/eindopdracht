@@ -17,9 +17,6 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-
-    // validaties toevoegen en de juiste meldingen bij een verkeerde username of wachtwoord
-
     async function handleFormSubmit(data) {
 
         try {
@@ -60,19 +57,6 @@ function Login() {
                             register={register}
                             errors={errors}
                         />
-
-                        {/*<InputField*/}
-                        {/*    labelName="Wachtwoord"*/}
-                        {/*    inputType="password"*/}
-                        {/*    id="password"*/}
-                        {/*    validationRules={{*/}
-                        {/*        required: {*/}
-                        {/*            value: true,*/}
-                        {/*            message: "Wachtwoord is verplicht"*/}
-                        {/*        }}}*/}
-                        {/*    register={register}*/}
-                        {/*    errors={errors}*/}
-                        {/*/>*/}
 
                         <PasswordInputField
                             labelName="Wachtwoord"

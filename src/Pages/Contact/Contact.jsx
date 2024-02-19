@@ -10,9 +10,7 @@ function Contact() {
     const form = useForm();
     const {register, handleSubmit, formState} = form;
     const {errors} = formState;
-    // const [dataForm, setDataForm] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-
 
     async function handleFormSubmit (data) {
         const token = localStorage.getItem('token');
@@ -23,9 +21,7 @@ function Contact() {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                }
-                }
-            );
+                }});
             toast.success("Je bericht is verzonden. We nemen zo snel mogelijk contact met je op.");
 
         } catch (e) {

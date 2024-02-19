@@ -14,11 +14,7 @@ function Register() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    // foutafhandeling maken, gebruikersnaam / email is in gebruik
-    // email validati, bijvoorbeeld yup of validator
-
-
-    async function handleFormSubmit(data) {
+     async function handleFormSubmit(data) {
         try {
             setIsLoading(true);
 

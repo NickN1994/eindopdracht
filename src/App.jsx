@@ -14,8 +14,6 @@ import Navbar from "./Pages/Navigation/Navbar.jsx";
 import Login from "./Pages/LoginRegister/Login.jsx";
 import Register from "./Pages/LoginRegister/Register.jsx";
 import ShowNavBar from "./Compenents/ShowNavBar.jsx";
-import {useContext} from "react";
-import {AuthContext} from "./Context/AuthContext.jsx";
 import Game from "./Pages/Courses/Game/Game.jsx";
 import AdminPage from "./Pages/Admin/AdminPage.jsx";
 import ProfilePage from "./Pages/Profile/ProfilePage.jsx";
@@ -28,9 +26,6 @@ import ProtectedRoute from "./Compenents/ProtectedRoute.jsx";
 
 
 function App() {
-
-    const { auth } = useContext(AuthContext);
-
 
     return (
         <>
@@ -75,8 +70,6 @@ function App() {
                 theme="light"
             />
         </>
-
-
     )
 }
 

@@ -9,8 +9,6 @@ function Game () {
 
     const [isLoading, setIsLoading] = useState(false);
     const [information, setInformation] = useState([]);
-    // const navigate = useNavigate();
-
 
     useEffect(() => {
         const abortController = new AbortController();
