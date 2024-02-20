@@ -253,7 +253,7 @@ function ActivityMoreInfo() {
                                 </button>
 
                                 {!deleteCheck ?
-                                    <button type="button" className="btn btn-orange" onClick={handleDeleteCheck}>Content verwijderen</button>
+                                    <button type="button" className="btn btn-orange" onClick={handleDeleteCheck}>Activiteit verwijderen</button>
                                     :
                                     <div></div>
                                 }
@@ -288,7 +288,6 @@ function ActivityMoreInfo() {
                                         <button type="button" className="btn btn-orange" onClick={unsubscribe}>Bevestig uitschrijving</button>
                                         <button type="button" className="btn btn-purple" onClick={handleCancelUnsubscribe}>Annuleren</button>
                                     </div>
-
                             }
                                 </div>
                                 :
