@@ -288,7 +288,6 @@ function ActivityMoreInfo() {
                                         <button type="button" className="btn btn-orange" onClick={unsubscribe}>Bevestig uitschrijving</button>
                                         <button type="button" className="btn btn-purple" onClick={handleCancelUnsubscribe}>Annuleren</button>
                                     </div>
-
                             }
                                 </div>
                                 :
